@@ -1,0 +1,133 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}iSimulate @ World Bank{% endblock %}
+{% block http_metas %}<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> {% endblock %}
+{% block metas %}
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="network for economic simulations" />
+    <meta name="keywords" content="economics, simulations, modeling, world bank, united nations, link, data, econ, forecasting" />
+    <meta name="language" content="en" />
+{% endblock %}
+ {% block stylesheets %}
+     <link href="{{ asset('css/layouts/default/layout.css') }}" rel="stylesheet">
+     <link href="{{ asset('css/common/entities.css') }}" rel="stylesheet">
+     <link href="{{ asset('css/misc/registration.css') }}" rel="stylesheet">
+     <link href="{{ asset('sfModalBoxPlugin/web/css/modalbox.css') }}" rel="stylesheet">
+     <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}"/>
+     <style>
+         /* style for IE6 + IE5.5 + IE5.0 */
+         .gainlayout { height: 0; }
+     </style>
+     <!--[if IE 7]>
+     <style>
+         .gainlayout { zoom: 1; }
+     </style>
+     <![endif]-->
+ {% endblock %}
+ {% block header %}
+     <div id="header">
+         <div id="repeat">
+             <a href="/"><img src="{{ asset('images/header.gif')}}" alt="Header" /></a>			</div>
+     </div>
+ {% endblock %}
+{% block body %}
+    <br><h2>Connect with a world of economic experts.</h2>
+
+    <table width="100%">
+        <tr>
+            <td width="475" valign="top">
+
+                <div class="box">
+                    <div align="left"><h3>Already a member? Sign in.</h3></div>
+                    {% if error %}
+                        <div style="color: red;">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+                    <form method="post" action="{{ path('app_login') }}">
+                        <table cellspacing="5" width="100%">
+                            <tr>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td align="right" width="88"><label for="user">Username or email:</label>
+                                            </td>
+                                            <td align="left"><input type="text" name="username" id="user" value="{{ last_username }}"
+                                                                    size="25" required autofocus/></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right"><label for="password">Password:</label></td>
+                                            <td><input type="password" name="password" id="password" value=""
+                                                       size="25"/></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <input type="hidden" name="_csrf_token"
+                                       value="{{ csrf_token('authenticate') }}"
+                                >
+                                <td align="right">
+                                    <input type="image" name="commit" src="{{ asset('images/login.gif') }}"
+                                           alt="Login"/>
+                                </td>
+                            </tr>
+
+                        </table>
+                        <a style="margin-left:5px" title="Forgot your password?"
+                           onclick="Modalbox.show(this.href, {title:this.title, width:525}); return false;"
+                           href="/forgotPassword">Forgot your password?</a>
+                    </form>
+                </div>
+                <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/common/entities.css') }}"/>
+
+                <div class="box">
+                    <div align="left"><h3>Reserve Your Account Now (it's free!)</h3></div>
+                    <table width="100%">
+                        <tr>
+                            <td width="65%" style="padding-right:5px">
+                                <p align="justify">iSimulate is a private beta service that is currently available to
+                                    staff of The World Bank
+                                    and its partner institutions. However, we are letting in new members on a periodic
+                                    basis. Create an account, and
+                                    we'll email you as soon as it is activated.<br><br>
+                                    <a title="Didn't receive verification email?"
+                                       onclick="Modalbox.show(this.href, {title:this.title, width:525}); return false;"
+                                       href="/resendVerificationEmail">Didn't receive verification email?</a></p>
+                            </td>
+                            <td align="right" valign="top">
+                                <a title="Reserve an iSimulate @ World Bank Account!"
+                                   onclick="Modalbox.show(this.href, {title:this.title, width:525}); return false;"
+                                   href="/register"><img src="{{ asset('images/reserve.gif') }}" alt="Reserve"/></a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+            <td valign="top" style="padding-left:10px">
+                <div class="box">
+                    <h3>Welcome to iSimulate @ World Bank.</h3>
+                    iSimulate is a free platform for performing economic simulations. It allows individuals anywhere in
+                    the world
+                    to access some of The World Bank's macroeconomic models across the internet.<br>
+                    <center style="margin-top:20px">
+                        <img src="{{ asset('images/homepage.gif') }}" alt="Homepage"/>
+                        <br clear="all">
+
+                        <div style="margin-top: 15px">
+                            <img style="vertical-align:middle; margin-right: 5px"
+                                 src="{{ asset('images/Search1.gif') }}" alt="Search1"/> <a
+                                    style="font-size:14px;font-weight:bold" href="{{ path('tour', {'number': 1}) }}">Take A Tour</a>
+                        </div>
+                    </center>
+                </div>
+            </td>
+        </tr>
+    </table>
+{% endblock %}
+{% block footer %}
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/common/footer.css')}}" />
+
+    <div id="footer">
+	<span style="float: right; display: block; padding-right: 7px;">
+		&copy; 2007-2019 <a target="out"  href="http://www.worldbank.org">The World Bank Group</a>	</span>
+        <!--<a href="/blog/" target="out" style="margin-right:5px">blog</a>-->
+        <a style="margin-right:5px" target="out" href="/tour/page/1">tour</a>	<a style="margin-right:5px" target="out" href="/disclaimer">disclaimer</a>	<a target="out" style="margin-right:5px" href="http://go.worldbank.org/OS6V7NIUD0">legal</a>
+    </div>
+{% endblock %}

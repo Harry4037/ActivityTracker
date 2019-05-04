@@ -1,0 +1,73 @@
+body {
+	background:#F9FCFE none repeat scroll 0%;
+	color:#000000;	
+	margin: 5px;
+	padding-right: 120px;
+	font-family:"Lucida Grande","Lucida Sans Unicode",Tahoma,Verdana;
+	font-size:13px;	
+}
+
+fieldset {
+	border:medium none;
+	padding:3px;
+}
+
+fieldset label.selectit {
+	display:block;
+	font-size:11px;
+	padding:0pt 2px;
+}
+
+fieldset label.selectit:hover {
+	background:#E9E9E9 none repeat scroll 0%;
+}
+
+fieldset legend {
+	padding:0.1em 0.3em;
+}
+
+fieldset.options {
+	padding:1em;
+}
+
+fieldset.options legend {
+	font-family:Georgia,"Times New Roman",Times,serif;
+	font-size:1.5em;
+	font-weight:bold;
+}
+
+.newPostBox {
+	border: medium none;
+	margin: 0pt;
+	padding: 0pt;
+}
+
+.newPostHeader {
+	background: #2685AF none repeat scroll 0%;
+	color: #E3EFF5;
+	font-size: 12px;
+	margin: 0pt;
+	padding: 6px 1em 2px;
+}
+
+.newPostBox, .newPostHeader {
+	display: block;
+	position: relative;
+	padding-bottom: 4px;
+}
+
+textarea, input, select {
+	background:#F4F4F4 none repeat scroll 0%;
+	border:1px solid #B2B2B2;
+	color:#000000;
+	font-family:Verdana,Arial,Helvetica,sans-serif;
+	font-size:13px;
+	font-size-adjust:none;
+	font-stretch:normal;
+	font-style:normal;
+	font-variant:normal;
+	font-weight:normal;
+	line-height:normal;
+	margin:1px;
+	padding:3px;
+}

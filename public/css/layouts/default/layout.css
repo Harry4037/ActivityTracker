@@ -1,0 +1,77 @@
+/* andreas08 - an open source xhtml/css website layout by Andreas Viklund - http://andreasviklund.com . Free to use in any way and for any purpose as long as the proper credits are given to the original designer. Version: 1.0, November 28, 2005 */
+
+/**************** Body and tag styles ****************/
+
+body{
+font:76% Verdana,Tahoma,Arial,sans-serif;
+line-height:1.4em;
+margin:10px 10px 10px 10px;
+color:#303030;
+background:#e8eaec;
+}
+
+a{
+color:#467aa7;
+font-weight:bold;
+text-decoration:none;
+background-color:inherit;
+}
+
+/**************** Header and navigation styles ****************/
+
+#pageFrame{
+padding:1px 0;
+text-align:left;
+background:#ffffff;
+color:#303030;
+border:2px solid #a0a0a0;
+}
+
+#header{
+height:80px;
+/*width:758px;*/
+margin:0 1px 1px 1px;
+color:#ffffff;
+}
+
+#repeat {
+	height: 80px;	
+	background-image: url(/images/header-repeat.png);
+	background-repeat: repeat-x;	
+	margin: 0 1px 1px 1px;
+}
+
+/**************** Content styles ****************/
+
+#content{
+	padding: 0px 10px 0pt;
+	width: 98%;
+	font-size: 0.9em;
+	padding-bottom: 10px;
+	margin: 2px;
+}
+
+#content h2{
+display:block;
+margin:0 0 16px 0;
+font-size:1.7em;
+font-weight:normal;
+letter-spacing:-1px;
+color:#505050;
+background-color:inherit;
+}
+
+#content h2 a {font-weight:normal;}
+#content h3 {margin:0 0 5px 0; font-size:1.4em; letter-spacing:-1px;}
+#content a:hover,#subcontent a:hover{text-decoration:underline;}
+
+/**************** Misc classes and styles ****************/
+
+.splitcontentleft{float:left; width:49%;}
+.splitcontentright{float:right; width:49%;}
+.clear{clear:both;}
+.small{font-size:0.8em;}
+.hide{display:none;}
+.textcenter{text-align:center;}
+.textright{text-align:right;}
+.important{color:#f02025; background-color:inherit; font-weight:bold;}

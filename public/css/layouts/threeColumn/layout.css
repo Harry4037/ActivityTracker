@@ -1,0 +1,88 @@
+/*---- Layout ----*/
+body{
+    font:76% Verdana,Tahoma,Arial,sans-serif;
+    line-height:1.4em;
+    margin:10px 10px 10px 10px;
+    color:#303030;
+    background:#e8eaec;
+}
+
+div
+{
+	padding: 0;
+	margin: 0;
+}
+
+#oldbrowser
+{
+	text-align: center;
+}
+#masthead h1
+{
+	display: inline;
+}
+#leftcolumn
+{
+	margin-right: -200px;	/* IE 4 fix */
+}
+#leftColumn
+{
+	background-color: #F1F5F9;
+	border: 1px solid #DDDDDD;
+	float: left;
+	width: 200px;
+	min-height: 30em;
+	height: auto;	
+	/*/*/ /*/margin: 0 0 0 2px; /* Silly Netscape hack to get the borders to line up */
+}
+#rightColumn
+{
+	background-color: #F1F5F9;
+	border: 1px solid #DDDDDD;
+	float: right;
+	width: 220px;
+	min-height: 30em;
+	height: auto;
+}
+#contentColumn
+{
+	width: auto;
+	margin-left: 195px;
+}
+#innerLeftColumn, #innerContentColumn, #innerRightColumn, #innerFooter
+{
+	padding: 10px;
+}
+
+#innerContentColumn
+{
+	overflow: visible;
+	height: 100%;	/* fix the Win32 IE float bug */
+	margin-right: 216px;
+	/*/*/ /*/margin: 0 0 0 2px; /* Silly Netscape hack to get the borders to line up */
+}
+#contentColumn>#innerContentColumn
+{
+	height: auto;	/* fix Opera 5 which breaks with the above IE fix */
+}
+#innercontentcolumn
+{
+	height: 100%;	/* fix IE 5.0 which parse the Opera fix, note the selector is all lower case */
+}
+#masthead, #footer
+{
+	z-index: 10;
+}
+
+/*---- Visual Elements ----*/
+#pageFrame
+{    
+	background-color: #fff;
+	color: #000;
+	border: 2px solid #a0a0a0;
+	min-width: 500px;	
+	margin: 2px;
+	padding: 1px;
+	font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+	font-size: 0.9em;
+}

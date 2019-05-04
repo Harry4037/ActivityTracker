@@ -1,0 +1,15 @@
+/**************** Footer styles ****************/
+
+#footer{		
+	clear: both;
+	padding-top:4px;
+	padding-left: 3px;		
+	color:#f0f0f0;
+	background:#467aa7;
+	height: 20px;
+	font-family: Verdana, Tahoma, Arial, sans-serif;	
+	margin:0 1px 0px 1px;
+}
+
+#footer a{color:#f0f0f0; background-color:inherit; font-weight:bold;}
+#footer a:hover{color:#ffffff; background-color:inherit; text-decoration: underline;}

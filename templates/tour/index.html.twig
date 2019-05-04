@@ -1,0 +1,354 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}iSimulate @ World Bank{% endblock %}
+{% block http_metas %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> {% endblock %}
+{% block metas %}
+    <meta name="robots" content="index, follow"/>
+    <meta name="description" content="network for economic simulations"/>
+    <meta name="keywords"
+          content="economics, simulations, modeling, world bank, united nations, link, data, econ, forecasting"/>
+    <meta name="language" content="en"/>
+{% endblock %}
+ {% block stylesheets %}
+     <link href="{{ asset('css/layouts/tour/style.css') }}" rel="stylesheet">
+     <link href="{{ asset('css/misc/registration.css') }}" rel="stylesheet">
+     <link href="{{ asset('sfModalBoxPlugin/web/css/modalbox.css') }}" rel="stylesheet">
+     <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}"/>
+ {% endblock %}
+  {% block header %}
+  {% endblock %}
+{% block body %}
+    <a href="{{ path('home') }}">&laquo; Return Home</a>
+    <div id="wrap">
+
+        <div id="top"></div>
+
+        <div id="content">
+
+            <div class="header">
+                <div id="repeat">
+                    <a href="/"><img src="{{ asset('images/tour/header.gif') }}" alt="Header"/></a></div>
+            </div>
+            {% if number==1 %}
+                <div class="breadcrumbs">
+                    <div style="float:right;">
+                        <a href="{{ path('tour', {'number': 2}) }}"><img src="{{ asset('images/stock_next.gif') }}"
+                                                                         alt="Stock_next"/></a></div>
+                    <a href="/">iSimulate</a> &middot;
+                    <a href="{{ path('tour', {'number': 1}) }}">Product Tour</a> &middot;
+                    Page 1 of 5
+                </div>
+
+                <div class="middle">
+
+                    <h2>
+                        <img style="margin-right:8px;" align="left" src="{{ asset('images/star.gif') }}" alt="Star"/>
+                        Execute Simulations with just a Browser!</h2>
+                    <div class="shadowed">
+                        <img src="{{ asset('images/tour/grid.gif') }}" alt="Grid"/>
+                    </div>
+
+                    <br clear="all">
+
+                    <div style="padding-top:20px">
+                        <div class="tourPoint">
+                            <span id="header">Run simulations and immediately view the results</span>
+                            iSimulate makes it possible to execute simulations and view their results without having to
+                            install specific software on
+                            your computer.
+                        </div>
+
+                        <div class="tourPoint">
+                            <span id="header">Access some of The World Bank's economic models</span>
+                            iSimulate hosts some of The World Bank's experimental global macro-models, which are 100%
+                            free
+                            to use. Execute your own
+                            simulations while harnessing The World Bank's expertise!
+                        </div>
+                    </div>
+
+                    <br clear="all">
+
+                    <center>
+                        <a href="{{ path('tour', {'number': 2}) }}"><img src="{{ asset('images/stock_next.gif') }}"
+                                                                         alt="Stock_next"/></a>
+                    </center>
+                </div>
+
+                <div class="right">
+
+                    <h2>With iSimulate You Can:</h2>
+
+                    <ul>
+                        <li><a href="{{ path('tour', {'number': 1}) }}">Execute Simulations with just a Browser</a></li>
+                        <li><a href="{{ path('tour', {'number': 2}) }}">Collaborate with Other Users</a></li>
+                        <li><a href="{{ path('tour', {'number': 3}) }}">Publish Results on Group Blogs</a></li>
+                        <li><a href="{{ path('tour', {'number': 4}) }}">Work in Real-Time with Group Members</a></li>
+                        <li><a href="{{ path('tour', {'number': 5}) }}">Reserve Your Account Today!</a></li>
+                    </ul>
+
+                    <center>
+                        <br>
+                        <a title="Reserve an iSimulate Account!"
+                           onclick="Modalbox.show(this.href, {title:this.title, width:525}); return false;"
+                           href="/register"><img src="{{ asset('images/reserve.gif') }}" alt="Reserve"/></a> <br
+                                clear="all"><br>
+                        <a href="{{ path('home') }}">&laquo; Return Home</a></center>
+
+                </div>
+            {% elseif number==2 %}
+                <div class="breadcrumbs">
+                    <div style="float:right;">
+                        <a href="{{ path('tour', {'number': 1}) }}"><img src="{{ asset('images/stock_previous.gif') }}"
+                                                                         alt="Stock_previous"/></a> <a
+                                href="{{ path('tour', {'number': 3}) }}"><img src="{{ asset('images/stock_next.gif') }}"
+                                                                              alt="Stock_next"/></a></div>
+                    <a href="/">iSimulate</a> &middot;
+                    <a href="{{ path('tour', {'number': 1}) }}">Product Tour</a> &middot;
+                    Page 2 of 5
+                </div>
+
+                <div class="middle">
+
+                    <h2>
+                        <img style="margin-right:8px;" align="left" src="{{ asset('images/star.gif') }}" alt="Star"/>
+                        Collaborate with Other Users</h2>
+                    <div class="shadowed">
+                        <img src="{{ asset('images/tour/group.gif') }}" alt="Group"/>
+                    </div>
+
+                    <br clear="all">
+
+                    <div style="padding-top:20px">
+                        <div class="tourPoint">
+                            <span id="header">Create working groups...</span>
+                            Join an iSimulate group to connect with your peers, or create your own
+                            group for you and your co-workers.
+                        </div>
+
+                        <div class="tourPoint">
+                            <span id="header">...or work in your personal space</span>
+                            Need to run simulations and keep the results private? iSimulate has you covered. A "personal
+                            group" is automatically
+                            created for every iSimulate user.
+                        </div>
+                    </div>
+
+                    <br clear="all">
+
+                    <center>
+                        <a href="{{ path('tour', {'number': 1}) }}"><img src="{{ asset('images/stock_previous.gif') }}"
+                                                                         alt="Stock_previous"/></a> <a
+                                href="{{ path('tour', {'number': 3}) }}"><img src="{{ asset('images/stock_next.gif') }}"
+                                                                              alt="Stock_next"/></a></center>
+                </div>
+
+                <div class="right">
+
+                    <h2>With iSimulate You Can:</h2>
+
+                    <ul>
+                        <li><a href="{{ path('tour', {'number': 1}) }}">Execute Simulations with just a Browser</a></li>
+                        <li><a href="{{ path('tour', {'number': 2}) }}">Collaborate with Other Users</a></li>
+                        <li><a href="{{ path('tour', {'number': 3}) }}">Publish Results on Group Blogs</a></li>
+                        <li><a href="{{ path('tour', {'number': 4}) }}">Work in Real-Time with Group Members</a></li>
+                        <li><a href="{{ path('tour', {'number': 5}) }}">Reserve Your Account Today!</a></li>
+                    </ul>
+
+                    <center>
+                        <br>
+                        <a title="Reserve an iSimulate Account!"
+                           onclick="Modalbox.show(this.href, {title:this.title, width:525}); return false;"
+                           href="/register"><img src="{{ asset('images/reserve.gif') }}" alt="Reserve"/></a> <br
+                                clear="all"><br>
+                        <a href="/">&laquo; Return Home</a></center>
+
+                </div>
+            {% elseif number==3 %}
+                <div class="breadcrumbs">
+                    <div style="float:right;">
+                        <a href="{{ path('tour', {'number': 2}) }}"><img src="{{ asset('images/stock_previous.gif')}}" alt="Stock_previous" /></a>				<a href="{{ path('tour', {'number': 4}) }}"><img src="{{ asset('images/stock_next.gif')}}" alt="Stock_next" /></a>	</div>
+                    <a href="/">iSimulate</a> &middot;
+                    <a href="{{ path('tour', {'number': 1}) }}">Product Tour</a> &middot;
+                    Page 3 of 5
+                </div>
+
+                <div class="middle">
+
+                    <h2>
+                        <img style="margin-right:8px;" align="left" src="{{ asset('images/star.gif')}}" alt="Star" />	Publish Results on Group Blogs</h2>
+                    <div class="shadowed">
+                        <img src="{{ asset('images/tour/blog.gif')}}" alt="Blog" />
+                    </div>
+
+                    <br clear="all">
+
+                    <div style="padding-top:20px">
+                        <div class="tourPoint">
+                            <span id="header">Use group blogs as private message boards</span>
+                            With iSimulate blogs, it is easy to communicate with other group members.  Simply write a blog
+                            post and receive comments from your colleagues.
+                        </div>
+
+                        <div class="tourPoint">
+                            <span id="header">Communicate with the outside world</span>
+                            Blog posts can also be publicly viewable so that you can disseminate your work to the world.
+                        </div>
+                    </div>
+
+                    <br clear="all">
+
+                    <center>
+                        <a href="{{ path('tour', {'number': 2}) }}"><img src="{{ asset('images/stock_previous.gif')}}" alt="Stock_previous" /></a>				<a href="{{ path('tour', {'number': 4}) }}"><img src="{{ asset('images/stock_next.gif')}}" alt="Stock_next" /></a>	</center>
+                </div>
+
+                <div class="right">
+
+                    <h2>With iSimulate You Can:</h2>
+
+                    <ul>
+                        <li><a href="{{ path('tour', {'number': 1}) }}">Execute Simulations with just a Browser</a></li>
+                        <li><a href="{{ path('tour', {'number': 2}) }}">Collaborate with Other Users</a></li>
+                        <li><a href="{{ path('tour', {'number': 3}) }}">Publish Results on Group Blogs</a></li>
+                        <li><a href="{{ path('tour', {'number': 4}) }}">Work in Real-Time with Group Members</a></li>
+                        <li><a href="{{ path('tour', {'number': 5}) }}">Reserve Your Account Today!</a></li>
+                    </ul>
+
+                    <center>
+                        <br>
+                        <a title="Reserve an iSimulate Account!" onclick="Modalbox.show(this.href, {title:this.title, width:525}); return false;" href="/register"><img src="{{ asset('images/reserve.gif')}}" alt="Reserve" /></a>	<br clear="all"><br>
+                        <a href="/">&laquo; Return Home</a></center>
+
+                </div>
+
+            {% elseif number==4 %}
+                <div class="breadcrumbs">
+                    <div style="float:right;">
+                        <a href="{{ path('tour', {'number': 3}) }}"><img src="{{ asset('images/stock_previous.gif')}}" alt="Stock_previous" /></a>				<a href="{{ path('tour', {'number': 5}) }}"><img src="{{ asset('images/stock_next.gif')}}" alt="Stock_next" /></a>	</div>
+                    <a href="/">iSimulate</a> &middot;
+                    <a href="{{ path('tour', {'number': 1}) }}">Product Tour</a> &middot;
+                    Page 4 of 5
+                </div>
+
+                <div class="middle">
+
+                    <h2>
+                        <img style="margin-right:8px;" align="left" src="{{ asset('images/star.gif')}}" alt="Star" />	Work in Real-Time with Group Members</h2>
+                    <div class="shadowed">
+                        <img src="{{ asset('images/tour/sync.gif')}}" alt="Sync" />
+                    </div>
+
+                    <br clear="all">
+
+                    <div style="padding-top:20px">
+                        <div class="tourPoint">
+                            <span id="header">Keep in-sync with your group</span>
+                            As you are working, iSimulate keeps you in-sync with other group members at all times.  Immediately receive new simulation
+                            results as soon as they are generated.
+                        </div>
+
+                        <div class="tourPoint">
+                            <span id="header">Revert to previous simulation results</span>
+                            Don't like the results of a simulation?  iSimulate keeps a log of all group activity, so that you can easily revert back to
+                            a previous result at any time.
+                        </div>
+                    </div>
+
+                    <br clear="all">
+
+                    <center>
+                        <a href="{{ path('tour', {'number': 3}) }}"><img src="{{ asset('images/stock_previous.gif')}}" alt="Stock_previous" /></a>				<a href="{{ path('tour', {'number': 5}) }}"><img src="{{ asset('images/stock_next.gif')}}" alt="Stock_next" /></a>	</center>
+                </div>
+
+                <div class="right">
+
+                    <h2>With iSimulate You Can:</h2>
+
+                    <ul>
+                        <li><a href="{{ path('tour', {'number': 1}) }}">Execute Simulations with just a Browser</a></li>
+                        <li><a href="{{ path('tour', {'number': 2}) }}">Collaborate with Other Users</a></li>
+                        <li><a href="{{ path('tour', {'number': 3}) }}">Publish Results on Group Blogs</a></li>
+                        <li><a href="{{ path('tour', {'number': 4}) }}">Work in Real-Time with Group Members</a></li>
+                        <li><a href="{{ path('tour', {'number': 5}) }}">Reserve Your Account Today!</a></li>
+                    </ul>
+
+                    <center>
+                        <br>
+                        <a title="Reserve an iSimulate Account!" onclick="Modalbox.show(this.href, {title:this.title, width:525}); return false;" href="/register"><img src="{{ asset('images/reserve.gif')}}" alt="Reserve" /></a>	<br clear="all"><br>
+                        <a href="/">&laquo; Return Home</a></center>
+
+                </div>
+
+            {% elseif number==5 %}
+                <div class="breadcrumbs">
+                    <div style="float:right;">
+                        <a href="{{ path('tour', {'number': 4}) }}"><img src="{{ asset('images/stock_previous.gif')}}" alt="Stock_previous" /></a>		</div>
+                    <a href="/">iSimulate</a> &middot;
+                    <a href="{{ path('tour', {'number': 1}) }}">Product Tour</a> &middot;
+                    Page 5 of 5
+                </div>
+
+                <div class="middle">
+
+                    <h2>
+                        <img style="margin-right:8px;" align="left" src="{{ asset('images/star.gif')}}" alt="Star" />	Reserve Your Account Today!</h2>
+                    <div style="margin-bottom: 20px">
+                        <div class="tourPoint">
+                            <span id="header">Become an iSimulate Member</span>
+                            iSimulate is a private beta service that is currently available to staff of The World Bank and its partner institutions.
+                            However, we are letting in other users on a periodic basis.
+                            <a title="Create an account" onclick="Modalbox.show(this.href, {title:this.title, width:525}); return false;" href="/register">Create an account</a>, and we'll email you as soon as it is
+                            activated.
+                        </div>
+                        <center style="margin-top: 40px">
+                            <a style="font-size:16px;font-weight:bold" title="Create An Account!" onclick="Modalbox.show(this.href, {title:this.title, width:525}); return false;" href="/register">Create An Account!</a>
+                        </center>
+                    </div>
+
+                    <br clear="all">
+
+                    <center>
+                        <a href="{{ path('tour', {'number': 4}) }}"><img src="{{ asset('images/stock_previous.gif')}}" alt="Stock_previous" /></a>		</center>
+                </div>
+
+                <div class="right">
+
+                    <h2>With iSimulate You Can:</h2>
+
+                    <ul>
+                        <li><a href="{{ path('tour', {'number': 1}) }}">Execute Simulations with just a Browser</a></li>
+                        <li><a href="{{ path('tour', {'number': 2}) }}">Collaborate with Other Users</a></li>
+                        <li><a href="{{ path('tour', {'number': 3}) }}">Publish Results on Group Blogs</a></li>
+                        <li><a href="{{ path('tour', {'number': 4}) }}">Work in Real-Time with Group Members</a></li>
+                        <li><a href="{{ path('tour', {'number': 5}) }}">Reserve Your Account Today!</a></li>
+                    </ul>
+
+                    <center>
+                        <br>
+                        <a title="Reserve an iSimulate Account!" onclick="Modalbox.show(this.href, {title:this.title, width:525}); return false;" href="/register"><img src="{{ asset('images/reserve.gif')}}" alt="Reserve" /></a>	<br clear="all"><br>
+                        <a href="/">&laquo; Return Home</a></center>
+
+                </div>
+            {% else %}
+
+<h1>No Page Found</h1>
+            {% endif %}
+
+
+            <div id="clear"></div>
+
+        </div>
+
+        <div id="bottom"></div>
+
+    </div>
+
+    <div id="footer">
+        <a title="Reserve an iSimulate Account!" style="font-size:2em; font-weight:bold"
+           onclick="Modalbox.show(this.href, {title:this.title, width:525}); return false;" href="/register">Reserve
+            Your Account!</a></div>
+
+{% endblock %}
+  {% block footer %}
+  {% endblock %}

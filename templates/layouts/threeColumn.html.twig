@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}{% endblock %}</title>
+        {% block http_metas %} {% endblock %}
+        {% block metas %} {% endblock %}
+        <meta charset="utf-8">
+        <meta http_equiv="X-UA_Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <!--[if lt IE 7]>		     
+        <style>
+       /* style for IE6 + IE5.5 + IE5.0 */
+       .gainlayout { height: 0; }
+        </style>
+        <![endif]-->    
+        <!--[if IE 7]>
+             <style>
+               .gainlayout { zoom: 1; }
+             </style>
+        <![endif]-->
+        
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+    <div id="pageFrame">
+        <div id="indicator" style="display: none"></div>
+        {% block header %}
+        {% endblock %}
+        <div id="content">
+            {% block body %}
+
+            {% endblock %}
+        </div>
+        {% block footer %}
+        {% endblock %}
+        {% block javascripts %}
+            <script type="text/javascript">
+                //<![CDATA[
+
+                var timeoutMilliseconds = 1740000; // 29 minutes
+                var warnMilliseconds = 1500000; // 25 minutes
+                var timeoutTimer;
+
+                function setSecurityTimer() {
+                    timeoutTimer = window.setTimeout("location.href='/timeout'", timeoutMilliseconds);
+                }
+
+                function startTimeout() {
+                    window.setTimeout('displayAlert()', warnMilliseconds);
+                    setSecurityTimer();
+                }
+
+                function displayAlert() {
+                    timeOutWin = window.open("/timeout/warning", "smallwindow", 'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=no,resizable=no,width=350,height=230');
+                    if (timeOutWin)
+                        timeOutWin.focus();
+                }
+
+                function keepalive() {
+                    window.setTimeout('displayAlert()', warnMilliseconds);
+                    window.clearTimeout(timeoutTimer);
+                    setSecurityTimer();
+                }
+
+                //]]>
+            </script>
+            <script type="text/javascript" src="{{ asset('sfPrototypePlugin/web/js/prototype.js')}}"></script>
+            <script type="text/javascript" src="{{ asset('sfPrototypePlugin/web/js/scriptaculous.js')}}"></script>
+            <script type="text/javascript" src="{{ asset('sfPrototypePlugin/web/js/effects.js')}}"></script>
+            <script type="text/javascript" src="{{ asset('sfModalBoxPlugin/web/js/modalbox.js')}}"></script>
+        {% endblock %}
+    </div>
+</body>
+</html>

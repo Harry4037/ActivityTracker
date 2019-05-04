@@ -1,0 +1,174 @@
+a{
+color:#467aa7;
+font-weight:bold;
+text-decoration:none;
+background-color:inherit;
+}
+
+a:hover{color:#2a5a8a; text-decoration:none; background-color:inherit;}
+a img{border:none;}
+
+p{padding:0 0 1.6em 0;}
+p form{margin-top:0; margin-bottom:20px;}
+
+img.left,img.center,img.right{padding:4px; border:1px solid #a0a0a0;}
+img.left{float:left; margin:0 12px 5px 0;}
+img.center{display:block; margin:0 auto 5px auto;}
+img.right{float:right; margin:0 0 5px 12px;}
+
+
+#repeat {
+	height: 80px;	
+	background-image: url(/images/header-repeat.gif);
+	background-repeat: repeat-x;	
+	margin: 0 1px 1px 1px;
+}
+
+.box{
+margin:0 0 10px 0;
+padding:10px;
+border:1px solid #c0c0c0;
+background-color:#fafbfc;
+color:#505050;
+line-height:1.5em;
+}
+
+.box #boxheader {
+	width: 100%; 
+	font-weight: bold; 
+	border-bottom: 1px solid #D8DFEA;	
+}
+
+.box #searchResults {
+	margin-left: 20px;
+}
+
+#header h1{
+padding:15px 0 0 15px;
+font-size:2.4em;
+background-color:inherit;
+color:#ffffff;
+letter-spacing:-2px;
+font-weight:normal;
+}
+
+#header h1 a{
+color:#ffffff;
+}
+
+#header h2{
+margin:10px 0 0 40px;
+font-size:1.4em;
+background-color:inherit;
+color:#f0f2f4;
+letter-spacing:-1px;
+font-weight:normal;
+}
+
+#pageFrame h2 {
+display:block;
+margin:0 0 16px 0;
+font-size:1.7em;
+font-weight:normal;
+letter-spacing:-1px;
+color:#505050;
+background-color:inherit;
+}
+
+#smallFont {	
+	color: #21384B;
+	font-weight: normal;	
+	padding: 2px; 
+}
+
+#smallFont:hover {
+	text-decoration: underline;
+}
+
+#pageFrame a, #pageFrame h2 a{font-weight:normal;}
+#pageFrame h3{margin:0 0 5px 0; font-size:1.4em; letter-spacing:-1px;}
+#pageFrame a:hover{text-decoration:underline;}
+
+.form_error {
+color: #d8732f;
+}
+
+div#indicator {
+  position: absolute;
+  width: 100px;
+  height: 40px;
+  left: 10px;
+  top: 10px;
+  z-index: 900;
+  background: url(/images/indicator.gif) no-repeat 0 0;
+}
+
+#sideImage
+{
+	margin-right:4px; 
+	margin-bottom: 4px;
+	vertical-align: middle;
+}
+
+#secureLeftColumn div#item, #secureRightColumn div#item
+{
+	margin-bottom: 15px;
+}
+
+#item { margin-bottom: 15px; }
+
+#item .notification
+{
+	display: inline; 
+	float: left;
+	width: 104%;
+	background-color: #F1F5F9;
+}
+
+#item .notification:hover
+{
+	background-color: #E1E4F2;	
+}
+
+#item img#close
+{
+	filter:alpha(opacity=55);
+	-moz-opacity: 0.55;
+	opacity: 0.55;
+}
+
+#item img#close:hover
+{
+	filter:alpha(opacity=100);
+	-moz-opacity: 1.0;
+	opacity: 1.0
+}
+
+#tagCloud
+{
+	line-height: 2.5em;
+}
+
+#tagCloud a
+{
+	padding: 0px; 
+	text-decoration: none;
+}
+
+.superscript
+{
+	vertical-align: baseline;
+	position: relative;
+	bottom: 0.33em;
+	margin-left: -2px;
+	margin-right: 2px;
+}
+
+input.search {
+	border: 1px solid #B2B2B2; 
+	margin: 1px; 
+	padding: 2px; 
+	font-family: Verdana,Arial,Helvetica,sans-serif; 
+	font-size: 13px;
+}
+

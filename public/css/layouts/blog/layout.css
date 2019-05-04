@@ -1,0 +1,70 @@
+/*-------------------------------------------------
+  Blue Skin Stylesheet
+  Design by Nicolas Fogelholm
+  http://www.fogelholm.com/
+-------------------------------------------------*/
+
+body{font-family:Verdana, Arial, Helvetica, sans-serif;font-size:11px;background:#50504f url(/images/blogs/base/gbck.gif) repeat;}
+#box{width:800px;background:#fff;margin:20px auto;padding:10px;}
+#top{width:800px;background:#69c url(/images/blogs/base/topbck.gif) repeat;height:51px;margin:0;padding:0;}
+#splash{width:800px;background:url(/images/blogs/base/splash.gif) no-repeat;height:200px;margin:0;padding:0;}
+#header{float:left;width:300px;margin:0 0 0 10px;padding:0;}
+#header h1{text-indent:-10000px;margin:0;padding:0;}
+#desc{color:#fff;float:right;text-align:right;font-size:11px;margin:20px auto;padding:0 10px 0 0;}
+#main{background:#f3f2ed;height:30px;margin:10px auto;}
+#mainbck{background:#fff url(/images/blogs/base/mainbck.gif) repeat-y;width:800px;margin:5px auto;padding:0;}
+*html h2{font-family:Verdana, Arial, Helvetica, sans-serif;font-size:14px;font-weight:700;color:#666;padding:0 0 0 5px;}
+#nav{height:30px;line-height:30px;float:left;padding:0;}
+ul.nav{height:30px;line-height:30px;float:left;list-style:none;font-size:12px;font-weight:700;text-transform:uppercase;margin:0;padding:0;}
+ul.nav li{float:left !important;list-style-type:none;margin:0;padding:0;}
+ul.nav li a,ul.nav li a:link,ul.nav li a:visited{border-bottom:0;border-left:0;background:#f3f2ed;color:#069;float:left;display:block;text-decoration:none;padding:0 10px;}
+ul.nav li a:hover,ul.nav li a:active{background:#fff;color:#555;text-decoration:none;}
+ul.nav li.home a{border-left:2px solid #fff;text-decoration:none;}
+ul.nav li.current_page_item a{text-decoration:none;color:#555;background:#fff;}
+ul.nav li ul{float:left;margin:0;padding:0;}
+#content{width:540px;float:left;margin:5px auto;padding:0 15px 0 0;}
+.entry{width:530px;background:#fff;float:left;color:#666;text-align:justify;border-bottom:#ccc 1px dotted;margin:5px auto;padding:5px;}
+.entry h2,h3{font-family:Verdana, Arial, Helvetica, sans-serif;font-size:14px;font-weight:700;margin:0 auto;padding:0;}
+#sidebar{width:230px;float:right;margin:5px;padding:0;}
+.rsidebar{width:210px;color:#666;margin:0 auto;padding:0 5px;}
+.rsidebar h2{font-size:14px;border-bottom:dashed 1px #ccc;margin:0 7px 3px;padding:3px 0;}
+.rsidebar ul{list-style-type:none;margin:0;padding:0;}
+.rsidebar ul li{list-style-type:none;margin:0 0 10px;padding:0;}
+.rsidebar ul li ul{list-style-type:square;margin:0;padding:0 3px;}
+.rsidebar ul li ul li{list-style-type:none;background:transparent url(/images/blogs/base/b.gif) no-repeat 0 4px;border:0;margin:0;padding:0 0 2px 14px;}
+#footer{width:790px;background-color:#69c;height:30px;line-height:30px;clear:both;color:#fff;margin:0;padding:0 0 0 10px;}
+a:visited{text-decoration:none;color:#069;border:none;}
+a:hover{text-decoration:underline;color:#69c;border:none;}
+#wp-calendar #prev a,#wp-calendar #next a{font-size:9pt;}
+#wp-calendar a{text-decoration:none;display:block;}
+#wp-calendar caption{font:bold 1.3em 'Lucida Grande', Verdana, Arial, Sans-Serif;text-align:left;width:100%;}
+#wp-calendar th{font-style:normal;text-transform:capitalize;}
+#wp-calendar{empty-cells:show;width:100%;margin:10px auto 0;}
+#wp-calendar #next a{padding-right:10px;text-align:right;}
+#wp-calendar #prev a{padding-left:10px;text-align:left;}
+#wp-calendar td{text-align:center;padding:3px 0;}
+#wp-calendar td.pad:hover{background-color:#fff;}
+a:link,a:active{text-decoration:none;color:#14568a;border:none;}
+.navigation{width:520px;float:left;color:#666;}
+.alignright{float:right;margin-top:10px;}
+.alignleft{float:left;margin-top:10px;}
+.space{background:#fff;height:5px;clear:both;margin:0 auto;padding:0;}
+#searchform{height:26px;line-height:26px;float:left;margin:0;padding:0 0 10px;}
+input#s{color:#5188d2;width:140px;border:1px solid #cbcbcb;background:#fcfcfc;}
+input#searchsubmit{background:#4879aa;color:#fff;font-size:13px;border:1px #2f5c89 solid;}
+.bobcomments{border-top:5px solid #006394;background:#fbfbf9;border-bottom:1px solid #006394;margin-bottom:20px;}
+#commentform{border-top:1px dotted #cedeef;border-bottom:1px dotted #cedeef;margin:0;padding:15px 15px 1px;}
+#commentform label{display:block;margin:0;}
+#commentform input{width:170px;margin:0 5px 10px 0;padding:1px;}
+#commentform textarea{width:380px;margin:0 0 10px;padding:0;}
+#commentform #submit{margin:0 0 20px;}
+#commentform p{margin:5px 0;}
+ol.commentlist{margin:0 0 1px;padding:0;}
+ol.commentlist li{border-top:1px solid #cedeef;display:block;list-style:none;margin:0;padding:15px 15px 1px;}
+ol.commentlist li.commenthead{display:block;list-style:none;margin:0;padding:5px 15px;}
+ol.commentlist li.commenthead h3{margin:0;}
+ol.bob{border-top:1px solid #cedeef;list-style:none;margin:0 0 1px;padding:15px;}
+ol.bob li{display:block;list-style:none;background:transparent url(/images/blogs/base/hb.gif) 0 2px no-repeat;padding-left:15px;margin:0 0 5px;}
+#footer a:visited{text-decoration:none;color:#006495;border:none;}
+#footer a:hover{text-decoration:underline;color:#006495;border:none;}
+#footer a:link,#footer a:active{text-decoration:none;color:#fff;border:none;}

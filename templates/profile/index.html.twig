@@ -1,0 +1,130 @@
+{% extends 'base.html.twig' %}
+{% block title %}iSimulate @ World Bank{% endblock %}
+{% block http_metas %}<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> {% endblock %}
+{% block metas %}
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="network for economic simulations" />
+    <meta name="keywords" content="economics, simulations, modeling, world bank, united nations, link, data, econ, forecasting" />
+    <meta name="language" content="en" />
+{% endblock %}
+ {% block stylesheets %}
+     <link href="{{ asset('css/layouts/default/layout.css') }}" rel="stylesheet">
+     <link href="{{ asset('css/common/entities.css') }}" rel="stylesheet">
+     <link href="{{ asset('css/misc/registration.css') }}" rel="stylesheet">
+     <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}"/>
+     <style>
+         /* style for IE6 + IE5.5 + IE5.0 */
+         .gainlayout { height: 0; }
+     </style>
+     <!--[if IE 7]>
+     <style>
+         .gainlayout { zoom: 1; }
+     </style>
+     <![endif]-->
+ {% endblock %}
+ {% block header %}
+     <div id="masthead">
+         <div id="repeat">
+             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                 <div style="float: right; margin-right: 5px">
+                     <a id="smallFont" href="{{ path('dashboard') }}">Home</a>
+                     <a id="smallFont" href="{{ path('profile') }}">My Account</a>
+                     <a id="smallFont" href="{{ path('app_logout') }}">Log Out</a>
+                 </div>
+             {% endif %}
+             <a href="/"><img src="{{ asset('images/header.gif')}}" alt="Header" /></a>
+
+         </div>
+     </div>
+ {% endblock %}
+{% block body %}
+    <div id="content">
+
+
+        <div class="box">
+            <div id="boxheader">My Profile</div>
+
+            <form method="post" action="/user/profile">
+
+                <div>
+
+                    <table cellspacing="10"><tr><td colspan="3"><img align="middle" style="padding-right:10px;" src="{{ asset('images/step_1.gif')}}" alt="Step_1"><b>Your Details</b></td>
+                        </tr><tr align="center"><td align="right" style="padding:0px 0px 0px 40px;">Email address:</td>
+                            <td align="left"> {{ app.user.email }}</td>
+                        </tr><tr><td align="right" style="padding:0px 0px 0px 40px;"><label for="firstName">First name:</label></td>
+                            <td align="left"><input type="text" name="firstName" id="firstName" value="{{ app.user.firstName }}"></td>
+                            <td align="left" valign="top"><div style="display:none;color:red" class="form_error" id="error_for_firstName">  ⇐ </div>
+                            </td>
+                        </tr><tr align="center"><td align="right" style="padding:0px 0px 0px 40px;"><label for="lastName">Last name:</label></td>
+                            <td align="left"><input type="text" name="lastName" id="lastName" value="{{ app.user.lastName }}"></td>
+                            <td align="left" valign="top"><div style="display:none;color:red" class="form_error" id="error_for_lastName">  ⇐ </div>
+                            </td>
+                        </tr><tr><td align="right" style="padding:0px 0px 0px 40px;"><label for="affiliation">Affiliation:</label></td>
+                            <td align="left"><input type="text" name="affiliation" id="affiliation" value=""></td>
+                            <td align="left" valign="top"><div style="display:none;color:red" class="form_error" id="error_for_affiliation">  ⇐ </div>
+                            </td>
+                        </tr><tr><td align="right" style="padding:0px 0px 0px 40px;"><label for="timezone">Time Zone:</label></td>
+                            <td align="left"><select name="timezone" id="timezone"><option value="Africa/Abidjan">Africa/Abidjan</option></select></td>
+                            <td align="left" valign="top"><div style="display:none;color:red" class="form_error" id="error_for_timezone">  ⇐ </div>
+                            </td>
+                        </tr><tr><td align="right" style="padding:0px 0px 0px 40px;"><label for="getStartedBox">Display "Get Started" Box:</label></td>
+                            <td align="left"><input type="checkbox" name="getStartedBox" id="getStartedBox" value="1" checked></td>
+                            <td align="left" valign="top"><div style="display:none;color:red" class="form_error" id="error_for_getStartedBox">  ⇐ </div>
+                            </td>
+                        </tr><tr align="center"><td align="right" style="padding:0px 0px 0px 40px;"><label for="displayname">Display Name:
+                                    <img title="header=[What Is A Display Name?]
+    		 			body=[A display name is used to identify you on iSimulate.  You can choose your display name to be either your first and last name or your username.]" src="/images/question-mark.gif" alt="Question-mark"></label></td>
+                            <td align="left" colspan="2">
+                                <input type="radio" name="displayname" id="displayname_real" value="real"> Use my real name as my display name.<br><input type="radio" name="displayname" id="displayname_user" value="user" checked> Use my username as my display name.
+                            </td>
+                        </tr></table><table cellspacing="10"><tr><td colspan="3"><img align="middle" style="padding-right:10px;" src="/images/step_2.gif" alt="Step_2"><b>Login Information</b></td>
+                        </tr><tr align="center"><td align="right" style="padding:0px 0px 0px 40px;"><label for="username">Choose a username:</label></td>
+                            <td align="left">
+                                <input type="text" name="username" id="username" value="{{ app.user.username }}" size="20" maxlength="20"><span id="usernameStatus" style="padding-left: 7px"></span>
+                                <div class="registrationBeneathFont">Username must consist of 5-20 alphanumeric characters (0-9, a-z, A-Z).</div>
+                            </td>
+                            <td align="left" valign="top"><div style="display:none;color:red;" class="form_error" id="error_for_username">  ⇐ </div>
+                            </td>
+                        </tr><script type="text/javascript">
+                            //<![CDATA[
+                            new Form.Element.EventObserver("username", function(element, value) {new Ajax.Updater('usernameStatus', '/user/checkUsernameAvailability', {asynchronous:true, evalScripts:false, parameters:'id='+encodeURIComponent($('username').value)});});
+                            //]]>
+                        </script><tr><td align="right" style="padding:0px 0px 0px 40px;"><label for="newPassword">New password:</label></td>
+                            <td align="left"><input type="password" name="newPassword" id="newPassword" value=""><span id="passwordStrengthLabel" style="display: none; padding-left:7px"><b>Password Strength: </b></span>
+                                <span id="passwordStrength"></span>
+                                <div class="registrationBeneathFont">Password must consist of at least 5 characters.</div>
+                            </td>
+                            <td align="left" valign="top"><div style="display:none;color:red" class="form_error" id="error_for_newPassword">  ⇐ </div>
+                            </td>
+                        </tr><script type="text/javascript">
+                            //<![CDATA[
+                            new Form.Element.EventObserver("newPassword", function(element, value) {new Ajax.Updater('passwordStrength', '/user/checkPasswordStrength', {asynchronous:true, evalScripts:false, onComplete:function(request, json){Element.show('passwordStrengthLabel')}, parameters:'id='+encodeURIComponent($('newPassword').value)});});
+                            //]]>
+                        </script><tr><td align="right" style="padding:0px 0px 0px 40px;"><label for="newPassword2">Re-type new password:</label></td>
+                            <td align="left"><input type="password" name="newPassword2" id="newPassword2" value=""></td>
+                            <td align="left" valign="top"><div style="display:none;color:red" class="form_error" id="error_for_newPassword2">  ⇐ </div>
+                            </td>
+                        </tr></table></div>
+                <br><input type="submit" name="commit" value="Save changes"></form>
+        </div>
+
+
+
+    </div>
+{% endblock %}
+{% block footer %}
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/common/footer.css')}}" />
+
+    <div id="footer">
+	<span style="float: right; display: block; padding-right: 7px;">
+		&copy; 2007-2019 <a target="out"  href="http://www.worldbank.org">The World Bank Group</a>	</span>
+        <!--<a href="/blog/" target="out" style="margin-right:5px">blog</a>-->
+        <a style="margin-right:5px" target="out" href="/tour/page/1">tour</a>	<a style="margin-right:5px" target="out" href="/disclaimer">disclaimer</a>	<a target="out" style="margin-right:5px" href="http://go.worldbank.org/OS6V7NIUD0">legal</a>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('js/boxover.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('sfPrototypePlugin/js/prototype.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('sfPrototypePlugin/js/builder.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('sfPrototypePlugin/js/effects.js')}}"></script>
+{% endblock %}

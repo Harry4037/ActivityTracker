@@ -1,0 +1,21 @@
+/*img, div {
+   behavior: url(/js/iepngfix.htc);
+   margin: 0 0 0 0;
+}*/
+
+.shadowed { 
+  float:right;
+  background: url(/images/drop-shadow.png) no-repeat bottom right !important;
+  background: url(/images/drop-shadow.gif) no-repeat bottom right;
+  margin: 10px 0 0 10px !important;
+  margin: 10px 0 0 5px;
+  }
+
+.shadowed img {
+  display: block;
+  position: relative;
+  background-color: #fff;
+  border: 1px solid #999;
+  margin: -6px 6px 6px -6px;
+  padding: 4px;
+}

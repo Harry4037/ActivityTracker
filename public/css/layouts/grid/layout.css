@@ -1,0 +1,73 @@
+html, body {
+   font:normal 12px verdana;
+   margin:0;
+   padding:0;
+   border:0 none;
+   overflow:hidden;
+   height:100%;
+}
+.topRightLink{
+	color: white;
+	font-family: verdana;
+	font-size: 12px;
+	text-decoration: none;
+	margin-right: 5px;
+}
+.topRightLink:hover{
+	text-decoration: underline;	
+}
+#header{
+    background: url(/images/header-bar.gif) repeat-x bottom;        
+    color: white;
+    font-family: Tahoma,Verdana,Arial,Helvetica,sans-serif;    
+    border-top: 1px solid #083772;    
+}
+
+.cellColorLarge{
+	background-color:#FF9999 !important;	
+}
+.cellColorMiddle{
+	background-color:#FFFF99 !important;
+}
+.cellColorSmall{
+	background-color:#CCFF99 !important;
+}
+.exogenousCell{
+	color: #FF0000 !important;
+}
+.endogenousCell{
+	color: #0000FF !important;
+}
+.historicalCell{
+	color: #CCCCCC !important;
+}
+.x-layout-panel{
+	border:0px none;
+}
+
+.helpItem {
+	text-decoration: none;
+	font-family: Tahoma,Verdana,Arial,Helvetica,sans-serif;   
+	font-size: 10px;
+	color: #003366;
+}
+
+.helpItem:hover {
+	color: black;
+	text-decoration: underline;
+}
+
+.helpBullet {
+	margin-right:3px;
+	vertical-align: middle;
+}
+
+.headerHelp {
+	height: 71px;	
+	color:#ffffff;
+}
+
+#repeatHelp {
+	height: 71px;	
+	background-color: #95B3CD;	
+}
