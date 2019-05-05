@@ -1,0 +1,26 @@
+{% block registerform %}
+    <div class="box">
+        <div align="left"><h3>Reserve Your Account Now (it's free!)</h3></div>
+        <table width="100%">
+            <tr>
+                <td width="65%" style="padding-right:5px">
+                    <p align="justify">iSimulate is a private beta service that is currently available to
+                        staff of The World Bank
+                        and its partner institutions. However, we are letting in new members on a periodic
+                        basis. Create an account, and
+                        we'll email you as soon as it is activated.<br><br>
+                        <a title="Didn't receive verification email?"
+                           onclick="Modalbox.show(this.href, {title: this.title, width: 525});
+                                               return false;"
+                           href="/resendVerificationEmail">Didn't receive verification email?</a></p>
+                </td>
+                <td align="right" valign="top">
+                    <a title="Reserve an iSimulate @ World Bank Account!"
+                       onclick="Modalbox.show(this.href, {title: this.title, width: 525});
+                                           return false;"
+                       href="/register"><img src="{{ asset('images/reserve.gif') }}" alt="Reserve"/></a>
+                </td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}

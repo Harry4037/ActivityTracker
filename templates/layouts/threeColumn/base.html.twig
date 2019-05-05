@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {# title block #}
+        <title>{% block title %}{% endblock %}</title>
+        {# http_metas block #}
+        {% block http_metas %} {% endblock %}
+        {# metas block #}
+        {% block metas %} {% endblock %}
+        <!--[if lt IE 7]>		     
+                <style>
+               /* style for IE6 + IE5.5 + IE5.0 */
+               .gainlayout { height: 0; }
+             </style>
+        <![endif]-->    
+        <!--[if IE 7]>
+             <style>
+               .gainlayout { zoom: 1; }
+             </style>
+        <![endif]-->
+        <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}"/>
+        <link href="{{ asset('css/layouts/threeColumn/layout.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/common/entities.css') }}" rel="stylesheet">
+    {% block stylesheets %}{% endblock %}
+
+    {# timeout block #}
+    {% include 'layouts/common/timeout.html.twig' %}
+
+    <script type="text/javascript" src="{{ asset('sfPrototypePlugin/web/js/prototype.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('sfPrototypePlugin/web/js/builder.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('sfPrototypePlugin/web/js/effects.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('js/boxover.js')}}"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/misc/tabs.css')}}" />
+
+    </head>
+    <body>
+        <div id="indicator" style="display: none"></div>
+        <div id="pageFrame">
+            <div id="masthead">
+                <div id="repeat">
+                    {# header block #}
+                    {% include 'layouts/common/header.html.twig' %}
+                </div>
+            </div>
+                
+            <div id="leftColumn">
+                <div id="innerLeftColumn">
+                    {# header block #}
+                    {{ render(controller(
+                        'App\\Controller\\CommonController::leftColumn'
+                        )) 
+                    }}
+{#                    {% include 'layouts/threeColumn/leftColumn.html.twig' %}#}
+                </div>
+            </div>
+                
+            <div id="contentColumn">
+                <div id="rightColumn">
+                    <div id="innerRightColumn">
+{#                            <?php include_slot('rightColumn') ?>#}
+                    </div>
+                </div>
+
+                <div id="innerContentColumn">
+                    {# content block #}
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+            
+            {# footer block #}
+            {% include 'layouts/common/footer.html.twig' %}
+        </div>
+    </body>
+</html>

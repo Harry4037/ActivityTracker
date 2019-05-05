@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Submit feedback</title>
+    </head>
+    <body>
+        iSimulate Feedback:<br><br> 
+        UserID: {{ app.user.id }}<br>
+        Name: {{ app.user.getFirstName~" "~app.user.getLastName }}<br><br>
+        -----------<br><br>
+        {{ feedback }}
+        <br><br>-----------<br><br>
+        "This is an automated email from the iSimulate alert system.  Do not reply!"
+    </body>
+</html>

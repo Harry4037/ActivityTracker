@@ -1,0 +1,15 @@
+{% block footer %}
+    <link href="{{ asset('css/common/footer.css') }}" rel="stylesheet">
+
+    <div id="footer">
+        <span style="float: right; display: block; padding-right: 7px;">		
+            &copy; 2007-2019 <a target="out"  href="http://www.worldbank.org">The World Bank Group</a>
+        </span>	
+        <!--<a href="/blog/" target="out" style="margin-right:5px">blog</a>-->
+        <a href="{{ path('tour',{'number': 1}) }}" style="margin-right:5px" target="out">tour</a>
+        <a 
+{#            href="{{ path('disclaimer') }}" #}
+            style="margin-right:5px" target="out">disclaimer</a>
+        <a target="out" style="margin-right:5px" href="http://go.worldbank.org/OS6V7NIUD0">legal</a>
+    </div>
+{% endblock %}

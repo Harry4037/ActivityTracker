@@ -1,6 +1,78 @@
-{% extends 'base.html.twig' %}
+{% extends 'layouts/threeColumn/base.html.twig' %}
 
+{% block content %}
+    <div class="box">
+        <div id="boxheader">Create New Group</div>
+        {{ form_start(form) }}
+        <div class="registrationMicroFont">Fields marked with an asterisk <span class="registrationAsterisk">*</span> are required.</div>
+        <table cellspacing="5">
+            <tbody>
+                <tr>
+                    <td align="right">
+                        <span class="registrationAsterisk">*</span>
+                        {{ form_label(form.groupName) }}
+                    </td>
+                    <td>
+                        {{ form_widget(form.groupName,{'attr':{'maxlength':'20'}}) }}
+                    </td>
+                    <td valign="top">
+                        <div class="form_error">
+                            {{ form_errors(form.groupName) }}
+                        </div>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td align="right">
+                        <span class="registrationAsterisk">*</span>
+                        {{ form_label(form.description) }}
+                        <br><font color="red">Limit: 80 chars</font><br>
+                        <input readonly="" type="text" name="remLen" size="3" maxlength="3" value="80"> chars left
+                    </td>
+                    <td align="left">
+                        {{ form_widget(form.description, {'attr': {
+                                'wrap': 'physical', 
+                                'rows':'4', 
+                                'cols':'30',
+                                'onkeydown': 'textCounter(this.form.form_description, this.form.remLen, 80);', 
+                                'onkeyup':'textCounter(this.form.form_description, this.form.remLen, 80);'
+                        }}) }}
+                    </td>
+                    <td align="left" valign="top">
+                        <div class="form_error">
+                            {{ form_errors(form.description) }}
+                        </div>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td align="right">
+                        <span class="registrationAsterisk">*</span>
+                        {{ form_label(form.approveToJoin) }}
+                    </td>
+                    <td align="left">
+                        {{ form_widget(form.approveToJoin,{'attr':{'style':'width: 70px; visibility: visible;'}}) }}
+                    </td>
+                    <td align="left" valign="top">
+                        <div class="form_error">
+                            {{ form_errors(form.approveToJoin) }}
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        {{ form_row(form.commit) }}
+        {{ form_end(form) }}
+        <script type="text/javascript">
+            //<![CDATA[
 
-{% block body %}
-create
+            function textCounter(field, countfield, maxlimit) {
+                if (field.value.length > maxlimit) // if too long...trim it!
+                    field.value = field.value.substring(0, maxlimit);
+                else // otherwise, update 'characters left' counter
+                    countfield.value = maxlimit - field.value.length;
+            }
+
+            //]]>
+        </script>
+    </div>
 {% endblock %}

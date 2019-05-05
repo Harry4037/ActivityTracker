@@ -1,62 +1,41 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Login -  ActivityTracker{% endblock %}
-{% block body %}
-<div class="valign-wrapper" style="width:100%;height:100%;position: absolute;background-image: url('./../../website/img/background-login-page.jpg');">
-    <div class="valign" style="width:100%;">
-        <div class="container">
-
-        <div class="row">
-        <div class="col s12 m6 offset-m3">
-            <div class="card blue-grey darken-1 large center" style="height: 530px !important;">
-                <div class="card-content white-text">
-                    <i class="medium material-icons">assessment</i> <h3>Login</h3>
-                    {% if error %}
-                        <div class="alert alert-danger materialize-red">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                    {% endif %}
-                    <div class="form">
-                        <form method="post">
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <i class="material-icons prefix">email</i>
-                                    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
-                                    <label for="icon_prefix"  class="sr-only">Username</label>
-                                </div>
-                                <div class="input-field col s12">
-                                    <i class="material-icons prefix">lock</i>
-                                    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
-                                    <label for="icon_password">Password</label>
-                                </div>
-                                <input type="hidden" name="_csrf_token"
-                                       value="{{ csrf_token('authenticate') }}"
-                                >
-                                <div class="col s12">
-                                    <label class="label_padding" style="float: inherit;color: white;margin-left: 12px;">
-                                        <input type="checkbox" name="_remember_me" class="form-check-input">
-                                        <span> Remember Me</span>
-                                    </label>
-                                </div>
-                                <div class="col s12">
-                                    <button type="submit" class="waves-effect waves-light btn btn_blue">
-                                        Login
-                                    </button>
-                                </div>
-                                <div class="text" style="margin-top: 15px; align-content: center;"><b>© Copyright ActivityTracker 2018</b>
-                                </div>
-                                <br>
-                                <div class="text">In collaboration with <img src="https://www.lelocode.com/assets/images/lelo-png.png" style="height: 22px; vertical-align: -5px; margin-left: 3px;" alt="Lelocode"></div>
-                            </div>
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+{% block loginform %}
+    <div class="box">
+        <div align="left"><h3>Already a member? Sign in.</h3></div>
+        {% if error %}
+            <div align="center" id="error_for_email" class="form_error">&darr;&nbsp;{{ error.messageKey|trans(error.messageData, 'security') }}&nbsp;&darr;</div>
+        {% endif %}
+        <form method="post" action="{{ path('app_login') }}">
+            <table cellspacing="5" width="100%">
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td align="right" width="88">
+                                    <label for="user">Username or email:</label>
+                                </td>
+                                <td align="left">
+                                    <input type="text" name="username" id="user" value="{{ last_username }}" size="25" required autofocus/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                    <label for="password">Password:</label>
+                                </td>
+                                <td>
+                                    <input type="password" name="password" id="password" value="" size="25"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" >
+                <td align="right">
+                    <input type="image" name="commit" src="{{ asset('images/login.gif') }}" alt="Login"/>
+                </td>
+                </tr>
+            </table>
+            <a style="margin-left:5px" title="Forgot your password?" onclick="Modalbox.show(this.href, {title: this.title, width: 525});
+                return false;"
+               href="/forgotPassword">Forgot your password?</a>
+        </form>
     </div>
-    </div>
-    </div>
-</div>
-{% endblock %}
-{% block footer %}
-
 {% endblock %}

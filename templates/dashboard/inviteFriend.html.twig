@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title>Spread The Word</title>
+    </head>
+    <body style="background: #F1F5F9; font-family: Verdana,Tahoma,Arial,sans-serif; font-size: 76%">
+        <h2 style="color:darkblue;">Spread The Word!</h2>
+        <form method="post" action="{{ path('invite_friend') }}">		
+            <b>Type the email addresses of your friends below (comma separated):</b><br>
+            <textarea name="emails" id="emails" rows="3" cols="60"></textarea><br>
+            <span style="color: red">
+                <div style="display:none;" class="form_error" id="error_for_emails"> &nbsp;&lArr; </div>
+            </span>
+            <br><br>
+            <b>Add a note to the invitation (optional):</b><br>
+            <textarea name="note" id="note" rows="3" cols="60">I've been using iSimulate @ World Bank and thought you might like to try it out.  Here's an invitation to register for an account.</textarea>
+            <br><br><br>
+            <center><input type="submit" name="commit" value="Send Invites"></center>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Invite Friend</title>
+    </head>
+    <body>
+        {% if not app.request.get('note') %}
+            I've been using iSimulate @ World Bank and thought you might like to try it out. Here's an invitation to register for an account.
+        {% else %}
+            {{ app.request.get('note') }}
+        {% endif %}
+        <br><br>---------------------------------<br><br>
+        To accept this invitation and register for an account, visit 
+        <a href="{{ path('home') }}">{{ app.request.baseUrl }}</a> and click on the 'Reserve' button.<br><br>
+        If you haven't already heard about iSimulate @ World Bank, it's a new platform for performing economic simulations by The World Bank.
+        It allows individuals anywhere in the world to access some of The World Bank's macroeconomic models across the internet.  Best of all, it's free.<br><br>
+        - Work in groups of economists from across the world<br>
+        - Use a variety of economic models on the system<br>
+        - Keep your simulation results private, or publish them to other members of your group<br><br>
+        To learn more about iSimulate @ World Bank before registering, <a href="#">take a tour</a> or 
+        visit the <a href="#">Official iSimulate Blog</a><br><br>
+        Thanks,<br>The iSimulate Team
+    </body>
+</html>

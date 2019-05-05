@@ -1,0 +1,119 @@
+{% block leftColumn %}		
+    <div id="item">
+        <img id="sideImage" src="{{ asset('images/group.gif') }}" alt="Group" /><b>My Groups</b>
+        <img title="header=[What Is This?] body=[This is a list of all the groups you are a member of.]" src="{{ asset('images/question-mark.gif') }}" alt="Question-mark" />
+        <br>
+        {% if groups %}
+            {% for group in groups %}
+                <a href="/group/{{ group.groupID.groupName }}">{{ group.groupID.groupName }}</a>&middot;
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <div id="item">
+        <img id="sideImage" src="{{ asset('images/cog.gif') }}" alt="Cog" /><b>Group Actions</b><br>
+        &middot; <a href="{{ path('group_create') }}">Create New Group</a><br>
+        &middot; Find A Group: <br>
+        <form method="get" style="display:inline; margin:0; padding:0" action="{{ path('search') }}">
+            <input type="text" name="query" id="query" value="" class="search" />
+            <input type="hidden" name="category" id="category" value="groups" />
+        </form>
+    </div>	
+
+    <div id="item">
+        <img id="sideImage" src="{{ asset('images/star.gif') }}" alt="Star" /><b>Most Popular Groups</b>
+        <img title="header=[What Is This?]
+             body=[The groups below are displayed in a tag cloud. The font size depends on the number of members in each group.]
+             " src="{{ asset('images/question-mark.gif') }}" alt="Question-mark" />	<br>
+
+        <div id="tagCloud">
+            <a title="11 group members" style="font-size: 9px; text-decoration: none;" href="/group/AFTP4">Public</a>&middot;									
+        </div>
+        {#<div id="tagCloud">
+            <?php $i = 1 ?>
+            <?php foreach($popularGroups as $groupName=>$metaData): ?>
+            <?php $suffix = $metaData["count"] == 1 ? " group member" : " group members" ?>
+            <?php echo link_to($groupName,'@groupShow?groupName='.$groupName,array("title"=>$metaData["count"].$suffix,"style"=>"font-size: ".$metaData["fontSize"]."px; text-decoration: none;")) ?>
+            <?php if($i < count($popularGroups)): ?>
+            &middot; 
+            <?php endif ?>
+            <?php $i++ ?>
+            <?php endforeach ?>
+        </div>#}
+    </div>
+
+
+    <script type="text/javascript">
+        //<![CDATA[
+
+        function updateJSON(request, json)
+        {
+            var nbElementsInResponse = json.length;
+            for (var i = 0; i < nbElementsInResponse; i++)
+            {
+                Element.update(json[i][0], json[i][1]);
+            }
+        }
+
+        //]]>
+    </script>
+    <div id="item">
+        <form method="post" action="{{ path('invite_friend') }}">		
+            <img id="sideImage" src="{{ asset('images/email.gif') }}" alt="Email"><b>Spread The Word!</b>
+            <span id="invitesRemaining" style="color: #808080; margin-left: 5px; font-size: 10px;">{{ app.user.getInvitesRemaining }} Left</span>
+            <br>Enter an Email Address:<br>		
+            <input type="text" name="emails" id="emails" value="" class="search"><br>		
+            <input style="margin-right:5px" type="button" onclick="new Ajax.Request(
+                            '{{ path('invite_friend') }}',
+                            {
+                                asynchronous: true,
+                                evalScripts: false,
+                                onComplete: function (request, json) {
+                                    Element.hide('indicator');
+                                    updateJSON(request, json);
+                                    new Effect.BlindDown('inviteResponse', {});
+                                }, onLoading: function (request, json) {
+                                    Element.show('indicator');
+                                    Element.hide('inviteResponse');
+                                }, parameters: Form.serialize(this.form)
+                            });
+                    return false;" 
+                   name="submit" value="Send Invite">
+            <a onclick="var w = window.open(this.href, 'previewinvite', 'width=600,height=325,left=320,top=0,scrollbars=yes,resizable=1');
+                    w.focus();
+                    return false;" 
+               href="{{ path('invite_friend') }}">Preview Invite</a>	
+        </form>
+        <div id="inviteResponse" style="display:none; margin-top:10px; font-weight: bold;"></div>		
+    </div>
+
+    <div id="item">
+        <img id="sideImage" src="{{ asset('images/vcard_edit.gif') }}" alt="Vcard_edit"><b>Send Us Feedback</b><br>
+        Please send us your comments:
+        <form method="post" action="{{ path('submit_feedback') }}">			
+            <textarea name="feedback" id="feedback" rows="4" cols="20"></textarea>			
+            <input type="button" 
+                   onclick="new Ajax.Updater(
+                                   'feedbackResponse',
+                                   '{{ path('submit_feedback') }}',
+                                   {
+                                       asynchronous: true,
+                                       evalScripts: false,
+                                       onComplete: function (request, json) {
+                                           Element.hide('indicator');
+                                           new Effect.BlindDown('feedbackResponse', {});
+                                       },
+                                       onLoading: function (request, json) {
+                                           Element.show('indicator');
+                                           Element.hide('feedbackResponse');
+                                       },
+                                       parameters: Form.serialize(this.form)
+                                   }
+                           );
+                           return false;" 
+                   name="submit" value="Submit feedback">			
+        </form>
+        <div id="feedbackResponse" style="margin-top:10px; display:none;"></div>
+    </div>
+
+{% endblock %}

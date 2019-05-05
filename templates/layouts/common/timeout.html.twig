@@ -1,0 +1,30 @@
+{% block javascripts %}
+    <script type="text/javascript">
+        //<![CDATA[
+        var timeoutMilliseconds = 1740000; // 29 minutes
+        var warnMilliseconds = 1500000; // 25 minutes
+        var timeoutTimer;
+
+        function setSecurityTimer() {
+            timeoutTimer = window.setTimeout("location.href='/timeout'", timeoutMilliseconds);
+        }
+
+        function startTimeout() {
+            window.setTimeout('displayAlert()', warnMilliseconds);
+            setSecurityTimer();
+        }
+
+        function displayAlert() {
+            timeOutWin = window.open("/timeout/warning", "smallwindow", 'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=no,resizable=no,width=350,height=230');
+            if (timeOutWin)
+                timeOutWin.focus();
+        }
+
+        function keepalive() {
+            window.setTimeout('displayAlert()', warnMilliseconds);
+            window.clearTimeout(timeoutTimer);
+            setSecurityTimer();
+        }
+        //]]>
+    </script>
+{% endblock %}

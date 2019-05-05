@@ -7,19 +7,18 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-class SecurityController extends AbstractController
-{
+class SecurityController extends AbstractController {
+
     /**
      * @Route("/login", name="app_login")
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
-    {
+    public function login(AuthenticationUtils $authenticationUtils): Response {
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('home/index.html.twig', ['last_username' => $lastUsername, 'error' => $error,'users' => '']);
+        return $this->render('home/index.html.twig', ['last_username' => $lastUsername, 'error' => $error, 'users' => '']);
     }
 
     /**
@@ -30,8 +29,8 @@ class SecurityController extends AbstractController
      *
      * @Route("/logout", name="app_logout")
      */
-    public function logout(): void
-    {
+    public function logout(): void {
         throw new \Exception('This should never be reached!');
     }
+
 }

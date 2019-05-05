@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\GroupsRepository")
@@ -22,6 +23,7 @@ class Groups
     /**
      * @var string
      * 
+     * @Assert\NotBlank(message = "Please enter a group name.")
      * @ORM\Column(type="string", length=20, nullable=true,name="groupName",options={"default":"Personal"})
      */
     private $groupName;
@@ -29,6 +31,7 @@ class Groups
     /**
      * @var string
      * 
+     * @Assert\NotBlank(message = "Please enter a description of your group.")
      * @ORM\Column(type="string", length=80, nullable=true,name="description",options={"default":"This is your private data collection. You are its administrator"})
      */
     private $description;

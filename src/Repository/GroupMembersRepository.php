@@ -48,7 +48,4 @@ class GroupMembersRepository extends ServiceEntityRepository
     }
     */
     
-   public function getListOfGroupsUserIsMemberOf($userID, $includePublicGroup = true){
-       return $this->findBy(["userID" => $userID]);
-   }
 }

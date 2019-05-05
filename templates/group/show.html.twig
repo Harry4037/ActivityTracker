@@ -1,0 +1,9 @@
+{% extends 'layouts/threeColumn/base.html.twig' %}
+
+{% block content %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endblock %}

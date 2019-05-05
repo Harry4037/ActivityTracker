@@ -1,0 +1,10 @@
+{% block header %}
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <div style="float: right; margin-right: 5px">
+                    <a href="{{ path('home') }}" id="smallFont">Home</a>
+                    <a href="{{ path('profile') }}" id="smallFont">My Account</a>
+                    <a href="{{ path('app_logout') }}" id="smallFont">Log Out</a>
+                </div>
+            {% endif %}
+            <a href="{{ path('home') }}"><img src="{{ asset('images/header.gif')}}" alt="Header" /></a>
+{% endblock %}

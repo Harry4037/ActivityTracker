@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {# title block #}
+        <title>{% block title %}{% endblock %}</title>
+        {# http_metas block #}
+        {% block http_metas %} {% endblock %}
+        {# metas block #}
+        {% block metas %} {% endblock %}
+        <meta charset="UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <!--[if lt IE 7]>
+             <script defer type="text/javascript" src="/js/pngfix.js"></script>
+                <style>
+               /* style for IE6 + IE5.5 + IE5.0 */
+               .gainlayout { height: 0; }
+             </style>
+        <![endif]-->    
+        <!--[if IE 7]>
+             <style>
+               .gainlayout { zoom: 1; }
+             </style>
+        <![endif]-->
+        <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}"/>
+        <link href="{{ asset('css/layouts/default/layout.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/common/entities.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/misc/registration.css') }}" rel="stylesheet">
+    {% block stylesheets %}{% endblock %}
+
+    {# timeout block #}
+    {% include 'layouts/common/timeout.html.twig' %}
+
+    <script type="text/javascript" src="{{ asset('sfPrototypePlugin/web/js/prototype.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('sfPrototypePlugin/web/js/scriptaculous.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('sfPrototypePlugin/web/js/effects.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('sfModalBoxPlugin/web/js/modalbox.js')}}"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('sfModalBoxPlugin/web/css/modalbox.css')}}" />
+
+    </head>
+    <body>
+        <div id="pageFrame">
+            <div id="indicator" style="display: none"></div>
+            <div id="header">
+                <div id="repeat">
+                    {# header block #}
+                    {% include 'layouts/common/header.html.twig' %}
+                </div>
+            </div>
+            <div id="content">
+            {# content block #}
+            {% block content %}{% endblock %}
+            </div>
+            {# footer block #}
+            {% include 'layouts/common/footer.html.twig' %}
+        </div>
+    </body>
+</html>

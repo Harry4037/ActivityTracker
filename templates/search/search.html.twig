@@ -1,0 +1,74 @@
+{% extends 'layouts/threeColumn/base.html.twig' %}
+
+{% block content %}
+
+    <h3>Search Results for "{{ app.request.get('query') }}"</h3>
+    {% if groups|length > 0 %}
+        <div style="margin-bottom: 10px">
+            Found: 
+            {% if groups|length > 0 %}
+                <a href="#groups">{{ groups|length }} Group{% if groups|length > 1 %}s{% endif %}</a>
+                {#        {% if numApplications|length > 0 %} | {% endif %}#}
+            {% endif %}
+
+            {#  <?php if ($numApplications > 0): ?>
+              <a href="#applications"><?php echo $numApplications ?> Application<?php if ($numApplications > 1): ?>s<?php endif ?></a>
+              <?php endif ?>	#}		
+        </div>
+
+        {% if groups|length > 0 %}
+        <div class="box" id="groups">
+            <div id="boxheader">Groups</div>
+            <ol>					
+                {% for group in groups %}						
+                <li style="margin-top: 15px"><a href="{{ path('group_show',{'groupName': group.groupName}) }}">{{ group.groupName }}</a></li>
+                <table>
+                    <tr>
+                        <td style="color: #808080" width="90">Description:</td>
+                        <td>{{ group.description }}</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #808080">Size:</td>
+                        <td>{{ group.getGroupMembers|length }} member(s)</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #808080">Created:</td>
+                        <td>{{ group.getCreatedAt()|date("M j, Y") }}</td>
+                    </tr>
+                </table>						
+                {% endfor %}
+            </ol>
+        </div>
+        {% endif %}
+
+        {#    <?php if ($numApplications > 0): ?>
+            <div class="box" id="applications">
+                <div id="boxheader">Applications</div>
+                <ol>
+                    <?php foreach ($applications as $application): /* @var $application Application */ ?>
+                    <li style="margin-top: 15px"><?php echo link_to($application, "@applicationIndex?applicationName=" . $application) ?></li>
+                    <table>
+                        <tr>
+                            <td style="color: #808080" width="90">Description:</td>
+                            <td><?php echo $application->getDescription() ?></td>
+                        </tr>
+                        <tr>
+                            <td style="color: #808080">Size:</td>
+                            <td><?php echo $application->countGroupSubscriptions() ?> subscriber(s)</td>
+                        </tr>
+                        <tr>
+                            <td style="color: #808080">Created:</td>
+                            <td><?php echo $application->getCreatedAt("M j, Y") ?></td>
+                        </tr>
+                    </table>
+                    <?php endforeach ?>
+                </ol>
+            </div>
+            <?php endif ?>#}		
+    {% else %}
+        <div class="box">
+            No results could be found for the query "{{ app.request.get('query') }}"
+        </div>
+    {% endif %}	
+
+{% endblock %}

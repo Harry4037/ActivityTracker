@@ -9,80 +9,80 @@ body{
 
 div
 {
-	padding: 0;
-	margin: 0;
+    padding: 0;
+    margin: 0;
 }
 
 #oldbrowser
 {
-	text-align: center;
+    text-align: center;
 }
 #masthead h1
 {
-	display: inline;
+    display: inline;
 }
 #leftcolumn
 {
-	margin-right: -200px;	/* IE 4 fix */
+    margin-right: -200px;	/* IE 4 fix */
 }
 #leftColumn
 {
-	background-color: #F1F5F9;
-	border: 1px solid #DDDDDD;
-	float: left;
-	width: 200px;
-	min-height: 30em;
-	height: auto;	
-	/*/*/ /*/margin: 0 0 0 2px; /* Silly Netscape hack to get the borders to line up */
+    background-color: #F1F5F9;
+    border: 1px solid #DDDDDD;
+    float: left;
+    width: 200px;
+    min-height: 30em;
+    height: auto;	
+    /*/*/ /*/margin: 0 0 0 2px; /* Silly Netscape hack to get the borders to line up */
 }
 #rightColumn
 {
-	background-color: #F1F5F9;
-	border: 1px solid #DDDDDD;
-	float: right;
-	width: 220px;
-	min-height: 30em;
-	height: auto;
+    background-color: #F1F5F9;
+    border: 1px solid #DDDDDD;
+    float: right;
+    width: 220px;
+    min-height: 30em;
+    height: auto;
 }
 #contentColumn
 {
-	width: auto;
-	margin-left: 195px;
+    width: auto;
+    margin-left: 195px;
 }
 #innerLeftColumn, #innerContentColumn, #innerRightColumn, #innerFooter
 {
-	padding: 10px;
+    padding: 10px;
 }
 
 #innerContentColumn
 {
-	overflow: visible;
-	height: 100%;	/* fix the Win32 IE float bug */
-	margin-right: 216px;
-	/*/*/ /*/margin: 0 0 0 2px; /* Silly Netscape hack to get the borders to line up */
+    overflow: visible;
+    height: 100%;	/* fix the Win32 IE float bug */
+    margin-right: 216px;
+    /*/*/ /*/margin: 0 0 0 2px; /* Silly Netscape hack to get the borders to line up */
 }
 #contentColumn>#innerContentColumn
 {
-	height: auto;	/* fix Opera 5 which breaks with the above IE fix */
+    height: auto;	/* fix Opera 5 which breaks with the above IE fix */
 }
 #innercontentcolumn
 {
-	height: 100%;	/* fix IE 5.0 which parse the Opera fix, note the selector is all lower case */
+    height: 100%;	/* fix IE 5.0 which parse the Opera fix, note the selector is all lower case */
 }
 #masthead, #footer
 {
-	z-index: 10;
+    z-index: 10;
 }
 
 /*---- Visual Elements ----*/
 #pageFrame
 {    
-	background-color: #fff;
-	color: #000;
-	border: 2px solid #a0a0a0;
-	min-width: 500px;	
-	margin: 2px;
-	padding: 1px;
-	font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
-	font-size: 0.9em;
+    background-color: #fff;
+    color: #000;
+    border: 2px solid #a0a0a0;
+    min-width: 500px;	
+    margin: 2px;
+    padding: 1px;
+    font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+    font-size: 0.9em;
 }
