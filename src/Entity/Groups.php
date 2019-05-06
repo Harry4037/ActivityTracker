@@ -38,7 +38,7 @@ class Groups
 
     /**
      * 
-     * @ORM\ManyToOne(targetEntity="Users")
+     * @ORM\ManyToOne(targetEntity="Users", inversedBy="groups")
      * @ORM\JoinColumn(name="creatorID", referencedColumnName="userID")
      */
     private $creatorID;
@@ -76,9 +76,21 @@ class Groups
      */
     private $groupMembers;
 
+    /**
+     * @ORM\OneToMany(targetEntity="GroupRequests", mappedBy="groupID")
+     */
+    private $groupRequests;
+
+    /**
+     * @ORM\OneToMany(targetEntity="UserTransactions", mappedBy="groupID", orphanRemoval=true)
+     */
+    private $userTransactions;
+
     public function __construct()
     {
         $this->groupMembers = new ArrayCollection();
+        $this->groupRequests = new ArrayCollection();
+        $this->userTransactions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -195,6 +207,68 @@ class Groups
             // set the owning side to null (unless already changed)
             if ($groupMember->getGroupID() === $this) {
                 $groupMember->setGroupID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|GroupRequests[]
+     */
+    public function getGroupRequests(): Collection
+    {
+        return $this->groupRequests;
+    }
+
+    public function addGroupRequest(GroupRequests $groupRequest): self
+    {
+        if (!$this->groupRequests->contains($groupRequest)) {
+            $this->groupRequests[] = $groupRequest;
+            $groupRequest->setGroupID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupRequest(GroupRequests $groupRequest): self
+    {
+        if ($this->groupRequests->contains($groupRequest)) {
+            $this->groupRequests->removeElement($groupRequest);
+            // set the owning side to null (unless already changed)
+            if ($groupRequest->getGroupID() === $this) {
+                $groupRequest->setGroupID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserTransactions[]
+     */
+    public function getUserTransactions(): Collection
+    {
+        return $this->userTransactions;
+    }
+
+    public function addUserTransaction(UserTransactions $userTransaction): self
+    {
+        if (!$this->userTransactions->contains($userTransaction)) {
+            $this->userTransactions[] = $userTransaction;
+            $userTransaction->setGroupID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserTransaction(UserTransactions $userTransaction): self
+    {
+        if ($this->userTransactions->contains($userTransaction)) {
+            $this->userTransactions->removeElement($userTransaction);
+            // set the owning side to null (unless already changed)
+            if ($userTransaction->getGroupID() === $this) {
+                $userTransaction->setGroupID(null);
             }
         }
 

@@ -14,8 +14,12 @@ class DashboardController extends AbstractController {
      * @Route("/dashboard", name="dashboard")
      */
     public function index() {
-
-        return $this->render('dashboard/index.html.twig');
+        $publicGroupName = "Public";
+        $privateGroupName = "Private";
+        return $this->render('dashboard/index.html.twig',[
+            'publicGroupName' => $publicGroupName,
+            'privateGroupName' => $privateGroupName,
+        ]);
     }
 
     /**
@@ -93,6 +97,18 @@ class DashboardController extends AbstractController {
         }
 
         return $this->render('dashboard/inviteFriend.html.twig');
+    }
+
+    /**
+     * @Route("/hideGetStartedBox", name="hideGetStartedBox")
+     */
+    public function hideGetStartedBox(Request $request) {
+        $entityManager = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $user->setShowGetStartedBox(0);
+        $entityManager->persist($user);
+        $entityManager->flush();
+        return new Response();
     }
 
 }

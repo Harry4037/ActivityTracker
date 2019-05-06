@@ -14,7 +14,7 @@ class SearchController extends AbstractController {
      */
     public function search(Request $request) {
         if ($request->isMethod("GET")) {
-            $category = $request->get('category');
+            $category = $request->get('category') ? $request->get('category') : 'all';
             $numResults = 0;
 
             if ($category == "all" || $category == "groups") {

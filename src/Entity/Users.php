@@ -182,9 +182,27 @@ class Users implements UserInterface, \Serializable
      */
     private $groupMembers;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\GroupRequests", mappedBy="userID")
+     */
+    private $groupRequests;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ApplicationAdmins", mappedBy="userID", orphanRemoval=true)
+     */
+    private $applicationAdmins;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserTransactions", mappedBy="userID")
+     */
+    private $userTransactions;
+
     public function __construct()
     {
         $this->groupMembers = new ArrayCollection();
+        $this->groupRequests = new ArrayCollection();
+        $this->applicationAdmins = new ArrayCollection();
+        $this->userTransactions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -522,6 +540,99 @@ class Users implements UserInterface, \Serializable
             // set the owning side to null (unless already changed)
             if ($groupMember->getUserID() === $this) {
                 $groupMember->setUserID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|GroupRequests[]
+     */
+    public function getGroupRequests(): Collection
+    {
+        return $this->groupRequests;
+    }
+
+    public function addGroupRequest(GroupRequests $groupRequest): self
+    {
+        if (!$this->groupRequests->contains($groupRequest)) {
+            $this->groupRequests[] = $groupRequest;
+            $groupRequest->setUserID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupRequest(GroupRequests $groupRequest): self
+    {
+        if ($this->groupRequests->contains($groupRequest)) {
+            $this->groupRequests->removeElement($groupRequest);
+            // set the owning side to null (unless already changed)
+            if ($groupRequest->getUserID() === $this) {
+                $groupRequest->setUserID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ApplicationAdmins[]
+     */
+    public function getApplicationAdmins(): Collection
+    {
+        return $this->applicationAdmins;
+    }
+
+    public function addApplicationAdmin(ApplicationAdmins $applicationAdmin): self
+    {
+        if (!$this->applicationAdmins->contains($applicationAdmin)) {
+            $this->applicationAdmins[] = $applicationAdmin;
+            $applicationAdmin->setUserID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApplicationAdmin(ApplicationAdmins $applicationAdmin): self
+    {
+        if ($this->applicationAdmins->contains($applicationAdmin)) {
+            $this->applicationAdmins->removeElement($applicationAdmin);
+            // set the owning side to null (unless already changed)
+            if ($applicationAdmin->getUserID() === $this) {
+                $applicationAdmin->setUserID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserTransactions[]
+     */
+    public function getUserTransactions(): Collection
+    {
+        return $this->userTransactions;
+    }
+
+    public function addUserTransaction(UserTransactions $userTransaction): self
+    {
+        if (!$this->userTransactions->contains($userTransaction)) {
+            $this->userTransactions[] = $userTransaction;
+            $userTransaction->setUserID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserTransaction(UserTransactions $userTransaction): self
+    {
+        if ($this->userTransactions->contains($userTransaction)) {
+            $this->userTransactions->removeElement($userTransaction);
+            // set the owning side to null (unless already changed)
+            if ($userTransaction->getUserID() === $this) {
+                $userTransaction->setUserID(null);
             }
         }
 

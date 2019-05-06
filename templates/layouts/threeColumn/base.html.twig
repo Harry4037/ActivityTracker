@@ -32,43 +32,47 @@
     <script type="text/javascript" src="{{ asset('js/boxover.js')}}"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/misc/tabs.css')}}" />
 
-    </head>
-    <body>
-        <div id="indicator" style="display: none"></div>
-        <div id="pageFrame">
-            <div id="masthead">
-                <div id="repeat">
-                    {# header block #}
-                    {% include 'layouts/common/header.html.twig' %}
-                </div>
+</head>
+<body>
+    <div id="indicator" style="display: none"></div>
+    <div id="pageFrame">
+        <div id="masthead">
+            <div id="repeat">
+                {# header block #}
+                {% include 'layouts/common/header.html.twig' %}
             </div>
-                
-            <div id="leftColumn">
-                <div id="innerLeftColumn">
-                    {# header block #}
-                    {{ render(controller(
+        </div>
+
+        <div id="leftColumn">
+            <div id="innerLeftColumn">
+                {# header block #}
+                {{ render(controller(
                         'App\\Controller\\CommonController::leftColumn'
                         )) 
-                    }}
-{#                    {% include 'layouts/threeColumn/leftColumn.html.twig' %}#}
-                </div>
+                }}
+                {#                    {% include 'layouts/threeColumn/leftColumn.html.twig' %}#}
             </div>
-                
-            <div id="contentColumn">
-                <div id="rightColumn">
-                    <div id="innerRightColumn">
-{#                            <?php include_slot('rightColumn') ?>#}
-                    </div>
-                </div>
-
-                <div id="innerContentColumn">
-                    {# content block #}
-                    {% block content %}{% endblock %}
-                </div>
-            </div>
-            
-            {# footer block #}
-            {% include 'layouts/common/footer.html.twig' %}
         </div>
-    </body>
+
+        <div id="contentColumn">
+            <div id="rightColumn">
+                <div id="innerRightColumn">
+                    {{ render(controller(
+                        'App\\Controller\\CommonController::rightColumn'
+                        )) 
+                    }}
+                    {#                            <?php include_slot('rightColumn') ?>#}
+                </div>
+            </div>
+
+            <div id="innerContentColumn">
+                {# content block #}
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+    {# footer block #}
+    {% include 'layouts/common/footer.html.twig' %}
+</div>
+</body>
 </html>

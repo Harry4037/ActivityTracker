@@ -26,98 +26,132 @@
 
         //]]>
     </script>
+
     <h2 style="font-family: Verdana,Tahoma,Arial,sans-serif">Welcome, {{ app.user.firstName|capitalize~" " ~  app.user.lastName }}.</h2>
+
     <div id="browserBox" class="box" style="display:none;">
-        <img style="vertical-align: middle; margin-right: 5px" src="/images/exclamation.gif" alt="Exclamation" /><b>Notice: </b>
+        <img style="vertical-align: middle; margin-right: 5px" src="{{ asset('images/exclamation.gif') }}" alt="Exclamation" /><b>Notice: </b>
         We've detected that you are using an out-of-date or unsupported browser. iSimulate works best with
         <a target="out" href="http://www.mozilla.com/en-US/firefox/">Mozilla Firefox 2+</a>,
         <a target="out" href="http://www.microsoft.com/windows/products/winfamily/ie/default.mspx">Internet Explorer 7+</a> and
         <a target="out" href="http://www.google.com/chrome/">Google Chrome</a>.
     </div>
 
-    <div id="getStarted" class="box" style="background-color: #FFFDE5; padding-bottom: 0;">
-        <script type="text/javascript">
-            //<![CDATA[
+    {% if app.user.showGetStartedBox %}
+        <div id="getStarted" class="box" style="background-color: #FFFDE5; padding-bottom: 0;">
+            <script type="text/javascript">
+                //<![CDATA[
 
-            function hideGetStartedBox()
-            {
-            if (confirm('Are you sure you want to disable this box?  You can re-enable it at any time by updating your user profile.')) {
-            new Ajax.Request('/user/hideGetStartedBox', {
-            asynchronous:true,
-                    evalScripts:false,
-                    onComplete:function(request, json) {
-                    Element.hide('indicator');
-                    new Effect.BlindUp('getStarted', {});
-                    },
-                    onLoading:function(request, json) {
-                    Element.show('indicator');
-                    }
-            });
-            }
-            else {
-            $('getStartedCheckBox').checked = true;
-            }
-            }
+                function hideGetStartedBox()
+                {
+                if (confirm('Are you sure you want to disable this box?  You can re-enable it at any time by updating your user profile.')) {
+                new Ajax.Request('{{ path('hideGetStartedBox') }}', {
+                asynchronous:true,
+                        evalScripts:false,
+                        onComplete:function(request, json) {
+                        Element.hide('indicator');
+                        new Effect.BlindUp('getStarted', {});
+                        },
+                        onLoading:function(request, json) {
+                        Element.show('indicator');
+                        }
+                });
+                }
+                else {
+                $('getStartedCheckBox').checked = true;
+                }
+                }
 
-            //]]>
-        </script>		<div style="float:right; margin: -7px;">
-            <a href="#" onclick="new Effect.BlindUp('getStarted', {}); ; return false;"><img id="close" title="Close This Box" src="/images/close_box.png" alt="Close_box" /></a>		</div>
-        <div id="boxheader" style="float: left; margin-bottom: 10px;">
-            <img style="vertical-align: middle; margin-right: 8px" src="/images/lightbulb.gif" alt="Lightbulb" />To get started, you can:
-        </div>
+                //]]>
+            </script>		
+            <div style="float:right; margin: -7px;">
+                <a href="#" onclick="new Effect.BlindUp('getStarted', {}); ; return false;">
+                    <img id="close" title="Close This Box" src="{{ asset('images/close_box.png') }}" alt="Close_box" />
+                </a>
+            </div>
+            <div id="boxheader" style="float: left; margin-bottom: 10px;">
+                <img style="vertical-align: middle; margin-right: 8px" src="{{ asset('images/lightbulb.gif') }}" alt="Lightbulb" />To get started, you can:
+            </div>
 
-        <img style="vertical-align: middle; margin-bottom: 8px; margin-right: 8px" src="/images/restart-1.gif" alt="Restart-1" />		<a style="font-size: 15px;" href="#" onclick="new Effect.BlindDown('box1', {}); ; return false;">Execute Simulations</a>		<div id="box1" style="margin-top: 5px; margin-left: 10px; margin-bottom: 10px; display: none;">
-            &middot;&nbsp;Begin working with applications
-            <img class="superscript" title="header=[What Is An Application?]
-                 body=[An application is an economic simulation model available on iSimulate.]
-                 " src="/images/question-mark.gif" alt="Question-mark" />
-            in the <a href="/group/Public">Public</a> group, an open community of iSimulate users.<br>
-            or<br>
-            &middot;&nbsp;Begin working in your secure <a href="/group/Personal">Personal</a> group by <a href="/group/Personal/applicationSubscriptions/1">subscribing to an application</a>.
+            <img style="vertical-align: middle; margin-bottom: 8px; margin-right: 8px" src="{{ asset('images/restart-1.gif') }}" alt="Restart-1" />
+            <a style="font-size: 15px;" href="#" onclick="new Effect.BlindDown('box1', {}); ; return false;">Execute Simulations</a>
+            <div id="box1" style="margin-top: 5px; margin-left: 10px; margin-bottom: 10px; display: none;">
+                &middot;&nbsp;Begin working with applications
+                <img class="superscript" title="header=[What Is An Application?]
+                     body=[An application is an economic simulation model available on iSimulate.]
+                     " src="{{ asset('images/question-mark.gif') }}" alt="Question-mark" />
+                in the <a href="{{ path('group_show',{'groupName': publicGroupName }) }}">Public</a> group, an open community of iSimulate users.<br>
+                or<br>
+                &middot;&nbsp;Begin working in your secure <a href="{{ path('group_show',{'groupName': privateGroupName}) }}">Personal</a> group by 
+                <a href="{{ path('application_subscription',{'groupName': privateGroupName, 'pageNumber': 1 }) }}">subscribing to an application</a>.
+            </div>
+            <div>&nbsp;</div>
+            <img style="vertical-align: middle; margin-bottom: 8px; margin-right: 8px" src="{{ asset('images/restart-1.gif') }}" alt="Restart-1" />
+            <a style="font-size: 15px;" href="#" onclick="new Effect.BlindDown('box2', {}); ; return false;">Join A Community</a><br>
+            <div id="box2" style="margin-top: 5px; margin-left: 10px; margin-bottom: 10px; display: none;">
+                &middot; Connect with economists from around the world by joining user-created groups.
+                <img class="superscript" title="header=[What Is A Group?]
+                     body=[A group is a community of iSimulate users working together on the same set of applications.]
+                     " src="{{ asset('images/question-mark.gif') }}" alt="Question-mark" />
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search For Groups:
+                <form method="get" style="display:inline; margin:0; padding:0" action="{{ path('search') }}">
+                    <input type="text" name="query" id="query" value="" class="search" />
+                    <input type="hidden" name="category" id="category" value="groups" />
+                    <input type="submit" name="commit" value="Search" />
+                </form>
+            </div>
+            <div>&nbsp;</div>
+            <img style="vertical-align: middle; margin-bottom: 8px; margin-right: 8px" src="{{ asset('images/restart-1.gif') }}" alt="Restart-1" />
+            <a style="font-size: 15px;" href="#" onclick="new Effect.BlindDown('box3', {}); ; return false;">Start Your Own Community</a><br>
+            <div id="box3" style="margin-left: 10px; display: none;">
+                Create your own community of users by <a href="{{ path('group_create') }}">starting a new iSimulate group</a>.<br><br>
+                iSimulate groups can:<br>
+                &nbsp;&nbsp;&nbsp;&middot;&nbsp;Subscribe to any number of available applications.
+                <img class="superscript" title="header=[What Is An Application?]
+                     body=[An application is an economic simulation model available on iSimulate.]
+                     " src="{{ asset('images/question-mark.gif') }}" alt="Question-mark" />
+                <br>
+                &nbsp;&nbsp;&nbsp;&middot;&nbsp;Work in real-time with other group members while executing simulations.<br>
+                &nbsp;&nbsp;&nbsp;&middot;&nbsp;Collaborate with others using your group's blog as a private message board or a public publishing platform.<br>
+            </div>
+            <div align="right" style="margin-top:10px">
+                <input type="checkbox" name="getStartedCheckBox" id="getStartedCheckBox" value="1" onclick="hideGetStartedBox();" style="vertical-align: middle" checked="checked" /> Always show me this box
+            </div>
         </div>
-        <div>&nbsp;</div>
-        <img style="vertical-align: middle; margin-bottom: 8px; margin-right: 8px" src="/images/restart-1.gif" alt="Restart-1" />		<a style="font-size: 15px;" href="#" onclick="new Effect.BlindDown('box2', {}); ; return false;">Join A Community</a><br>
-        <div id="box2" style="margin-top: 5px; margin-left: 10px; margin-bottom: 10px; display: none;">
-            &middot; Connect with economists from around the world by joining user-created groups.
-            <img class="superscript" title="header=[What Is A Group?]
-                 body=[A group is a community of iSimulate users working together on the same set of applications.]
-                 " src="/images/question-mark.gif" alt="Question-mark" />
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search For Groups:
-            <form method="get" style="display:inline; margin:0; padding:0" action="/search">					<input type="text" name="query" id="query" value="" class="search" />					<input type="hidden" name="category" id="category" value="groups" />					<input type="submit" name="commit" value="Search" />				</form>
-        </div>
-        <div>&nbsp;</div>
-        <img style="vertical-align: middle; margin-bottom: 8px; margin-right: 8px" src="/images/restart-1.gif" alt="Restart-1" />		<a style="font-size: 15px;" href="#" onclick="new Effect.BlindDown('box3', {}); ; return false;">Start Your Own Community</a><br>
-        <div id="box3" style="margin-left: 10px; display: none;">
-            Create your own community of users by <a href="/groups/create">starting a new iSimulate group</a>.<br><br>
-            iSimulate groups can:<br>
-            &nbsp;&nbsp;&nbsp;&middot;&nbsp;Subscribe to any number of available applications.
-            <img class="superscript" title="header=[What Is An Application?]
-                 body=[An application is an economic simulation model available on iSimulate.]
-                 " src="/images/question-mark.gif" alt="Question-mark" />
-            <br>
-            &nbsp;&nbsp;&nbsp;&middot;&nbsp;Work in real-time with other group members while executing simulations.<br>
-            &nbsp;&nbsp;&nbsp;&middot;&nbsp;Collaborate with others using your group's blog as a private message board or a public publishing platform.<br>
-        </div>
-        <div align="right" style="margin-top:10px">
-            <input type="checkbox" name="getStartedCheckBox" id="getStartedCheckBox" value="1" onclick="hideGetStartedBox();" style="vertical-align: middle" checked="checked" /> Always show me this box
-        </div>
-    </div>
+    {% endif %}
 
     <div id="getStarted" class="box">
         <div style="float:right">&nbsp;</div>
         <div id="boxheader">To launch an application:</div>
         <div style="margin-bottom: 15px; margin-top: 10px">
             <div style="margin-bottom: 7px">
-                <img style="vertical-align: middle; margin-right: 8px;" src="/images/step_1.gif" alt="Step_1" />Select A Group:&nbsp;
-                <a href="#" onclick="new Ajax.Updater('step2', '/group/Global+Economic+Data/applications/list/for/launchApp', {asynchronous:true, evalScripts:false, onComplete:function(request, json){Element.hide('indicator'); new Effect.BlindDown('block_step2', {}); }, onLoading:function(request, json){Element.show('indicator'); Element.hide('block_step2'); Element.hide('block_step3')}}); ; return false;">Global Economic Data</a>										 &middot;
-                <a href="#" onclick="new Ajax.Updater('step2', '/group/Personal/applications/list/for/launchApp', {asynchronous:true, evalScripts:false, onComplete:function(request, json){Element.hide('indicator'); new Effect.BlindDown('block_step2', {}); }, onLoading:function(request, json){Element.show('indicator'); Element.hide('block_step2'); Element.hide('block_step3')}}); ; return false;">Personal</a>										 &middot;
-                <a href="#" onclick="new Ajax.Updater('step2', '/group/Public/applications/list/for/launchApp', {asynchronous:true, evalScripts:false, onComplete:function(request, json){Element.hide('indicator'); new Effect.BlindDown('block_step2', {}); }, onLoading:function(request, json){Element.show('indicator'); Element.hide('block_step2'); Element.hide('block_step3')}}); ; return false;">Public</a>															</div>
+                <img style="vertical-align: middle; margin-right: 8px;" src="{{ asset('images/step_1.gif') }}" alt="Step_1" />Select A Group:&nbsp;
+                {% if app.user.getGroupMembers %}
+                    {% for group in app.user.getGroupMembers %}
+                        <a href="#" onclick="new Ajax.Updater('step2',
+                                    '/group/Global+Economic+Data/applications/list/for/launchApp',
+                            {
+                            asynchronous:true,
+                                    evalScripts:false,
+                                    onComplete:function(request, json){
+                                    Element.hide('indicator');
+                                    new Effect.BlindDown('block_step2', {});
+                                    },
+                                    onLoading:function(request, json){
+                                    Element.show('indicator');
+                                    Element.hide('block_step2');
+                                    Element.hide('block_step3')}
+                            }); return false;">
+                            {{ group.groupID.groupName }}</a>&middot;
+                        {% endfor %}
+                    {% endif %}            
+            </div>
             <div id="block_step2" class="gainlayout" style="display:none; margin-bottom: 7px">
-                <img style="vertical-align: middle; margin-right: 8px;" src="/images/step_2.gif" alt="Step_2" />			<span id="step2"></span>
+                <img style="vertical-align: middle; margin-right: 8px;" src="{{ asset('images/step_2.gif') }}" alt="Step_2" />			<span id="step2"></span>
             </div>
             <div id="block_step3" class="gainlayout" style="display:none;">
-                <img style="vertical-align: middle; margin-right: 8px;" src="/images/step_3.gif" alt="Step_3" />			<span id="step3"></span>
+                <img style="vertical-align: middle; margin-right: 8px;" src="{{ asset('images/step_3.gif') }}" alt="Step_3" />			<span id="step3"></span>
             </div>
         </div>
     </div>
@@ -125,11 +159,11 @@
     <div id="tabWrapper" class="section-1">
         <ul id="menu">
             <li id="nav-1"><a href="#" onclick="
-            if ($( & quot; tabWrapper & quot; ).className != & quot; section - 1 & quot; ) {new Ajax.Updater('tabContent', '/user/groupFeed', {asynchronous:true, evalScripts:false, onComplete:function(request, json){Element.hide('tabIndicator'); }, onLoading:function(request, json){$('tabWrapper').className = 'section-1'; $('tabContent').innerHTML = ''; Element.show('tabIndicator')}});
-            }; return false;">Group Feed</a>		</li>
+                if ($( & quot; tabWrapper & quot; ).className != & quot; section - 1 & quot; ) {new Ajax.Updater('tabContent', '/user/groupFeed', {asynchronous:true, evalScripts:false, onComplete:function(request, json){Element.hide('tabIndicator'); }, onLoading:function(request, json){$('tabWrapper').className = 'section-1'; $('tabContent').innerHTML = ''; Element.show('tabIndicator')}});
+                }; return false;">Group Feed</a>		</li>
             <li id="nav-2"><a href="#" onclick="
-            if ($( & quot; tabWrapper & quot; ).className != & quot; section - 2 & quot; ) {new Ajax.Updater('tabContent', '/user/personalFeed', {asynchronous:true, evalScripts:false, onComplete:function(request, json){Element.hide('tabIndicator'); }, onLoading:function(request, json){$('tabWrapper').className = 'section-2'; $('tabContent').innerHTML = ''; Element.show('tabIndicator')}});
-            }; return false;">Personal Feed</a>
+                if ($( & quot; tabWrapper & quot; ).className != & quot; section - 2 & quot; ) {new Ajax.Updater('tabContent', '/user/personalFeed', {asynchronous:true, evalScripts:false, onComplete:function(request, json){Element.hide('tabIndicator'); }, onLoading:function(request, json){$('tabWrapper').className = 'section-2'; $('tabContent').innerHTML = ''; Element.show('tabIndicator')}});
+                }; return false;">Personal Feed</a>
             </li>
         </ul>
         <div id="contents">
@@ -138,7 +172,7 @@
                 <span style="padding-right:5px; font-weight: normal; font-size: 10px;"><input type="checkbox" name="solves" id="solves" value="1" onClick="showHideElements(this, 'blogpost');" checked="checked" /> Blog Posts</span>
                 <span style="padding-right:5px; font-weight: normal; font-size: 10px;"><input type="checkbox" name="solves" id="solves" value="1" onClick="showHideElements(this, 'groupinfo');" checked="checked" /> Group Info</span>
             </div>
-            <div id="tabIndicator" style="display:none"><img src="/images/spinner.gif" alt="Spinner" /></div>
+            <div id="tabIndicator" style="display:none"><img src="{{ asset('images/spinner.gif') }}" alt="Spinner" /></div>
             <span id="tabContent">
 
 

@@ -1,0 +1,13 @@
+{% block rightColumn %}		
+
+    <div id="item">
+        <img id="sideImage" src="{{ asset('images/magnifier.gif') }}" alt="Magnifier"><b>Search</b>
+        <img title="header=[What Is This?] 
+             body=[Use this form to search for available groups and applications on iSimulate.]
+             " src="{{ asset('images/question-mark.gif') }}" alt="Question-mark">		
+        <form method="get" style="margin: 0;" action="{{ path('search') }}">			
+            <input type="text" name="query" id="query" value="" class="search">		
+        </form>
+    </div>
+
+{% endblock %}

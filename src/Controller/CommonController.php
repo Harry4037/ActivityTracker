@@ -15,5 +15,12 @@ class CommonController extends AbstractController {
                     'groups' => $this->getUser()->getGroupMembers()
         ]);
     }
+    
+    public function rightColumn() {
+
+        return $this->render('common/rightColumn.html.twig', [
+                    'groups' => $this->getUser()->getGroupMembers()
+        ]);
+    }
 
 }
