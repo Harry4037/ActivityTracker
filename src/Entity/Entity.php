@@ -34,9 +34,15 @@ class Entity
      */
     private $userTransactions;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\RecentSimulations", mappedBy="entityID")
+     */
+    private $recentSimulations;
+
     public function __construct()
     {
         $this->userTransactions = new ArrayCollection();
+        $this->recentSimulations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -93,6 +99,37 @@ class Entity
             // set the owning side to null (unless already changed)
             if ($userTransaction->getEntityID() === $this) {
                 $userTransaction->setEntityID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RecentSimulations[]
+     */
+    public function getRecentSimulations(): Collection
+    {
+        return $this->recentSimulations;
+    }
+
+    public function addRecentSimulation(RecentSimulations $recentSimulation): self
+    {
+        if (!$this->recentSimulations->contains($recentSimulation)) {
+            $this->recentSimulations[] = $recentSimulation;
+            $recentSimulation->setEntityID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecentSimulation(RecentSimulations $recentSimulation): self
+    {
+        if ($this->recentSimulations->contains($recentSimulation)) {
+            $this->recentSimulations->removeElement($recentSimulation);
+            // set the owning side to null (unless already changed)
+            if ($recentSimulation->getEntityID() === $this) {
+                $recentSimulation->setEntityID(null);
             }
         }
 

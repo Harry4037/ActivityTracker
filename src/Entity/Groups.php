@@ -86,11 +86,29 @@ class Groups
      */
     private $userTransactions;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\GroupMembershipNotifications", mappedBy="groupID")
+     */
+    private $groupMembershipNotifications;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\GroupApplicationNotifications", mappedBy="groupID")
+     */
+    private $groupApplicationNotifications;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\RecentSimulations", mappedBy="groupID")
+     */
+    private $recentSimulations;
+
     public function __construct()
     {
         $this->groupMembers = new ArrayCollection();
         $this->groupRequests = new ArrayCollection();
         $this->userTransactions = new ArrayCollection();
+        $this->groupMembershipNotifications = new ArrayCollection();
+        $this->groupApplicationNotifications = new ArrayCollection();
+        $this->recentSimulations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -269,6 +287,99 @@ class Groups
             // set the owning side to null (unless already changed)
             if ($userTransaction->getGroupID() === $this) {
                 $userTransaction->setGroupID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|GroupMembershipNotifications[]
+     */
+    public function getGroupMembershipNotifications(): Collection
+    {
+        return $this->groupMembershipNotifications;
+    }
+
+    public function addGroupMembershipNotification(GroupMembershipNotifications $groupMembershipNotification): self
+    {
+        if (!$this->groupMembershipNotifications->contains($groupMembershipNotification)) {
+            $this->groupMembershipNotifications[] = $groupMembershipNotification;
+            $groupMembershipNotification->setGroupID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupMembershipNotification(GroupMembershipNotifications $groupMembershipNotification): self
+    {
+        if ($this->groupMembershipNotifications->contains($groupMembershipNotification)) {
+            $this->groupMembershipNotifications->removeElement($groupMembershipNotification);
+            // set the owning side to null (unless already changed)
+            if ($groupMembershipNotification->getGroupID() === $this) {
+                $groupMembershipNotification->setGroupID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|GroupApplicationNotifications[]
+     */
+    public function getGroupApplicationNotifications(): Collection
+    {
+        return $this->groupApplicationNotifications;
+    }
+
+    public function addGroupApplicationNotification(GroupApplicationNotifications $groupApplicationNotification): self
+    {
+        if (!$this->groupApplicationNotifications->contains($groupApplicationNotification)) {
+            $this->groupApplicationNotifications[] = $groupApplicationNotification;
+            $groupApplicationNotification->setGroupID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupApplicationNotification(GroupApplicationNotifications $groupApplicationNotification): self
+    {
+        if ($this->groupApplicationNotifications->contains($groupApplicationNotification)) {
+            $this->groupApplicationNotifications->removeElement($groupApplicationNotification);
+            // set the owning side to null (unless already changed)
+            if ($groupApplicationNotification->getGroupID() === $this) {
+                $groupApplicationNotification->setGroupID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RecentSimulations[]
+     */
+    public function getRecentSimulations(): Collection
+    {
+        return $this->recentSimulations;
+    }
+
+    public function addRecentSimulation(RecentSimulations $recentSimulation): self
+    {
+        if (!$this->recentSimulations->contains($recentSimulation)) {
+            $this->recentSimulations[] = $recentSimulation;
+            $recentSimulation->setGroupID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecentSimulation(RecentSimulations $recentSimulation): self
+    {
+        if ($this->recentSimulations->contains($recentSimulation)) {
+            $this->recentSimulations->removeElement($recentSimulation);
+            // set the owning side to null (unless already changed)
+            if ($recentSimulation->getGroupID() === $this) {
+                $recentSimulation->setGroupID(null);
             }
         }
 

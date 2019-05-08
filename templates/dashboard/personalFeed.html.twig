@@ -1,0 +1,14 @@
+{% if transactions %}
+    {% for transaction in transactions %}
+        <div style="color: #86603C; margin-top: 10px">
+            {{ transaction.getCreatedAt|date('M j, Y') }} 
+        </div>
+        <div style="padding-bottom: 4px;" class="groupinfo">
+            <img style="margin-right: 5px; vertical-align: middle;" src="{{ asset('images/information.gif') }}" alt="Information">
+            {{ app.user.getDisplayName }} joined the  <a href="{{ path('group_show', {'groupName': transaction.groupID.groupName }) }}">{{ transaction.groupID.groupName }}</a> group.
+            <span style="color: #808080; font-size: 9px">
+                {{ transaction.getCreatedAt|date('g:i A T') }}
+            </span>
+        </div>
+    {% endfor %}
+{% endif %}

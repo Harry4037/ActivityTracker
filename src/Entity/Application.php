@@ -129,11 +129,23 @@ class Application
      */
     private $userTransactions;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\GroupApplicationNotifications", mappedBy="applicationID")
+     */
+    private $groupApplicationNotifications;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\RecentSimulations", mappedBy="applicationID")
+     */
+    private $recentSimulations;
+
     public function __construct()
     {
         $this->applicationAdmins = new ArrayCollection();
         $this->applicationRequests = new ArrayCollection();
         $this->userTransactions = new ArrayCollection();
+        $this->groupApplicationNotifications = new ArrayCollection();
+        $this->recentSimulations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -456,6 +468,68 @@ class Application
             // set the owning side to null (unless already changed)
             if ($userTransaction->getApplicationID() === $this) {
                 $userTransaction->setApplicationID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|GroupApplicationNotifications[]
+     */
+    public function getGroupApplicationNotifications(): Collection
+    {
+        return $this->groupApplicationNotifications;
+    }
+
+    public function addGroupApplicationNotification(GroupApplicationNotifications $groupApplicationNotification): self
+    {
+        if (!$this->groupApplicationNotifications->contains($groupApplicationNotification)) {
+            $this->groupApplicationNotifications[] = $groupApplicationNotification;
+            $groupApplicationNotification->setApplicationID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupApplicationNotification(GroupApplicationNotifications $groupApplicationNotification): self
+    {
+        if ($this->groupApplicationNotifications->contains($groupApplicationNotification)) {
+            $this->groupApplicationNotifications->removeElement($groupApplicationNotification);
+            // set the owning side to null (unless already changed)
+            if ($groupApplicationNotification->getApplicationID() === $this) {
+                $groupApplicationNotification->setApplicationID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RecentSimulations[]
+     */
+    public function getRecentSimulations(): Collection
+    {
+        return $this->recentSimulations;
+    }
+
+    public function addRecentSimulation(RecentSimulations $recentSimulation): self
+    {
+        if (!$this->recentSimulations->contains($recentSimulation)) {
+            $this->recentSimulations[] = $recentSimulation;
+            $recentSimulation->setApplicationID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecentSimulation(RecentSimulations $recentSimulation): self
+    {
+        if ($this->recentSimulations->contains($recentSimulation)) {
+            $this->recentSimulations->removeElement($recentSimulation);
+            // set the owning side to null (unless already changed)
+            if ($recentSimulation->getApplicationID() === $this) {
+                $recentSimulation->setApplicationID(null);
             }
         }
 

@@ -42,7 +42,7 @@ class UserTransactions
     private $entityID;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Command", inversedBy="userTransactions")
+     * @ORM\ManyToOne(targetEntity="Command", inversedBy="userTransactions", fetch="EAGER")
      * @ORM\JoinColumn(name="commandID", referencedColumnName="commandID")
      */
     private $commandID;

@@ -9,5 +9,141 @@
             <input type="text" name="query" id="query" value="" class="search">		
         </form>
     </div>
+    {% if hasNotifications %}
+        <div id="item">
+            <img src="{{ asset('images/exclamation.gif') }}" id="sideImage"><b>Notifications</b><br>
+            {% set i = 1 %}
+            {% for notification in markedGroupRequests %}			
+                <div class="notification" id="notification{{ i }}">
+                    <div style="float:right; padding-left: 3px;">
+                        <a href="#" onclick="new Ajax.Updater(
+                                        'item{{ i }}',
+                                        '/user/acknowledge/group/Indian+Economy',
+                                        {
+                                            asynchronous: true,
+                                            evalScripts: false,
+                                            onComplete: function (request, json) {
+                                                new Effect.Fade('indicator', {});
+                                                new Effect.BlindUp('notification1', {});
+                                            },
+                                            onLoading: function (request, json) {
+                                                new Effect.Appear('indicator', {});
+                                            }
+                                        });
+                                return false;">
+                            <img id="close" src="{{ asset('images/close_box.png') }}" alt="Close_box"></a>
+                    </div>
+                    <div>			
+                        &middot; 
+                        {% if notification.approved %}
+                            Membership granted to the <a href="{{ path('group_show',{'groupName': notification.groupName}) }}">{{ notification.groupName }}</a> group.
+                        {% else %}
+                            Your request to join the link group has been denied.
+                        {% endif %}
+                    </div>
+                </div>			
+                {% set i = i + 1 %}
+            {% endfor %}
 
-{% endblock %}
+
+            {% for notification in markedApplicationRequests %}
+                <div class="notification" id="notification{{ i }}">
+                    <div style="float:right; padding-left: 3px;">
+                        <a href="#" onclick="new Ajax.Updater(
+                                        'item{{ i }}',
+                                        '/user/acknowledge/group/Indian+Economy',
+                                        {
+                                            asynchronous: true,
+                                            evalScripts: false,
+                                            onComplete: function (request, json) {
+                                                new Effect.Fade('indicator', {});
+                                                new Effect.BlindUp('notification1', {});
+                                            },
+                                            onLoading: function (request, json) {
+                                                new Effect.Appear('indicator', {});
+                                            }
+                                        });
+                                return false;">
+                            <img id="close" src="{{ asset('images/close_box.png') }}" alt="Close_box"></a>
+                    </div>
+                    <div>
+                        &middot; 
+                        {% if notification.isDeleted %}
+                            <a href="{{ path('group_show',{'groupName': notification.groupName}) }}">{{ notification.groupName }}</a> is no longer subscribed to the <a href="{{ path('application_index',{'applicationName': notification.application_name }) }}">{{ notification.application_name }}</a> application.
+                        {% elseif notification.approved %}						
+                            <a href="{{ path('group_show',{'groupName': notification.groupName}) }}">{{ notification.groupName }}</a> is now subscribed to the <a href="{{ path('application_index',{'applicationName': notification.application_name }) }}">{{ notification.application_name }}</a> application.						
+                        {% else %}
+                            <a href="{{ path('group_show',{'groupName': notification.groupName}) }}">{{ notification.groupName }}</a> has been denied access to the <a href="{{ path('application_index',{'applicationName': notification.application_name }) }}">{{ notification.application_name }}</a> application.
+                        {% endif %}					
+                    </div>					
+                </div>			
+                {% set i = i + 1 %}
+            {% endfor %}
+
+            {% for groupName ,numRequests in groupRequests %}
+                <div>
+
+                    {% set str = numRequests~" "~groupName~" Membership Request" %}
+                    {# {% if numRequests > 1  %}
+                         {% set str = srt~"s" %}
+                     {% endif %}#}
+                    &middot; <a href="groupmembershiprequest">{{ str }}</a>				
+                </div>
+                {% set i = i + 1 %}
+            {% endfor %}
+
+            {% for applicationName,numRequests in applicationRequests %}
+                <div>
+                    {% set str = numRequests~" "~applicationName~" Subscription Request" %}
+                    {# {% if numRequests > 1  %}
+                         {% set str = srt~"s" %}
+                     {% endif %}#}
+                    &middot; <a href="applicationSubscriptionRequest">{{ str }}</a>
+                </div>
+                {% set i = i + 1 %}
+            {% endfor %}
+        </div>
+        {% if (groupRequestsCount == 0 and applicationRequestsCount == 0) %}
+            <div>&nbsp;</div>
+        {% endif %}
+    {% endif %}
+
+    {% if recentSimulations > 0 %}
+    <div id="item">
+        <img src="{{ asset('images/user.gif') }}" id="sideImage"><b>My Recent Activity</b>
+        <img src="{{ asset('images/question-mark.gif') }}" title="header=[What Is This?] 
+        body=[This is a list of the countries you have recently viewed. Click on a country to display its latest data.]">
+        	
+        {#<?php $userTimeZone = sfContext::getInstance()->getUser()->getAttribute('timezone') ?>
+        <?php $today = new DateTime("now",new DateTimeZone($userTimeZone)) ?>
+        <?php $yesterday = new DateTime("yesterday",new DateTimeZone($userTimeZone)) ?>		
+
+        <?php foreach($recentSimulations as $simulation): /* @var $simulation RecentSimulation */ ?>						
+        <?php $date = new DateTime($simulation->getCreatedAt(),new DateTimeZone($userTimeZone)) ?>
+        <?php if(!isset($lastDate) || $date->format("Y-m-d") != $lastDate->format("Y-m-d")): ?>
+        <?php if(!isset($lastDate)): ?>
+        <div style="color: #86603C;">
+            <?php else: ?>
+            <div style="color: #86603C; padding-top: 7px;">
+                <?php endif ?>
+
+                <?php if($date->format("Y-m-d") == $today->format("Y-m-d")): ?>
+                Today
+                <?php elseif($date->format("Y-m-d") == $yesterday->format("Y-m-d")): ?>
+                Yesterday
+                <?php elseif($date->format("Y") != $today->format("Y")): ?>
+                <?php echo $date->format("M j, Y") ?>
+                <?php else: ?>
+                <?php echo $date->format("M j") ?>
+                <?php endif ?>
+            </div>
+            <?php endif ?>
+            <div>				
+                <span style="font-size: 9px; color: #808080; float: right;"><?php echo $simulation->getGroup() . " " . $simulation->getApplication() ?></span>
+                <?php echo link_to($simulation->getEntity()->getEntityname(),"@displayEntity?groupName=".$simulation->getGroup()."&application=".$simulation->getApplication()."&entityCode=".$simulation->getEntity()->getEntitycode()) ?>
+            </div>
+            <?php $lastDate = $date ?>
+            <?php endforeach ?>	#}				
+        </div>
+        {% endif %}
+    {% endblock %}

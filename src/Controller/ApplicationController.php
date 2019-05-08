@@ -11,6 +11,12 @@ use App\Entity\GroupMembers;
 class ApplicationController extends AbstractController {
 
     /**
+     * @Route("/application/{applicationName}", name="application_index")
+     */
+    public function index() {
+        dd("application index");
+    }
+    /**
      * @Route("/group/{groupName}/applicationSubscriptions/{pageNumber}", name="application_subscription")
      */
     public function applicationSubscription() {

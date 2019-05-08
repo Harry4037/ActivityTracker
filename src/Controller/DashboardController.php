@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\GroupMembers;
+use App\Entity\UserTransactions;
 
 class DashboardController extends AbstractController {
 
@@ -16,9 +17,36 @@ class DashboardController extends AbstractController {
     public function index() {
         $publicGroupName = "Public";
         $privateGroupName = "Private";
-        return $this->render('dashboard/index.html.twig',[
-            'publicGroupName' => $publicGroupName,
-            'privateGroupName' => $privateGroupName,
+
+        $transactions = $groups = $this->getDoctrine()
+                ->getRepository(UserTransactions::class)
+                ->findBy([
+            "userID" => $this->getUser(),
+            "error" => 0,
+            "commandID" => 1
+                ], null, 15);
+        //blog query
+//        dd($transacions);
+        return $this->render('dashboard/index.html.twig', [
+                    'publicGroupName' => $publicGroupName,
+                    'privateGroupName' => $privateGroupName,
+                    'transactions' => $transactions,
+        ]);
+    }
+
+    /**
+     * @Route("/personalFeed", name="personal_feed")
+     */
+    public function personalFeed() {
+        $transactions = $groups = $this->getDoctrine()
+                ->getRepository(UserTransactions::class)
+                ->findBy([
+            "userID" => $this->getUser(),
+            "error" => 0,
+            "commandID" => 1
+                ], null, 15);
+        return $this->render('dashboard/personalFeed.html.twig', [
+                    'transactions' => $transactions,
         ]);
     }
 

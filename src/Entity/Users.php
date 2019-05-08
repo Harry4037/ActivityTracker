@@ -197,12 +197,30 @@ class Users implements UserInterface, \Serializable
      */
     private $userTransactions;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\GroupMembershipNotifications", mappedBy="userID")
+     */
+    private $groupMembershipNotifications;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\GroupApplicationNotifications", mappedBy="userID")
+     */
+    private $groupApplicationNotifications;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\RecentSimulations", mappedBy="userID")
+     */
+    private $recentSimulations;
+
     public function __construct()
     {
         $this->groupMembers = new ArrayCollection();
         $this->groupRequests = new ArrayCollection();
         $this->applicationAdmins = new ArrayCollection();
         $this->userTransactions = new ArrayCollection();
+        $this->groupMembershipNotifications = new ArrayCollection();
+        $this->groupApplicationNotifications = new ArrayCollection();
+        $this->recentSimulations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -229,7 +247,7 @@ class Users implements UserInterface, \Serializable
 
         // guarantees that a user always has at least one role for security
         if (empty($roles)) {
-            $roles[] = 'USER';
+            $roles[] = 'ROLE_USER';
         }
 
         return array_unique($roles);
@@ -633,6 +651,99 @@ class Users implements UserInterface, \Serializable
             // set the owning side to null (unless already changed)
             if ($userTransaction->getUserID() === $this) {
                 $userTransaction->setUserID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|GroupMembershipNotifications[]
+     */
+    public function getGroupMembershipNotifications(): Collection
+    {
+        return $this->groupMembershipNotifications;
+    }
+
+    public function addGroupMembershipNotification(GroupMembershipNotifications $groupMembershipNotification): self
+    {
+        if (!$this->groupMembershipNotifications->contains($groupMembershipNotification)) {
+            $this->groupMembershipNotifications[] = $groupMembershipNotification;
+            $groupMembershipNotification->setUserID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupMembershipNotification(GroupMembershipNotifications $groupMembershipNotification): self
+    {
+        if ($this->groupMembershipNotifications->contains($groupMembershipNotification)) {
+            $this->groupMembershipNotifications->removeElement($groupMembershipNotification);
+            // set the owning side to null (unless already changed)
+            if ($groupMembershipNotification->getUserID() === $this) {
+                $groupMembershipNotification->setUserID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|GroupApplicationNotifications[]
+     */
+    public function getGroupApplicationNotifications(): Collection
+    {
+        return $this->groupApplicationNotifications;
+    }
+
+    public function addGroupApplicationNotification(GroupApplicationNotifications $groupApplicationNotification): self
+    {
+        if (!$this->groupApplicationNotifications->contains($groupApplicationNotification)) {
+            $this->groupApplicationNotifications[] = $groupApplicationNotification;
+            $groupApplicationNotification->setUserID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupApplicationNotification(GroupApplicationNotifications $groupApplicationNotification): self
+    {
+        if ($this->groupApplicationNotifications->contains($groupApplicationNotification)) {
+            $this->groupApplicationNotifications->removeElement($groupApplicationNotification);
+            // set the owning side to null (unless already changed)
+            if ($groupApplicationNotification->getUserID() === $this) {
+                $groupApplicationNotification->setUserID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RecentSimulations[]
+     */
+    public function getRecentSimulations(): Collection
+    {
+        return $this->recentSimulations;
+    }
+
+    public function addRecentSimulation(RecentSimulations $recentSimulation): self
+    {
+        if (!$this->recentSimulations->contains($recentSimulation)) {
+            $this->recentSimulations[] = $recentSimulation;
+            $recentSimulation->setUserID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecentSimulation(RecentSimulations $recentSimulation): self
+    {
+        if ($this->recentSimulations->contains($recentSimulation)) {
+            $this->recentSimulations->removeElement($recentSimulation);
+            // set the owning side to null (unless already changed)
+            if ($recentSimulation->getUserID() === $this) {
+                $recentSimulation->setUserID(null);
             }
         }
 

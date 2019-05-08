@@ -6,22 +6,21 @@
 
         function showHideElements(checkbox, className)
         {
-        if (checkbox.checked) {
-        showElements(className);
-        }
-        else {
-        hideElements(className);
-        }
+            if (checkbox.checked) {
+                showElements(className);
+            } else {
+                hideElements(className);
+            }
         }
 
         function hideElements(className)
         {
-        $$('div.' + className).each(Element.hide);
+            $$('div.' + className).each(Element.hide);
         }
 
         function showElements(className)
         {
-        $$('div.' + className).each(Element.show);
+            $$('div.' + className).each(Element.show);
         }
 
         //]]>
@@ -44,28 +43,29 @@
 
                 function hideGetStartedBox()
                 {
-                if (confirm('Are you sure you want to disable this box?  You can re-enable it at any time by updating your user profile.')) {
-                new Ajax.Request('{{ path('hideGetStartedBox') }}', {
-                asynchronous:true,
-                        evalScripts:false,
-                        onComplete:function(request, json) {
-                        Element.hide('indicator');
-                        new Effect.BlindUp('getStarted', {});
-                        },
-                        onLoading:function(request, json) {
-                        Element.show('indicator');
-                        }
-                });
-                }
-                else {
-                $('getStartedCheckBox').checked = true;
-                }
+                    if (confirm('Are you sure you want to disable this box?  You can re-enable it at any time by updating your user profile.')) {
+                        new Ajax.Request('{{ path('hideGetStartedBox') }}', {
+                            asynchronous: true,
+                            evalScripts: false,
+                            onComplete: function (request, json) {
+                                Element.hide('indicator');
+                                new Effect.BlindUp('getStarted', {});
+                            },
+                            onLoading: function (request, json) {
+                                Element.show('indicator');
+                            }
+                        });
+                    } else {
+                        $('getStartedCheckBox').checked = true;
+                    }
                 }
 
                 //]]>
             </script>		
             <div style="float:right; margin: -7px;">
-                <a href="#" onclick="new Effect.BlindUp('getStarted', {}); ; return false;">
+                <a href="#" onclick="new Effect.BlindUp('getStarted', {});
+                        ;
+                        return false;">
                     <img id="close" title="Close This Box" src="{{ asset('images/close_box.png') }}" alt="Close_box" />
                 </a>
             </div>
@@ -74,7 +74,9 @@
             </div>
 
             <img style="vertical-align: middle; margin-bottom: 8px; margin-right: 8px" src="{{ asset('images/restart-1.gif') }}" alt="Restart-1" />
-            <a style="font-size: 15px;" href="#" onclick="new Effect.BlindDown('box1', {}); ; return false;">Execute Simulations</a>
+            <a style="font-size: 15px;" href="#" onclick="new Effect.BlindDown('box1', {});
+                    ;
+                    return false;">Execute Simulations</a>
             <div id="box1" style="margin-top: 5px; margin-left: 10px; margin-bottom: 10px; display: none;">
                 &middot;&nbsp;Begin working with applications
                 <img class="superscript" title="header=[What Is An Application?]
@@ -87,7 +89,9 @@
             </div>
             <div>&nbsp;</div>
             <img style="vertical-align: middle; margin-bottom: 8px; margin-right: 8px" src="{{ asset('images/restart-1.gif') }}" alt="Restart-1" />
-            <a style="font-size: 15px;" href="#" onclick="new Effect.BlindDown('box2', {}); ; return false;">Join A Community</a><br>
+            <a style="font-size: 15px;" href="#" onclick="new Effect.BlindDown('box2', {});
+                    ;
+                    return false;">Join A Community</a><br>
             <div id="box2" style="margin-top: 5px; margin-left: 10px; margin-bottom: 10px; display: none;">
                 &middot; Connect with economists from around the world by joining user-created groups.
                 <img class="superscript" title="header=[What Is A Group?]
@@ -103,7 +107,9 @@
             </div>
             <div>&nbsp;</div>
             <img style="vertical-align: middle; margin-bottom: 8px; margin-right: 8px" src="{{ asset('images/restart-1.gif') }}" alt="Restart-1" />
-            <a style="font-size: 15px;" href="#" onclick="new Effect.BlindDown('box3', {}); ; return false;">Start Your Own Community</a><br>
+            <a style="font-size: 15px;" href="#" onclick="new Effect.BlindDown('box3', {});
+                    ;
+                    return false;">Start Your Own Community</a><br>
             <div id="box3" style="margin-left: 10px; display: none;">
                 Create your own community of users by <a href="{{ path('group_create') }}">starting a new iSimulate group</a>.<br><br>
                 iSimulate groups can:<br>
@@ -130,19 +136,21 @@
                 {% if app.user.getGroupMembers %}
                     {% for group in app.user.getGroupMembers %}
                         <a href="#" onclick="new Ajax.Updater('step2',
-                                    '/group/Global+Economic+Data/applications/list/for/launchApp',
-                            {
-                            asynchronous:true,
-                                    evalScripts:false,
-                                    onComplete:function(request, json){
-                                    Element.hide('indicator');
-                                    new Effect.BlindDown('block_step2', {});
-                                    },
-                                    onLoading:function(request, json){
-                                    Element.show('indicator');
-                                    Element.hide('block_step2');
-                                    Element.hide('block_step3')}
-                            }); return false;">
+                                        '/group/Global+Economic+Data/applications/list/for/launchApp',
+                                        {
+                                            asynchronous: true,
+                                            evalScripts: false,
+                                            onComplete: function (request, json) {
+                                                Element.hide('indicator');
+                                                new Effect.BlindDown('block_step2', {});
+                                            },
+                                            onLoading: function (request, json) {
+                                                Element.show('indicator');
+                                                Element.hide('block_step2');
+                                                Element.hide('block_step3')
+                                            }
+                                        });
+                                return false;">
                             {{ group.groupID.groupName }}</a>&middot;
                         {% endfor %}
                     {% endif %}            
@@ -158,12 +166,48 @@
 
     <div id="tabWrapper" class="section-1">
         <ul id="menu">
-            <li id="nav-1"><a href="#" onclick="
-                if ($( & quot; tabWrapper & quot; ).className != & quot; section - 1 & quot; ) {new Ajax.Updater('tabContent', '/user/groupFeed', {asynchronous:true, evalScripts:false, onComplete:function(request, json){Element.hide('tabIndicator'); }, onLoading:function(request, json){$('tabWrapper').className = 'section-1'; $('tabContent').innerHTML = ''; Element.show('tabIndicator')}});
-                }; return false;">Group Feed</a>		</li>
+            <li id="nav-1">
+                <a href="#" onclick="
+                        if ($('tabWrapper').className != 'section-1') {
+                            new Ajax.Updater(
+                                    'tabContent',
+                                    '{{ path('personal_feed') }}',
+                                    {
+                                        asynchronous: true,
+                                        evalScripts: false,
+                                        onComplete: function (request, json) {
+                                            Element.hide('tabIndicator');
+                                        },
+                                        onLoading: function (request, json) {
+                                            $('tabWrapper').className = 'section-1';
+                                            $('tabContent').innerHTML = '';
+                                            Element.show('tabIndicator')
+                                        }
+                                    });
+                        }
+                        ;
+                        return false;">Group Feed</a>
+            </li>
             <li id="nav-2"><a href="#" onclick="
-                if ($( & quot; tabWrapper & quot; ).className != & quot; section - 2 & quot; ) {new Ajax.Updater('tabContent', '/user/personalFeed', {asynchronous:true, evalScripts:false, onComplete:function(request, json){Element.hide('tabIndicator'); }, onLoading:function(request, json){$('tabWrapper').className = 'section-2'; $('tabContent').innerHTML = ''; Element.show('tabIndicator')}});
-                }; return false;">Personal Feed</a>
+                    if ($('tabWrapper').className != 'section-2') {
+                        new Ajax.Updater(
+                                'tabContent',
+                                '{{ path('personal_feed') }}',
+                                {
+                                    asynchronous: true,
+                                    evalScripts: false,
+                                    onComplete: function (request, json) {
+                                        Element.hide('tabIndicator');
+                                    },
+                                    onLoading: function (request, json) {
+                                        $('tabWrapper').className = 'section-2';
+                                        $('tabContent').innerHTML = '';
+                                        Element.show('tabIndicator')
+                                    }
+                                });
+                    }
+                    ;
+                    return false;">Personal Feed</a>
             </li>
         </ul>
         <div id="contents">
@@ -174,301 +218,20 @@
             </div>
             <div id="tabIndicator" style="display:none"><img src="{{ asset('images/spinner.gif') }}" alt="Spinner" /></div>
             <span id="tabContent">
-
-
-                <div style="color: #86603C;">
-                    Apr 22					</div>
-
-
-
-
-                <div style="padding-bottom: 4px;" class="groupinfo">
-                    <img style="margin-right: 5px; vertical-align: middle;" src="/images/information.gif" alt="Information" />AAhmed25 joined the <a href="/group/Global+Economic+Data">Global Economic Data</a> group.&nbsp;
-                    <span style="color: #808080; font-size: 9px">
-                        3:11 PM EDT		</span>
-                </div>
-
-                <div style="color: #86603C; margin-top: 10px">
-                    Apr 21					</div>
-
-
-
-
-                <div style="padding-bottom: 4px;" class="groupinfo">
-                    <img style="margin-right: 5px; vertical-align: middle;" src="/images/information.gif" alt="Information" />bashir82 joined the <a href="/group/Global+Economic+Data">Global Economic Data</a> group.&nbsp;
-                    <span style="color: #808080; font-size: 9px">
-                        10:41 AM EDT		</span>
-                </div>
-
-                <div style="color: #86603C; margin-top: 10px">
-                    Apr 11					</div>
-
-
-
-
-                <div style="padding-bottom: 4px;" class="groupinfo">
-                    <img style="margin-right: 5px; vertical-align: middle;" src="/images/information.gif" alt="Information" />Huong Huong joined the <a href="/group/Global+Economic+Data">Global Economic Data</a> group.&nbsp;
-                    <span style="color: #808080; font-size: 9px">
-                        10:54 PM EDT		</span>
-                </div>
-
-                <div style="color: #86603C; margin-top: 10px">
-                    Apr 9					</div>
-
-
-
-
-                <div style="padding-bottom: 4px;" class="groupinfo">
-                    <img style="margin-right: 5px; vertical-align: middle;" src="/images/information.gif" alt="Information" /><a href="/group/Personal">Personal</a> group created for AAhmed25.&nbsp;
-                    <span style="color: #808080; font-size: 9px">
-                        3:18 PM EDT		</span>
-                </div>
-
-                <div style="color: #86603C; margin-top: 10px">
-                    Mar 5					</div>
-
-
-
-
-                <div style="padding-bottom: 4px;" class="groupinfo">
-                    <img style="margin-right: 5px; vertical-align: middle;" src="/images/information.gif" alt="Information" />prajoljoshi joined the <a href="/group/Global+Economic+Data">Global Economic Data</a> group.&nbsp;
-                    <span style="color: #808080; font-size: 9px">
-                        11:20 PM EST		</span>
-                </div>
-
-                <div style="color: #86603C; margin-top: 10px">
-                    Mar 2					</div>
-
-
-
-
-                <div style="padding-bottom: 4px;" class="transaction">
-                    <img style="margin-right: 5px; vertical-align: middle;" src="/images/flags/BOL.png" alt="BOL" />cpo240480 updated the model for <a href="/group/Public/application/Potential+Output/entity/BOL">Bolivia</a> (<a href="/group/Public">Public</a> <a href="/application/Potential+Output">Potential Output</a>).&nbsp;
-                    <span style="color: #808080; font-size: 9px">
-                        4:32 PM EST		</span>
-                </div>
-
-                <div style="color: #86603C; margin-top: 10px">
-                    Jan 22					</div>
-
-
-
-
-                <div style="padding-bottom: 4px;" class="groupinfo">
-                    <img style="margin-right: 5px; vertical-align: middle;" src="/images/information.gif" alt="Information" />yutingf joined the <a href="/group/Global+Economic+Data">Global Economic Data</a> group.&nbsp;
-                    <span style="color: #808080; font-size: 9px">
-                        5:45 PM EST		</span>
-                </div>
-
-
-
-
-                <div style="padding-bottom: 4px;" class="groupinfo">
-                    <img style="margin-right: 5px; vertical-align: middle;" src="/images/information.gif" alt="Information" />alexsasha joined the <a href="/group/Global+Economic+Data">Global Economic Data</a> group.&nbsp;
-                    <span style="color: #808080; font-size: 9px">
-                        8:20 AM EST		</span>
-                </div>
-
-                <div style="color: #86603C; margin-top: 10px">
-                    Nov 23, 2018					</div>
-
-
-
-
-                <div style="padding-bottom: 4px;" class="transaction">
-                    <img style="margin-right: 5px; vertical-align: middle;" src="/images/flags/AUS.png" alt="AUS" />aspaul updated the model for <a href="/group/Public/application/Potential+Output/entity/AUS">Australia</a> (<a href="/group/Public">Public</a> <a href="/application/Potential+Output">Potential Output</a>).&nbsp;
-                    <span style="color: #808080; font-size: 9px">
-                        7:20 AM EST		</span>
-                </div>
-
-                <div style="color: #86603C; margin-top: 10px">
-                    Oct 30, 2018					</div>
-
-
-
-
-                <div style="padding-bottom: 4px;" class="groupinfo">
-                    <img style="margin-right: 5px; vertical-align: middle;" src="/images/information.gif" alt="Information" />macrowb joined the <a href="/group/Global+Economic+Data">Global Economic Data</a> group.&nbsp;
-                    <span style="color: #808080; font-size: 9px">
-                        6:41 AM EDT		</span>
-                </div>
-
-                <div style="color: #86603C; margin-top: 10px">
-                    Sep 4, 2018					</div>
-
-
-
-
-                <div style="padding-bottom: 4px;" class="groupinfo">
-                    <img style="margin-right: 5px; vertical-align: middle;" src="/images/information.gif" alt="Information" />fahimifar joined the <a href="/group/Global+Economic+Data">Global Economic Data</a> group.&nbsp;
-                    <span style="color: #808080; font-size: 9px">
-                        3:32 AM EDT		</span>
-                </div>
-
-                <div style="color: #86603C; margin-top: 10px">
-                    Sep 2, 2018					</div>
-
-
-
-
-                <div style="padding-bottom: 4px;" class="groupinfo">
-                    <img style="margin-right: 5px; vertical-align: middle;" src="/images/information.gif" alt="Information" />bquillin12 joined the <a href="/group/Global+Economic+Data">Global Economic Data</a> group.&nbsp;
-                    <span style="color: #808080; font-size: 9px">
-                        10:40 AM EDT		</span>
-                </div>
-
-                <div style="color: #86603C; margin-top: 10px">
-                    Aug 8, 2018					</div>
-
-
-
-
-                <div style="padding-bottom: 4px;" class="groupinfo">
-                    <img style="margin-right: 5px; vertical-align: middle;" src="/images/information.gif" alt="Information" />bjsherman joined the <a href="/group/Global+Economic+Data">Global Economic Data</a> group.&nbsp;
-                    <span style="color: #808080; font-size: 9px">
-                        7:22 PM EDT		</span>
-                </div>
-
-                <div style="color: #86603C; margin-top: 10px">
-                    Jun 19, 2018					</div>
-
-
-
-
-                <div style="padding-bottom: 4px;" class="groupinfo">
-                    <img style="margin-right: 5px; vertical-align: middle;" src="/images/information.gif" alt="Information" />yumeizhang joined the <a href="/group/Global+Economic+Data">Global Economic Data</a> group.&nbsp;
-                    <span style="color: #808080; font-size: 9px">
-                        3:29 AM EDT		</span>
-                </div>
-
-                <div style="color: #86603C; margin-top: 10px">
-                    Jun 6, 2018					</div>
-
-
-
-
-                <div style="padding-bottom: 4px;" class="groupinfo">
-                    <img style="margin-right: 5px; vertical-align: middle;" src="/images/information.gif" alt="Information" />ryulim joined the <a href="/group/Global+Economic+Data">Global Economic Data</a> group.&nbsp;
-                    <span style="color: #808080; font-size: 9px">
-                        10:11 PM EDT		</span>
-                </div>
-
-                <div style="color: #86603C; margin-top: 10px">
-                    May 28, 2018					</div>
-
-
-
-
-                <div style="padding-bottom: 4px;" class="transaction">
-                    <img style="margin-right: 5px; vertical-align: middle;" src="/images/flags/TUR.png" alt="TUR" />Satakan058 updated the model for <a href="/group/Public/application/Potential+Output/entity/TUR">Turkey</a> (<a href="/group/Public">Public</a> <a href="/application/Potential+Output">Potential Output</a>).&nbsp;
-                    <span style="color: #808080; font-size: 9px">
-                        2:06 PM EDT		</span>
-                </div>
-
-                <div style="color: #86603C; margin-top: 10px">
-                    May 21, 2018					</div>
-
-
-
-
-                <div style="padding-bottom: 4px;" class="groupinfo">
-                    <img style="margin-right: 5px; vertical-align: middle;" src="/images/information.gif" alt="Information" />Mridulksingh joined the <a href="/group/Global+Economic+Data">Global Economic Data</a> group.&nbsp;
-                    <span style="color: #808080; font-size: 9px">
-                        12:02 PM EDT		</span>
-                </div>
-
-                <div style="color: #86603C; margin-top: 10px">
-                    May 14, 2018					</div>
-
-
-
-
-                <div style="padding-bottom: 4px;" class="transaction">
-                    <img style="margin-right: 5px; vertical-align: middle;" src="/images/flags/BOL.png" alt="BOL" />daneyvaldivia updated the model for <a href="/group/Public/application/Potential+Output/entity/BOL">Bolivia</a> (<a href="/group/Public">Public</a> <a href="/application/Potential+Output">Potential Output</a>).&nbsp;
-                    <span style="color: #808080; font-size: 9px">
-                        10:09 AM EDT		</span>
-                </div>
-
-
-
-
-                <div style="padding-bottom: 4px;" class="transaction">
-                    <img style="margin-right: 5px; vertical-align: middle;" src="/images/flags/BOL.png" alt="BOL" />daneyvaldivia updated the model for <a href="/group/Public/application/Potential+Output/entity/BOL">Bolivia</a> (<a href="/group/Public">Public</a> <a href="/application/Potential+Output">Potential Output</a>).&nbsp;
-                    <span style="color: #808080; font-size: 9px">
-                        10:08 AM EDT		</span>
-                </div>
-
-                <div style="color: #86603C; margin-top: 10px">
-                    May 1, 2018					</div>
-
-
-
-
-                <div style="padding-bottom: 4px;" class="groupinfo">
-                    <img style="margin-right: 5px; vertical-align: middle;" src="/images/information.gif" alt="Information" />Clem1212 joined the <a href="/group/Global+Economic+Data">Global Economic Data</a> group.&nbsp;
-                    <span style="color: #808080; font-size: 9px">
-                        1:37 PM EDT		</span>
-                </div>
-
-                <div style="color: #86603C; margin-top: 10px">
-                    Apr 26, 2018					</div>
-
-
-
-
-                <div style="padding-bottom: 4px;" class="groupinfo">
-                    <img style="margin-right: 5px; vertical-align: middle;" src="/images/information.gif" alt="Information" />zchinzara joined the <a href="/group/Global+Economic+Data">Global Economic Data</a> group.&nbsp;
-                    <span style="color: #808080; font-size: 9px">
-                        7:53 AM EDT		</span>
-                </div>
-
-                <div style="color: #86603C; margin-top: 10px">
-                    Mar 21, 2018					</div>
-
-
-
-
-                <div style="padding-bottom: 4px;" class="groupinfo">
-                    <img style="margin-right: 5px; vertical-align: middle;" src="/images/information.gif" alt="Information" />guraya6896 joined the <a href="/group/Global+Economic+Data">Global Economic Data</a> group.&nbsp;
-                    <span style="color: #808080; font-size: 9px">
-                        10:12 PM EDT		</span>
-                </div>
-
-                <div style="color: #86603C; margin-top: 10px">
-                    Jan 30, 2018					</div>
-
-
-
-
-                <div style="padding-bottom: 4px;" class="groupinfo">
-                    <img style="margin-right: 5px; vertical-align: middle;" src="/images/information.gif" alt="Information" />Alazwk joined the <a href="/group/Global+Economic+Data">Global Economic Data</a> group.&nbsp;
-                    <span style="color: #808080; font-size: 9px">
-                        1:00 PM EST		</span>
-                </div>
-
-                <div style="color: #86603C; margin-top: 10px">
-                    Jan 3, 2018					</div>
-
-
-
-
-                <div style="padding-bottom: 4px;" class="groupinfo">
-                    <img style="margin-right: 5px; vertical-align: middle;" src="/images/information.gif" alt="Information" />bernhard joined the <a href="/group/Global+Economic+Data">Global Economic Data</a> group.&nbsp;
-                    <span style="color: #808080; font-size: 9px">
-                        7:37 AM EST		</span>
-                </div>
-
-                <div style="color: #86603C; margin-top: 10px">
-                    Dec 12, 2017					</div>
-
-
-
-
-                <div style="padding-bottom: 4px;" class="transaction">
-                    <img style="margin-right: 5px; vertical-align: middle;" src="/images/flags/GBR.png" alt="GBR" />Yasmin93 updated the model for <a href="/group/Public/application/Gep2014B_public/entity/GBR">United Kingdom</a> (<a href="/group/Public">Public</a> <a href="/application/Gep2014B_public">Gep2014B_public</a>).&nbsp;
-                    <span style="color: #808080; font-size: 9px">
-                        6:38 PM EST		</span>
-                </div>
+                {% if transactions %}
+                    {% for transaction in transactions %}
+                        <div style="color: #86603C; margin-top: 10px">
+                            {{ transaction.getCreatedAt|date('M j, Y') }} 
+                        </div>
+                        <div style="padding-bottom: 4px;" class="groupinfo">
+                            <img style="margin-right: 5px; vertical-align: middle;" src="{{ asset('images/information.gif') }}" alt="Information">
+                            {{ app.user.getDisplayName }} joined the  <a href="{{ path('group_show', {'groupName': transaction.groupID.groupName }) }}">{{ transaction.groupID.groupName }}</a> group.
+                            <span style="color: #808080; font-size: 9px">
+                                {{ transaction.getCreatedAt|date('g:i A T') }}
+                            </span>
+                        </div>
+                    {% endfor %}
+                {% endif %}
             </span>
         </div>
     </div>
@@ -479,23 +242,25 @@
         //<![CDATA[
 
         function isIE7() {
-        return /msie 7/.test(navigator.userAgent.toLowerCase());
+            return /msie 7/.test(navigator.userAgent.toLowerCase());
         }
 
         function isFirefox2orHigher() {
-        return window.Iterator;
+            return window.Iterator;
         }
 
         function isIE6orHigher() {
-        return document.compatMode && document.all;
+            return document.compatMode && document.all;
         }
 
         function isChrome() {
-        return /chrome/.test(navigator.userAgent.toLowerCase());
+            return /chrome/.test(navigator.userAgent.toLowerCase());
         }
 
-        Event.observe(window, 'load', function() {
-        if (!isIE6orHigher() && !isFirefox2orHigher() && !isChrome()) new Effect.Appear('browserBox', {}); new Effect.Highlight('browserBox', {});
+        Event.observe(window, 'load', function () {
+            if (!isIE6orHigher() && !isFirefox2orHigher() && !isChrome())
+                new Effect.Appear('browserBox', {});
+            new Effect.Highlight('browserBox', {});
         });
         //]]>
     </script>
