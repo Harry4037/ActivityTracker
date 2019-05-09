@@ -109,41 +109,51 @@
     {% endif %}
 
     {% if recentSimulations > 0 %}
-    <div id="item">
-        <img src="{{ asset('images/user.gif') }}" id="sideImage"><b>My Recent Activity</b>
-        <img src="{{ asset('images/question-mark.gif') }}" title="header=[What Is This?] 
-        body=[This is a list of the countries you have recently viewed. Click on a country to display its latest data.]">
-        	
-        {#<?php $userTimeZone = sfContext::getInstance()->getUser()->getAttribute('timezone') ?>
-        <?php $today = new DateTime("now",new DateTimeZone($userTimeZone)) ?>
-        <?php $yesterday = new DateTime("yesterday",new DateTimeZone($userTimeZone)) ?>		
+        <div id="item">
+            <img src="{{ asset('images/user.gif') }}" id="sideImage"><b>My Recent Activity</b>
+            <img src="{{ asset('images/question-mark.gif') }}" title="header=[What Is This?] 
+                 body=[This is a list of the countries you have recently viewed. Click on a country to display its latest data.]">
 
-        <?php foreach($recentSimulations as $simulation): /* @var $simulation RecentSimulation */ ?>						
-        <?php $date = new DateTime($simulation->getCreatedAt(),new DateTimeZone($userTimeZone)) ?>
-        <?php if(!isset($lastDate) || $date->format("Y-m-d") != $lastDate->format("Y-m-d")): ?>
-        <?php if(!isset($lastDate)): ?>
-        <div style="color: #86603C;">
-            <?php else: ?>
-            <div style="color: #86603C; padding-top: 7px;">
-                <?php endif ?>
-
-                <?php if($date->format("Y-m-d") == $today->format("Y-m-d")): ?>
-                Today
-                <?php elseif($date->format("Y-m-d") == $yesterday->format("Y-m-d")): ?>
-                Yesterday
-                <?php elseif($date->format("Y") != $today->format("Y")): ?>
-                <?php echo $date->format("M j, Y") ?>
-                <?php else: ?>
-                <?php echo $date->format("M j") ?>
-                <?php endif ?>
-            </div>
-            <?php endif ?>
-            <div>				
-                <span style="font-size: 9px; color: #808080; float: right;"><?php echo $simulation->getGroup() . " " . $simulation->getApplication() ?></span>
-                <?php echo link_to($simulation->getEntity()->getEntityname(),"@displayEntity?groupName=".$simulation->getGroup()."&application=".$simulation->getApplication()."&entityCode=".$simulation->getEntity()->getEntitycode()) ?>
-            </div>
-            <?php $lastDate = $date ?>
-            <?php endforeach ?>	#}				
+            {% for simulation in recentSimulations %}
+                <div style="color: #86603C;">
+                    {#            <div style="color: #86603C; padding-top: 7px;">#}
+                    {% if date(simulation.rs_created_at, app.user.timezone) == date("now", app.user.timezone) %}
+                        Today
+                    {% elseif date(simulation.rs_created_at, app.user.timezone) == date("yesterday", app.user.timezone) %}
+                        Yesterday
+                    {% elseif simulation.rs_created_at|date("Y", app.user.timezone) != "now"|date("Y",app.user.timezone) %}
+                        {{ simulation.rs_created_at|date("M j, Y", app.user.timezone) }}                    
+                    {% else %}
+                        {{ simulation.rs_created_at|date("M j", app.user.timezone) }} 
+                    {% endif %}
+                </div>
+                <div>				
+                    <span style="font-size: 9px; color: #808080; float: right;">
+                        {{ simulation.groupName~" "~simulation.application_name }}</span>
+                    <a href="#">{{simulation.entity_name}}</a>
+                </div>
+            {% endfor %}
         </div>
-        {% endif %}
-    {% endblock %}
+    {% endif %}
+
+    {% if applications %}
+        <div id="item">
+            <img src="{{ asset('images/plugin.gif') }}" id="sideImage">
+            <b>Application Management</b><br>
+            {% for application in applications %}
+                <a href="{{ path('application_index',{'applicationName': application.application_name}) }}">{{ application.application_name }}</a>
+                {% if not loop.last %}
+                    &middot; 
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div id="item">
+        <img src="{{ asset('images/time.gif') }}" id="sideImage">
+        <b>iSimulate Updates</b><br>
+        {% for update in updates %}
+            <i>{{ update.created_at|date("M j") }}</i>&nbsp;&nbsp;{{ update.text|raw }}<br><br>
+        {% endfor %}	
+    </div>
+{% endblock %}

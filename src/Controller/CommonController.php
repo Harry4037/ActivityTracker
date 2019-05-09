@@ -11,6 +11,8 @@ use App\Entity\ApplicationRequests;
 use App\Entity\GroupMembershipNotifications;
 use App\Entity\GroupApplicationNotifications;
 use App\Entity\RecentSimulations;
+use App\Entity\ApplicationAdmins;
+use App\Entity\IsimulateUpdates;
 
 class CommonController extends AbstractController {
 
@@ -69,9 +71,16 @@ class CommonController extends AbstractController {
                 count($markedApplicationRequests) > 0;
 
         // End notification section //
-
+        //My recent activity
         $recentSimulations = $this->getDoctrine()
                         ->getRepository(RecentSimulations::class)->getRecentSimulationsForUser($this->getUser()->getId(), 15);
+
+        //Application Management
+        $applications = $this->getDoctrine()
+                        ->getRepository(ApplicationAdmins::class)->getApplicationsUserIsAnAdminOf($this->getUser()->getId());
+        //Recent Simulation
+        $updates = $this->getDoctrine()
+                        ->getRepository(IsimulateUpdates::class)->getRecentUpdates();
 
         return $this->render('common/rightColumn.html.twig', [
                     'groups' => $this->getUser()->getGroupMembers(),
@@ -84,6 +93,8 @@ class CommonController extends AbstractController {
                     'applicationRequestsCount' => count($applicationRequests),
                     'recentSimulations' => $recentSimulations,
                     'recentSimulationsCount' => count($recentSimulations),
+                    'applications' => $applications,
+                    'updates' => $updates,
         ]);
     }
 

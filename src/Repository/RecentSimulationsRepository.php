@@ -23,8 +23,10 @@ class RecentSimulationsRepository extends ServiceEntityRepository {
         $conn = $this->getEntityManager()->getConnection();
 
         $sql = '
-            SELECT rs.*,e.* FROM `recentsimulations` rs
+            SELECT rs.*,rs.created_at as rs_created_at, e.*,g.*,a.* FROM `recentsimulations` rs
             JOIN users u on u.userID = rs.userID
+            JOIN groups g on g.groupID = rs.groupID
+            JOIN application a on a.applicationID = rs.applicationID
             JOIN entity e on e.entityID = rs.entityID
             WHERE rs.userID = '.$userID.'
             ORDER BY rs.created_at DESC, e.entity_name ASC limit '.$maxEntries;
