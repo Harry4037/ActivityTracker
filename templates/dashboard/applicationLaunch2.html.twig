@@ -1,0 +1,37 @@
+
+
+{% if not applications %}
+    <b>{{  group.groupName }} does not currently subscribe to any applications.</b>  
+    {% if groupMember.admin %} 
+        <a href="{{ path('application_subscription',{'groupName': group.groupName, 'pageNumber': 1}) }}">Click here</a> to subscribe.
+    {% endif %}
+{% else %}
+    <span style="font-size:9px; color: #808080; margin-right:5px">[{{ group.groupName }}]</span>Select An Application:&nbsp;
+    {% for application in applications %}
+        {% if app.request.get('type') == "launchApp" %}
+            <a href="#" onclick="new Ajax.Updater('step3', '/group/Indian+Economy/application/WB+Global/entityList', {asynchronous: true, evalScripts: true, onComplete: function (request, json) {
+                            Element.hide('indicator');
+                            new Effect.BlindDown('block_step3', {});
+                        }, onLoading: function (request, json) {
+                            Element.show('indicator');
+                            Element.hide('block_step3')
+                        }});
+                    ;
+                    return false;">{{ application.application_name }}</a>
+        {% elseif app.request.get('type') == "downloadData" %}
+            {#<?php echo link_to_remote($application,array(
+            'url'		=>	'@downloadGroupApplicationData?groupName='.$group.'&applicationName='.$application,
+            'update'		=>	'step3',
+            'loading'		=>	"Element.show('indicator');Element.hide('block_step3')",
+            'complete'	=>	"Element.hide('indicator');".visual_effect('BlindDown','block_step3'),
+            'script'		=>	true
+            )) ?>#}
+        {% elseif app.request.get('type') == "viewEquations" %}
+            {#            <?php echo link_to($application,'@applicationEquations?applicationName='.$application) ?>#}
+        {% endif %}		
+
+        {% if not loop.last %}
+            &middot; 
+        {% endif %}
+    {% endfor %}
+{% endif %}

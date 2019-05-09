@@ -101,6 +101,11 @@ class Groups
      */
     private $recentSimulations;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\GroupApplications", mappedBy="groupID")
+     */
+    private $groupApplications;
+
     public function __construct()
     {
         $this->groupMembers = new ArrayCollection();
@@ -109,6 +114,7 @@ class Groups
         $this->groupMembershipNotifications = new ArrayCollection();
         $this->groupApplicationNotifications = new ArrayCollection();
         $this->recentSimulations = new ArrayCollection();
+        $this->groupApplications = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -380,6 +386,37 @@ class Groups
             // set the owning side to null (unless already changed)
             if ($recentSimulation->getGroupID() === $this) {
                 $recentSimulation->setGroupID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|GroupApplications[]
+     */
+    public function getGroupApplications(): Collection
+    {
+        return $this->groupApplications;
+    }
+
+    public function addGroupApplication(GroupApplications $groupApplication): self
+    {
+        if (!$this->groupApplications->contains($groupApplication)) {
+            $this->groupApplications[] = $groupApplication;
+            $groupApplication->setGroupID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupApplication(GroupApplications $groupApplication): self
+    {
+        if ($this->groupApplications->contains($groupApplication)) {
+            $this->groupApplications->removeElement($groupApplication);
+            // set the owning side to null (unless already changed)
+            if ($groupApplication->getGroupID() === $this) {
+                $groupApplication->setGroupID(null);
             }
         }
 

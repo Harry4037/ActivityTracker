@@ -12,40 +12,24 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method GroupMembers[]    findAll()
  * @method GroupMembers[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class GroupMembersRepository extends ServiceEntityRepository
-{
-    public function __construct(RegistryInterface $registry)
-    {
+class GroupMembersRepository extends ServiceEntityRepository {
+
+    public function __construct(RegistryInterface $registry) {
         parent::__construct($registry, GroupMembers::class);
     }
 
-    // /**
-    //  * @return GroupMembers[] Returns an array of GroupMembers objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('g')
-            ->andWhere('g.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('g.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+    public function retrieveGroupMember($userID, $groupID) {
 
-    /*
-    public function findOneBySomeField($value): ?GroupMembers
-    {
-        return $this->createQueryBuilder('g')
-            ->andWhere('g.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            SELECT gm.* FROM `groupmembers` gm
+            WHERE gm.groupID = ' . $groupID . ' and gm.userID = ' . $userID;
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetch();
     }
-    */
-    
+
 }

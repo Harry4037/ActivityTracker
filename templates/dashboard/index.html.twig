@@ -135,8 +135,9 @@
                 <img style="vertical-align: middle; margin-right: 8px;" src="{{ asset('images/step_1.gif') }}" alt="Step_1" />Select A Group:&nbsp;
                 {% if app.user.getGroupMembers %}
                     {% for group in app.user.getGroupMembers %}
-                        <a href="#" onclick="new Ajax.Updater('step2',
-                                        '/group/Global+Economic+Data/applications/list/for/launchApp',
+                        <a href="#" onclick="new Ajax.Updater(
+                                        'step2',
+                                        '{{ path('applicationLaunchStep2',{'groupName':group.groupID.groupName,'type':'launchApp'}) }}',
                                         {
                                             asynchronous: true,
                                             evalScripts: false,
