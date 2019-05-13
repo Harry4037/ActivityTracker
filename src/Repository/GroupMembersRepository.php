@@ -22,9 +22,8 @@ class GroupMembersRepository extends ServiceEntityRepository {
 
         $conn = $this->getEntityManager()->getConnection();
 
-        $sql = '
-            SELECT gm.* FROM `groupmembers` gm
-            WHERE gm.groupID = ' . $groupID . ' and gm.userID = ' . $userID;
+        $sql = 'SELECT gm.* FROM `groupmembers` gm WHERE gm.groupID = ' . $groupID . ' and gm.userID = ' . $userID;
+        
         $stmt = $conn->prepare($sql);
         $stmt->execute();
 

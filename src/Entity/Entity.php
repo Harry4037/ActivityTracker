@@ -39,10 +39,22 @@ class Entity
      */
     private $recentSimulations;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\EntityInApplication", mappedBy="entityID")
+     */
+    private $entityInApplications;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ApplicationEquations", mappedBy="entityID")
+     */
+    private $applicationEquations;
+
     public function __construct()
     {
         $this->userTransactions = new ArrayCollection();
         $this->recentSimulations = new ArrayCollection();
+        $this->entityInApplications = new ArrayCollection();
+        $this->applicationEquations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -130,6 +142,68 @@ class Entity
             // set the owning side to null (unless already changed)
             if ($recentSimulation->getEntityID() === $this) {
                 $recentSimulation->setEntityID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|EntityInApplication[]
+     */
+    public function getEntityInApplications(): Collection
+    {
+        return $this->entityInApplications;
+    }
+
+    public function addEntityInApplication(EntityInApplication $entityInApplication): self
+    {
+        if (!$this->entityInApplications->contains($entityInApplication)) {
+            $this->entityInApplications[] = $entityInApplication;
+            $entityInApplication->setEntityID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEntityInApplication(EntityInApplication $entityInApplication): self
+    {
+        if ($this->entityInApplications->contains($entityInApplication)) {
+            $this->entityInApplications->removeElement($entityInApplication);
+            // set the owning side to null (unless already changed)
+            if ($entityInApplication->getEntityID() === $this) {
+                $entityInApplication->setEntityID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ApplicationEquations[]
+     */
+    public function getApplicationEquations(): Collection
+    {
+        return $this->applicationEquations;
+    }
+
+    public function addApplicationEquation(ApplicationEquations $applicationEquation): self
+    {
+        if (!$this->applicationEquations->contains($applicationEquation)) {
+            $this->applicationEquations[] = $applicationEquation;
+            $applicationEquation->setEntityID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApplicationEquation(ApplicationEquations $applicationEquation): self
+    {
+        if ($this->applicationEquations->contains($applicationEquation)) {
+            $this->applicationEquations->removeElement($applicationEquation);
+            // set the owning side to null (unless already changed)
+            if ($applicationEquation->getEntityID() === $this) {
+                $applicationEquation->setEntityID(null);
             }
         }
 

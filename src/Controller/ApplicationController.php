@@ -9,6 +9,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\GroupMembers;
 use App\Entity\Groups;
 use App\Entity\GroupApplications;
+use App\Entity\Application;
+use App\Entity\Entity;
+use App\Entity\EntityInApplication;
 
 class ApplicationController extends AbstractController {
 
@@ -23,12 +26,41 @@ class ApplicationController extends AbstractController {
      * @Route("/group/{groupName}/applicationSubscriptions/{pageNumber}", name="application_subscription")
      */
     public function applicationSubscription() {
-        $publicGroupName = "Public";
-        $privateGroupName = "Private";
-        return $this->render('dashboard/index.html.twig', [
-                    'publicGroupName' => $publicGroupName,
-                    'privateGroupName' => $privateGroupName,
-        ]);
+        dd("application subscription");
+        $group = GroupPeer::retrieveByGroupName($this->getRequestParameter('groupName'));
+        /* @var $group Group */
+        $this->forward404Unless($group);
+
+        // check to make sure user is an admin of group		
+        $this->groupMember = GroupMemberPeer::retrieveGroupAdmin($this->getUser()->getUserID(), $this->getRequestParameter('groupName'));
+        $this->forwardUnless($this->groupMember, 'group', 'show');
+        $this->group = $group;
+
+        // get most popular applications
+        $c = new Criteria();
+        $c->addAsColumn('groupCount', 'count(' . GroupApplicationPeer::GROUPID . ')');
+        $c->addGroupByColumn(ApplicationPeer::APPLICATIONID);
+        $c->addDescendingOrderByColumn("groupCount");
+        $c->addAscendingOrderByColumn(ApplicationPeer::APPLICATIONNAME);
+        $c->setLimit(5);
+        $this->popularApplications = GroupApplicationPeer::doSelectJoinApplication($c);
+
+        // get current application subscriptions
+        $pager = new sfPropelPager('GroupApplication', sfConfig::get('app_pager_myGroupApplications_max'));
+        $c = new Criteria();
+        $c->add(GroupApplicationPeer::GROUPID, $group->getGroupid());
+        $c->addAscendingOrderByColumn(ApplicationPeer::APPLICATIONNAME);
+        $pager->setCriteria($c);
+        $pager->setPage($this->getRequestParameter('pageNumber'));
+        $pager->setPeerMethod('doSelectJoinApplication');
+        $pager->init();
+        $this->pager = $pager;
+
+        // get current application requests		
+        $c = new Criteria();
+        $c->add(ApplicationRequestPeer::GROUPID, $group->getGroupid());
+        $c->addAscendingOrderByColumn(ApplicationRequestPeer::CREATED_AT);
+        $this->applicationRequests = ApplicationRequestPeer::doSelectJoinApplication($c);
     }
 
     /**
@@ -50,6 +82,37 @@ class ApplicationController extends AbstractController {
                         'applications' => $applications,
                         'groupMember' => $groupMember,
             ]);
+        }
+    }
+
+    /**
+     * @Route("/group/{groupName}/application/{applicationName}/entityList", name="applicationLaunchStep3")
+     */
+    public function applicationLaunchStep3(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            $application = $this->getDoctrine()
+                            ->getRepository(Application::class)->findOneBy(["applicationName" => $request->get('applicationName')]);
+            if ($application) {
+                $entities = $this->getDoctrine()
+                                ->getRepository(EntityInApplication::class)->findBy(["applicationID" => $application->getId()]);
+                if ($entities) {
+                    foreach ($entities as $entity) {
+                        $entityList[$entity->getEntityId()->getId()] = $entity->getEntityId()->getEntityName();
+                    }
+                } else {
+                    $entityList = [];
+                }
+
+                return $this->render('dashboard/applicationLaunch3.html.twig', [
+                            'application' => $application,
+                            'entityList' => $entityList,
+                            'groupName' => $request->get('groupName'),
+                ]);
+            } else {
+                return new Response(404);
+            }
+        } else {
+            return new Response(404);
         }
     }
 

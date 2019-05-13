@@ -144,6 +144,21 @@ class Application
      */
     private $groupApplications;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\EntityInApplication", mappedBy="applicationID")
+     */
+    private $entityInApplications;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ApplicationEquations", mappedBy="applicationID")
+     */
+    private $applicationEquations;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ApplicationMnemonics", mappedBy="applicationID")
+     */
+    private $applicationMnemonics;
+
     public function __construct()
     {
         $this->applicationAdmins = new ArrayCollection();
@@ -152,6 +167,9 @@ class Application
         $this->groupApplicationNotifications = new ArrayCollection();
         $this->recentSimulations = new ArrayCollection();
         $this->groupApplications = new ArrayCollection();
+        $this->entityInApplications = new ArrayCollection();
+        $this->applicationEquations = new ArrayCollection();
+        $this->applicationMnemonics = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -567,6 +585,99 @@ class Application
             // set the owning side to null (unless already changed)
             if ($groupApplication->getApplicationID() === $this) {
                 $groupApplication->setApplicationID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|EntityInApplication[]
+     */
+    public function getEntityInApplications(): Collection
+    {
+        return $this->entityInApplications;
+    }
+
+    public function addEntityInApplication(EntityInApplication $entityInApplication): self
+    {
+        if (!$this->entityInApplications->contains($entityInApplication)) {
+            $this->entityInApplications[] = $entityInApplication;
+            $entityInApplication->setApplicationID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEntityInApplication(EntityInApplication $entityInApplication): self
+    {
+        if ($this->entityInApplications->contains($entityInApplication)) {
+            $this->entityInApplications->removeElement($entityInApplication);
+            // set the owning side to null (unless already changed)
+            if ($entityInApplication->getApplicationID() === $this) {
+                $entityInApplication->setApplicationID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ApplicationEquations[]
+     */
+    public function getApplicationEquations(): Collection
+    {
+        return $this->applicationEquations;
+    }
+
+    public function addApplicationEquation(ApplicationEquations $applicationEquation): self
+    {
+        if (!$this->applicationEquations->contains($applicationEquation)) {
+            $this->applicationEquations[] = $applicationEquation;
+            $applicationEquation->setApplicationID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApplicationEquation(ApplicationEquations $applicationEquation): self
+    {
+        if ($this->applicationEquations->contains($applicationEquation)) {
+            $this->applicationEquations->removeElement($applicationEquation);
+            // set the owning side to null (unless already changed)
+            if ($applicationEquation->getApplicationID() === $this) {
+                $applicationEquation->setApplicationID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ApplicationMnemonics[]
+     */
+    public function getApplicationMnemonics(): Collection
+    {
+        return $this->applicationMnemonics;
+    }
+
+    public function addApplicationMnemonic(ApplicationMnemonics $applicationMnemonic): self
+    {
+        if (!$this->applicationMnemonics->contains($applicationMnemonic)) {
+            $this->applicationMnemonics[] = $applicationMnemonic;
+            $applicationMnemonic->setApplicationID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApplicationMnemonic(ApplicationMnemonics $applicationMnemonic): self
+    {
+        if ($this->applicationMnemonics->contains($applicationMnemonic)) {
+            $this->applicationMnemonics->removeElement($applicationMnemonic);
+            // set the owning side to null (unless already changed)
+            if ($applicationMnemonic->getApplicationID() === $this) {
+                $applicationMnemonic->setApplicationID(null);
             }
         }
 

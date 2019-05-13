@@ -1,0 +1,16 @@
+<form style="margin:0; padding:0; display:inline;" method="post" action="{{ path('application_launch_index',{'groupName':groupName,'application':application.applicationName}) }}">	
+    <span style="font-size:9px; color: #808080; margin-right:5px">[{{ application.applicationName}}]</span>Select A Country:&nbsp;
+    <select name="entityID" id="entityID" style="visibility: visible;">
+        {% if entityList %}
+            {% for key,value in entityList %}
+                <option value="{{key}}">{{value}}</option>
+            {% endfor %}
+        {% else %}
+            <option value="">No Entity Found</option>
+        {% endif %}
+
+    </select>
+    <input type="submit" name="commit" value="Load">
+</form>
+
+{# popular Enity area #}

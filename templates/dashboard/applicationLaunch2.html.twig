@@ -1,7 +1,7 @@
 
 
 {% if not applications %}
-    <b>{{  group.groupName }} does not currently subscribe to any applications.</b>  
+    <b>{{  group.groupName }} does not currently subscribe to any applications.</b> 
     {% if groupMember.admin %} 
         <a href="{{ path('application_subscription',{'groupName': group.groupName, 'pageNumber': 1}) }}">Click here</a> to subscribe.
     {% endif %}
@@ -9,13 +9,19 @@
     <span style="font-size:9px; color: #808080; margin-right:5px">[{{ group.groupName }}]</span>Select An Application:&nbsp;
     {% for application in applications %}
         {% if app.request.get('type') == "launchApp" %}
-            <a href="#" onclick="new Ajax.Updater('step3', '/group/Indian+Economy/application/WB+Global/entityList', {asynchronous: true, evalScripts: true, onComplete: function (request, json) {
-                            Element.hide('indicator');
-                            new Effect.BlindDown('block_step3', {});
-                        }, onLoading: function (request, json) {
-                            Element.show('indicator');
-                            Element.hide('block_step3')
-                        }});
+            <a href="#" onclick="new Ajax.Updater(
+                            'step3',
+                            '{{ path('applicationLaunchStep3',{'groupName': group.groupName, 'applicationName': application.application_name}) }}',
+                            {
+                                asynchronous: true,
+                                evalScripts: true,
+                                onComplete: function (request, json) {
+                                    Element.hide('indicator');
+                                    new Effect.BlindDown('block_step3', {});
+                                }, onLoading: function (request, json) {
+                                    Element.show('indicator');
+                                    Element.hide('block_step3')
+                                }});
                     ;
                     return false;">{{ application.application_name }}</a>
         {% elseif app.request.get('type') == "downloadData" %}
