@@ -13,6 +13,7 @@ use App\Entity\GroupMembers;
 use App\Entity\GroupApplications;
 use App\Entity\EntityInApplication;
 use App\Entity\RecentSimulations;
+use App\Service\ApplicationRunner;
 
 //use App\Controller\ApplicationRunner;
 
@@ -41,6 +42,8 @@ class ApplicationLaunchController extends AbstractController {
      * @Route("/group/{groupName}/application/{application}/entity/{entityCode}", name="displayEntity")
      */
     public function displayGrid(Request $request) {
+        $appRunner = new ApplicationRunner(1, 1, 1);
+        dd($appRunner);
         if ($request->get('groupName') && $request->get('application') && $request->get('entityCode')) {
             $group = $this->getDoctrine()
                             ->getRepository(Groups::class)->findOneBy(["groupName" => $request->get('groupName')]);
@@ -140,7 +143,7 @@ class ApplicationLaunchController extends AbstractController {
             $sim->setEntityID($entity);
             $entityManager->persist($sim);
             $entityManager->flush();
-
+dd("hi........");
 //            $applicationRunner = new ApplicationRunner($group, $app, $entity);
 //            $rs = $runner->load();
 //            dd("end");
@@ -208,6 +211,120 @@ class ApplicationLaunchController extends AbstractController {
             $response["comment"] = '';
             $response["transactionID"] = '';
             return $this->json($response);
+        } else {
+            throw new \Exception("Incorrect transaction URL");
+        }
+    }
+
+    /**
+     * @Route("/group/{groupName}/application/{application}/entity/{entityCode}/solve", name="solveGrid")
+     */
+    public function solveGrid(Request $request) {
+        set_time_limit(0);
+        if ($request->get('groupName') && $request->get('application') && $request->get('entityCode')) {
+            $group = $this->getDoctrine()
+                            ->getRepository(Groups::class)->findOneBy(["groupName" => $request->get('groupName')]);
+
+            if (!$group) {
+                throw new \Exception("The group you are working with was not found.");
+            }
+            $app = $this->getDoctrine()
+                            ->getRepository(Application::class)->findOneBy(["applicationName" => $request->get('application')]);
+
+            if (!$app) {
+                throw new \Exception("The application you are working with was not found.");
+            }
+            $groupMember = $this->getDoctrine()
+                            ->getRepository(GroupMembers::class)->findOneBy(["groupID" => $group->getId(), "userID" => $this->getUser()]);
+
+            if (!$groupMember) {
+                throw new \Exception("You are not allowed to view data in this group.");
+            }
+            $entity = $this->getDoctrine()
+                            ->getRepository(Entity::class)->findOneBy(["entityCode" => $request->get('entityCode')]);
+
+            if (!$entity) {
+                throw new \Exception("The entity you are working with was not found.");
+            }
+            $groupApplicationSubscribe = $this->getDoctrine()
+                            ->getRepository(GroupApplications::class)->findOneBy(["groupID" => $group->getId(), "applicationID" => $app->getId()]);
+
+            if (!$groupApplicationSubscribe) {
+                throw new \Exception("The group " . $request->get('groupName') . " does not subscribe to the " . $request->get('application') . " application.");
+            }
+            $entityInApplication = $this->getDoctrine()
+                            ->getRepository(EntityInApplication::class)->findOneBy(["entityID" => $entity->getId(), "applicationID" => $app->getId()]);
+
+            if (!$entityInApplication) {
+                throw new \Exception("The " . $request->get('application') . " application does not include " . $request->get('entityCode'));
+            }
+
+            $gridData = $request->get('gridData');
+            $usersData = json_decode($gridData, true);
+            //start application runner
+
+            $toReturn["success"] = 1;
+            $toReturn["isAggregate"] = '';
+            $toReturn["transactionID"] = '';
+            $toReturn["updateAllowed"] = '';
+            $toReturn["permissions"] = '';
+            $toReturn["grids"] = '';
+
+            // get any system generated message
+            $transaction = '';
+            $toReturn["msg"] = '';
+            return $this->json($toReturn);
+        } else {
+            throw new \Exception("Incorrect transaction URL");
+        }
+    }
+
+    /**
+     * @Route("/group/{groupName}/application/{application}/entity/{entityCode}/update", name="updateGrid")
+     */
+    public function updateGrid(Request $request) {
+        set_time_limit(0);
+        if ($request->get('groupName') && $request->get('application') && $request->get('entityCode')) {
+            $group = $this->getDoctrine()
+                            ->getRepository(Groups::class)->findOneBy(["groupName" => $request->get('groupName')]);
+
+            if (!$group) {
+                throw new \Exception("The group you are working with was not found.");
+            }
+            $app = $this->getDoctrine()
+                            ->getRepository(Application::class)->findOneBy(["applicationName" => $request->get('application')]);
+
+            if (!$app) {
+                throw new \Exception("The application you are working with was not found.");
+            }
+            $groupMember = $this->getDoctrine()
+                            ->getRepository(GroupMembers::class)->findOneBy(["groupID" => $group->getId(), "userID" => $this->getUser()]);
+
+            if (!$groupMember) {
+                throw new \Exception("You are not allowed to view data in this group.");
+            }
+            $entity = $this->getDoctrine()
+                            ->getRepository(Entity::class)->findOneBy(["entityCode" => $request->get('entityCode')]);
+
+            if (!$entity) {
+                throw new \Exception("The entity you are working with was not found.");
+            }
+            $groupApplicationSubscribe = $this->getDoctrine()
+                            ->getRepository(GroupApplications::class)->findOneBy(["groupID" => $group->getId(), "applicationID" => $app->getId()]);
+
+            if (!$groupApplicationSubscribe) {
+                throw new \Exception("The group " . $request->get('groupName') . " does not subscribe to the " . $request->get('application') . " application.");
+            }
+            $entityInApplication = $this->getDoctrine()
+                            ->getRepository(EntityInApplication::class)->findOneBy(["entityID" => $entity->getId(), "applicationID" => $app->getId()]);
+
+            if (!$entityInApplication) {
+                throw new \Exception("The " . $request->get('application') . " application does not include " . $request->get('entityCode'));
+            }
+//Application runner
+            $toReturn["success"] = 1;
+            $toReturn["transactionID"] = $request->get('id');
+            return $this->json($toReturn);
         } else {
             throw new \Exception("Incorrect transaction URL");
         }

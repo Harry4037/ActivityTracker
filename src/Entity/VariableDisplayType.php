@@ -7,15 +7,15 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\VariableModeRepository")
- * @ORM\Table(name="variablemode")
+ * @ORM\Entity(repositoryClass="App\Repository\VariableDisplayTypeRepository")
+ * @ORM\Table(name="variabledisplaytype")
  */
-class VariableMode
+class VariableDisplayType
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer", name="modeID")
+     * @ORM\Column(type="integer", name="displayTypeID")
      */
     private $id;
 
@@ -25,22 +25,22 @@ class VariableMode
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=1, name="abbreviation")
+     * @ORM\Column(type="string", length=5, name="abbreviation")
      */
     private $abbreviation;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\TransactionData", mappedBy="modeID")
+     * @ORM\OneToMany(targetEntity="App\Entity\TransactionData", mappedBy="displayTypeID")
      */
     private $transactionData;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ArchiveData", mappedBy="modeID")
+     * @ORM\OneToMany(targetEntity="App\Entity\ArchiveData", mappedBy="displayTypeID")
      */
     private $archiveData;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\BaseApplicationdata", mappedBy="modeID")
+     * @ORM\OneToMany(targetEntity="App\Entity\BaseApplicationdata", mappedBy="displayTypeID")
      */
     private $baseApplicationdatas;
 
@@ -92,7 +92,7 @@ class VariableMode
     {
         if (!$this->transactionData->contains($transactionData)) {
             $this->transactionData[] = $transactionData;
-            $transactionData->setModeID($this);
+            $transactionData->setDisplayTypeID($this);
         }
 
         return $this;
@@ -103,8 +103,8 @@ class VariableMode
         if ($this->transactionData->contains($transactionData)) {
             $this->transactionData->removeElement($transactionData);
             // set the owning side to null (unless already changed)
-            if ($transactionData->getModeID() === $this) {
-                $transactionData->setModeID(null);
+            if ($transactionData->getDisplayTypeID() === $this) {
+                $transactionData->setDisplayTypeID(null);
             }
         }
 
@@ -123,7 +123,7 @@ class VariableMode
     {
         if (!$this->archiveData->contains($archiveData)) {
             $this->archiveData[] = $archiveData;
-            $archiveData->setModeID($this);
+            $archiveData->setDisplayTypeID($this);
         }
 
         return $this;
@@ -134,8 +134,8 @@ class VariableMode
         if ($this->archiveData->contains($archiveData)) {
             $this->archiveData->removeElement($archiveData);
             // set the owning side to null (unless already changed)
-            if ($archiveData->getModeID() === $this) {
-                $archiveData->setModeID(null);
+            if ($archiveData->getDisplayTypeID() === $this) {
+                $archiveData->setDisplayTypeID(null);
             }
         }
 
@@ -154,7 +154,7 @@ class VariableMode
     {
         if (!$this->baseApplicationdatas->contains($baseApplicationdata)) {
             $this->baseApplicationdatas[] = $baseApplicationdata;
-            $baseApplicationdata->setModeID($this);
+            $baseApplicationdata->setDisplayTypeID($this);
         }
 
         return $this;
@@ -165,8 +165,8 @@ class VariableMode
         if ($this->baseApplicationdatas->contains($baseApplicationdata)) {
             $this->baseApplicationdatas->removeElement($baseApplicationdata);
             // set the owning side to null (unless already changed)
-            if ($baseApplicationdata->getModeID() === $this) {
-                $baseApplicationdata->setModeID(null);
+            if ($baseApplicationdata->getDisplayTypeID() === $this) {
+                $baseApplicationdata->setDisplayTypeID(null);
             }
         }
 

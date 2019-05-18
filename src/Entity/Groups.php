@@ -106,6 +106,16 @@ class Groups
      */
     private $groupApplications;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Archives", mappedBy="groupID")
+     */
+    private $archives;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CurrentTransactions", mappedBy="groupID")
+     */
+    private $currentTransactions;
+
     public function __construct()
     {
         $this->groupMembers = new ArrayCollection();
@@ -115,6 +125,8 @@ class Groups
         $this->groupApplicationNotifications = new ArrayCollection();
         $this->recentSimulations = new ArrayCollection();
         $this->groupApplications = new ArrayCollection();
+        $this->archives = new ArrayCollection();
+        $this->currentTransactions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -417,6 +429,68 @@ class Groups
             // set the owning side to null (unless already changed)
             if ($groupApplication->getGroupID() === $this) {
                 $groupApplication->setGroupID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Archives[]
+     */
+    public function getArchives(): Collection
+    {
+        return $this->archives;
+    }
+
+    public function addArchive(Archives $archive): self
+    {
+        if (!$this->archives->contains($archive)) {
+            $this->archives[] = $archive;
+            $archive->setGroupID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArchive(Archives $archive): self
+    {
+        if ($this->archives->contains($archive)) {
+            $this->archives->removeElement($archive);
+            // set the owning side to null (unless already changed)
+            if ($archive->getGroupID() === $this) {
+                $archive->setGroupID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CurrentTransactions[]
+     */
+    public function getCurrentTransactions(): Collection
+    {
+        return $this->currentTransactions;
+    }
+
+    public function addCurrentTransaction(CurrentTransactions $currentTransaction): self
+    {
+        if (!$this->currentTransactions->contains($currentTransaction)) {
+            $this->currentTransactions[] = $currentTransaction;
+            $currentTransaction->setGroupID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCurrentTransaction(CurrentTransactions $currentTransaction): self
+    {
+        if ($this->currentTransactions->contains($currentTransaction)) {
+            $this->currentTransactions->removeElement($currentTransaction);
+            // set the owning side to null (unless already changed)
+            if ($currentTransaction->getGroupID() === $this) {
+                $currentTransaction->setGroupID(null);
             }
         }
 

@@ -49,12 +49,42 @@ class Entity
      */
     private $applicationEquations;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Archives", mappedBy="entityID")
+     */
+    private $archives;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\BaseApplicationdata", mappedBy="entityID")
+     */
+    private $baseApplicationdatas;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CurrentTransactions", mappedBy="entityID")
+     */
+    private $currentTransactions;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\EntityInAggregates", mappedBy="aggregateID")
+     */
+    private $entityInAggregates;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ExternalData", mappedBy="entityID")
+     */
+    private $externalData;
+
     public function __construct()
     {
         $this->userTransactions = new ArrayCollection();
         $this->recentSimulations = new ArrayCollection();
         $this->entityInApplications = new ArrayCollection();
         $this->applicationEquations = new ArrayCollection();
+        $this->archives = new ArrayCollection();
+        $this->baseApplicationdatas = new ArrayCollection();
+        $this->currentTransactions = new ArrayCollection();
+        $this->entityInAggregates = new ArrayCollection();
+        $this->externalData = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -204,6 +234,161 @@ class Entity
             // set the owning side to null (unless already changed)
             if ($applicationEquation->getEntityID() === $this) {
                 $applicationEquation->setEntityID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Archives[]
+     */
+    public function getArchives(): Collection
+    {
+        return $this->archives;
+    }
+
+    public function addArchive(Archives $archive): self
+    {
+        if (!$this->archives->contains($archive)) {
+            $this->archives[] = $archive;
+            $archive->setEntityID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArchive(Archives $archive): self
+    {
+        if ($this->archives->contains($archive)) {
+            $this->archives->removeElement($archive);
+            // set the owning side to null (unless already changed)
+            if ($archive->getEntityID() === $this) {
+                $archive->setEntityID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BaseApplicationdata[]
+     */
+    public function getBaseApplicationdatas(): Collection
+    {
+        return $this->baseApplicationdatas;
+    }
+
+    public function addBaseApplicationdata(BaseApplicationdata $baseApplicationdata): self
+    {
+        if (!$this->baseApplicationdatas->contains($baseApplicationdata)) {
+            $this->baseApplicationdatas[] = $baseApplicationdata;
+            $baseApplicationdata->setEntityID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBaseApplicationdata(BaseApplicationdata $baseApplicationdata): self
+    {
+        if ($this->baseApplicationdatas->contains($baseApplicationdata)) {
+            $this->baseApplicationdatas->removeElement($baseApplicationdata);
+            // set the owning side to null (unless already changed)
+            if ($baseApplicationdata->getEntityID() === $this) {
+                $baseApplicationdata->setEntityID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CurrentTransactions[]
+     */
+    public function getCurrentTransactions(): Collection
+    {
+        return $this->currentTransactions;
+    }
+
+    public function addCurrentTransaction(CurrentTransactions $currentTransaction): self
+    {
+        if (!$this->currentTransactions->contains($currentTransaction)) {
+            $this->currentTransactions[] = $currentTransaction;
+            $currentTransaction->setEntityID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCurrentTransaction(CurrentTransactions $currentTransaction): self
+    {
+        if ($this->currentTransactions->contains($currentTransaction)) {
+            $this->currentTransactions->removeElement($currentTransaction);
+            // set the owning side to null (unless already changed)
+            if ($currentTransaction->getEntityID() === $this) {
+                $currentTransaction->setEntityID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|EntityInAggregates[]
+     */
+    public function getEntityInAggregates(): Collection
+    {
+        return $this->entityInAggregates;
+    }
+
+    public function addEntityInAggregate(EntityInAggregates $entityInAggregate): self
+    {
+        if (!$this->entityInAggregates->contains($entityInAggregate)) {
+            $this->entityInAggregates[] = $entityInAggregate;
+            $entityInAggregate->setAggregateID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEntityInAggregate(EntityInAggregates $entityInAggregate): self
+    {
+        if ($this->entityInAggregates->contains($entityInAggregate)) {
+            $this->entityInAggregates->removeElement($entityInAggregate);
+            // set the owning side to null (unless already changed)
+            if ($entityInAggregate->getAggregateID() === $this) {
+                $entityInAggregate->setAggregateID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ExternalData[]
+     */
+    public function getExternalData(): Collection
+    {
+        return $this->externalData;
+    }
+
+    public function addExternalData(ExternalData $externalData): self
+    {
+        if (!$this->externalData->contains($externalData)) {
+            $this->externalData[] = $externalData;
+            $externalData->setEntityID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExternalData(ExternalData $externalData): self
+    {
+        if ($this->externalData->contains($externalData)) {
+            $this->externalData->removeElement($externalData);
+            // set the owning side to null (unless already changed)
+            if ($externalData->getEntityID() === $this) {
+                $externalData->setEntityID(null);
             }
         }
 

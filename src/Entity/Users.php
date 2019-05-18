@@ -212,6 +212,16 @@ class Users implements UserInterface, \Serializable
      */
     private $recentSimulations;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Archives", mappedBy="userID")
+     */
+    private $archives;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\DisabledTransactionNotifications", mappedBy="userID")
+     */
+    private $disabledTransactionNotifications;
+
     public function __construct()
     {
         $this->groupMembers = new ArrayCollection();
@@ -221,6 +231,8 @@ class Users implements UserInterface, \Serializable
         $this->groupMembershipNotifications = new ArrayCollection();
         $this->groupApplicationNotifications = new ArrayCollection();
         $this->recentSimulations = new ArrayCollection();
+        $this->archives = new ArrayCollection();
+        $this->disabledTransactionNotifications = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -744,6 +756,68 @@ class Users implements UserInterface, \Serializable
             // set the owning side to null (unless already changed)
             if ($recentSimulation->getUserID() === $this) {
                 $recentSimulation->setUserID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Archives[]
+     */
+    public function getArchives(): Collection
+    {
+        return $this->archives;
+    }
+
+    public function addArchive(Archives $archive): self
+    {
+        if (!$this->archives->contains($archive)) {
+            $this->archives[] = $archive;
+            $archive->setUserID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArchive(Archives $archive): self
+    {
+        if ($this->archives->contains($archive)) {
+            $this->archives->removeElement($archive);
+            // set the owning side to null (unless already changed)
+            if ($archive->getUserID() === $this) {
+                $archive->setUserID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|DisabledTransactionNotifications[]
+     */
+    public function getDisabledTransactionNotifications(): Collection
+    {
+        return $this->disabledTransactionNotifications;
+    }
+
+    public function addDisabledTransactionNotification(DisabledTransactionNotifications $disabledTransactionNotification): self
+    {
+        if (!$this->disabledTransactionNotifications->contains($disabledTransactionNotification)) {
+            $this->disabledTransactionNotifications[] = $disabledTransactionNotification;
+            $disabledTransactionNotification->setUserID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDisabledTransactionNotification(DisabledTransactionNotifications $disabledTransactionNotification): self
+    {
+        if ($this->disabledTransactionNotifications->contains($disabledTransactionNotification)) {
+            $this->disabledTransactionNotifications->removeElement($disabledTransactionNotification);
+            // set the owning side to null (unless already changed)
+            if ($disabledTransactionNotification->getUserID() === $this) {
+                $disabledTransactionNotification->setUserID(null);
             }
         }
 

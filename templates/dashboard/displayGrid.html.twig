@@ -2114,7 +2114,7 @@
                     solveHandler: function (btn, comment) {
                     Ext.fly(document.body).mask("Solving model...", "x-mask-loading");
                     Ext.Ajax.request({
-                    url: '<?php echo url_for("@solveGrid?groupName=".$group->getGroupName()."&application=".$app->getApplicationName()."&entityCode=".$entity->getEntityCode()) ?>',
+                    url: "{{ path('solveGrid',{'groupName': groupName,'application': applicationName,'entityCode': entityCode}) }}",
                             params: {
                             gridData: Ext.encode(this.getGridData()),
                                     comment: comment
@@ -2133,7 +2133,7 @@
                     updateHandler: function (btn, comment) {
                     Ext.fly(document.body).mask("Updating model...", "x-mask-loading");
                     Ext.Ajax.request({
-                    url: '<?php echo url_for("@updateGrid?groupName=".$group->getGroupName()."&application=".$app->getApplicationName()."&entityCode=".$entity->getEntityCode()) ?>',
+                    url: '{{ path('updateGrid',{'groupName': groupName,'application': applicationName,'entityCode': entityCode}) }}',
                             params: {
                             comment: comment
                             },

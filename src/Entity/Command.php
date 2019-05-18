@@ -29,9 +29,15 @@ class Command
      */
     private $userTransactions;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Archives", mappedBy="commandID")
+     */
+    private $archives;
+
     public function __construct()
     {
         $this->userTransactions = new ArrayCollection();
+        $this->archives = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -76,6 +82,37 @@ class Command
             // set the owning side to null (unless already changed)
             if ($userTransaction->getCommandID() === $this) {
                 $userTransaction->setCommandID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Archives[]
+     */
+    public function getArchives(): Collection
+    {
+        return $this->archives;
+    }
+
+    public function addArchive(Archives $archive): self
+    {
+        if (!$this->archives->contains($archive)) {
+            $this->archives[] = $archive;
+            $archive->setCommandID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArchive(Archives $archive): self
+    {
+        if ($this->archives->contains($archive)) {
+            $this->archives->removeElement($archive);
+            // set the owning side to null (unless already changed)
+            if ($archive->getCommandID() === $this) {
+                $archive->setCommandID(null);
             }
         }
 

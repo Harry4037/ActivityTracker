@@ -159,6 +159,26 @@ class Application
      */
     private $applicationMnemonics;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Archives", mappedBy="applicationID")
+     */
+    private $archives;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\BaseApplicationdata", mappedBy="applicationID")
+     */
+    private $baseApplicationdatas;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CurrentTransactions", mappedBy="applicationID")
+     */
+    private $currentTransactions;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\EntityInAggregates", mappedBy="applicationID")
+     */
+    private $entityInAggregates;
+
     public function __construct()
     {
         $this->applicationAdmins = new ArrayCollection();
@@ -170,6 +190,10 @@ class Application
         $this->entityInApplications = new ArrayCollection();
         $this->applicationEquations = new ArrayCollection();
         $this->applicationMnemonics = new ArrayCollection();
+        $this->archives = new ArrayCollection();
+        $this->baseApplicationdatas = new ArrayCollection();
+        $this->currentTransactions = new ArrayCollection();
+        $this->entityInAggregates = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -678,6 +702,130 @@ class Application
             // set the owning side to null (unless already changed)
             if ($applicationMnemonic->getApplicationID() === $this) {
                 $applicationMnemonic->setApplicationID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Archives[]
+     */
+    public function getArchives(): Collection
+    {
+        return $this->archives;
+    }
+
+    public function addArchive(Archives $archive): self
+    {
+        if (!$this->archives->contains($archive)) {
+            $this->archives[] = $archive;
+            $archive->setApplicationID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArchive(Archives $archive): self
+    {
+        if ($this->archives->contains($archive)) {
+            $this->archives->removeElement($archive);
+            // set the owning side to null (unless already changed)
+            if ($archive->getApplicationID() === $this) {
+                $archive->setApplicationID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BaseApplicationdata[]
+     */
+    public function getBaseApplicationdatas(): Collection
+    {
+        return $this->baseApplicationdatas;
+    }
+
+    public function addBaseApplicationdata(BaseApplicationdata $baseApplicationdata): self
+    {
+        if (!$this->baseApplicationdatas->contains($baseApplicationdata)) {
+            $this->baseApplicationdatas[] = $baseApplicationdata;
+            $baseApplicationdata->setApplicationID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBaseApplicationdata(BaseApplicationdata $baseApplicationdata): self
+    {
+        if ($this->baseApplicationdatas->contains($baseApplicationdata)) {
+            $this->baseApplicationdatas->removeElement($baseApplicationdata);
+            // set the owning side to null (unless already changed)
+            if ($baseApplicationdata->getApplicationID() === $this) {
+                $baseApplicationdata->setApplicationID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CurrentTransactions[]
+     */
+    public function getCurrentTransactions(): Collection
+    {
+        return $this->currentTransactions;
+    }
+
+    public function addCurrentTransaction(CurrentTransactions $currentTransaction): self
+    {
+        if (!$this->currentTransactions->contains($currentTransaction)) {
+            $this->currentTransactions[] = $currentTransaction;
+            $currentTransaction->setApplicationID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCurrentTransaction(CurrentTransactions $currentTransaction): self
+    {
+        if ($this->currentTransactions->contains($currentTransaction)) {
+            $this->currentTransactions->removeElement($currentTransaction);
+            // set the owning side to null (unless already changed)
+            if ($currentTransaction->getApplicationID() === $this) {
+                $currentTransaction->setApplicationID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|EntityInAggregates[]
+     */
+    public function getEntityInAggregates(): Collection
+    {
+        return $this->entityInAggregates;
+    }
+
+    public function addEntityInAggregate(EntityInAggregates $entityInAggregate): self
+    {
+        if (!$this->entityInAggregates->contains($entityInAggregate)) {
+            $this->entityInAggregates[] = $entityInAggregate;
+            $entityInAggregate->setApplicationID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEntityInAggregate(EntityInAggregates $entityInAggregate): self
+    {
+        if ($this->entityInAggregates->contains($entityInAggregate)) {
+            $this->entityInAggregates->removeElement($entityInAggregate);
+            // set the owning side to null (unless already changed)
+            if ($entityInAggregate->getApplicationID() === $this) {
+                $entityInAggregate->setApplicationID(null);
             }
         }
 

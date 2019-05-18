@@ -34,10 +34,34 @@ class Variable
      */
     private $applicationMnemonics;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\TransactionData", mappedBy="variableID")
+     */
+    private $transactionData;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ArchiveData", mappedBy="variableID")
+     */
+    private $archiveData;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\BaseApplicationdata", mappedBy="variableID")
+     */
+    private $baseApplicationdatas;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ExternalData", mappedBy="variableID")
+     */
+    private $externalData;
+
     public function __construct()
     {
         $this->applicationEquations = new ArrayCollection();
         $this->applicationMnemonics = new ArrayCollection();
+        $this->transactionData = new ArrayCollection();
+        $this->archiveData = new ArrayCollection();
+        $this->baseApplicationdatas = new ArrayCollection();
+        $this->externalData = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -113,6 +137,130 @@ class Variable
             // set the owning side to null (unless already changed)
             if ($applicationMnemonic->getVariableID() === $this) {
                 $applicationMnemonic->setVariableID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TransactionData[]
+     */
+    public function getTransactionData(): Collection
+    {
+        return $this->transactionData;
+    }
+
+    public function addTransactionData(TransactionData $transactionData): self
+    {
+        if (!$this->transactionData->contains($transactionData)) {
+            $this->transactionData[] = $transactionData;
+            $transactionData->setVariableID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTransactionData(TransactionData $transactionData): self
+    {
+        if ($this->transactionData->contains($transactionData)) {
+            $this->transactionData->removeElement($transactionData);
+            // set the owning side to null (unless already changed)
+            if ($transactionData->getVariableID() === $this) {
+                $transactionData->setVariableID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ArchiveData[]
+     */
+    public function getArchiveData(): Collection
+    {
+        return $this->archiveData;
+    }
+
+    public function addArchiveData(ArchiveData $archiveData): self
+    {
+        if (!$this->archiveData->contains($archiveData)) {
+            $this->archiveData[] = $archiveData;
+            $archiveData->setVariableID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArchiveData(ArchiveData $archiveData): self
+    {
+        if ($this->archiveData->contains($archiveData)) {
+            $this->archiveData->removeElement($archiveData);
+            // set the owning side to null (unless already changed)
+            if ($archiveData->getVariableID() === $this) {
+                $archiveData->setVariableID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BaseApplicationdata[]
+     */
+    public function getBaseApplicationdatas(): Collection
+    {
+        return $this->baseApplicationdatas;
+    }
+
+    public function addBaseApplicationdata(BaseApplicationdata $baseApplicationdata): self
+    {
+        if (!$this->baseApplicationdatas->contains($baseApplicationdata)) {
+            $this->baseApplicationdatas[] = $baseApplicationdata;
+            $baseApplicationdata->setVariableID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBaseApplicationdata(BaseApplicationdata $baseApplicationdata): self
+    {
+        if ($this->baseApplicationdatas->contains($baseApplicationdata)) {
+            $this->baseApplicationdatas->removeElement($baseApplicationdata);
+            // set the owning side to null (unless already changed)
+            if ($baseApplicationdata->getVariableID() === $this) {
+                $baseApplicationdata->setVariableID(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ExternalData[]
+     */
+    public function getExternalData(): Collection
+    {
+        return $this->externalData;
+    }
+
+    public function addExternalData(ExternalData $externalData): self
+    {
+        if (!$this->externalData->contains($externalData)) {
+            $this->externalData[] = $externalData;
+            $externalData->setVariableID($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExternalData(ExternalData $externalData): self
+    {
+        if ($this->externalData->contains($externalData)) {
+            $this->externalData->removeElement($externalData);
+            // set the owning side to null (unless already changed)
+            if ($externalData->getVariableID() === $this) {
+                $externalData->setVariableID(null);
             }
         }
 
